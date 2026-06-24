@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" th:href="@{/css/style.css}"><title>Login</title></head>
+<body>
+<div class="card card-login">
+  <h1 class="titulo">Logística TCC</h1>
+  <form th:action="@{/login}" method="post">
+    <div class="grupo"><label>E-mail</label><input type="email" name="email" value="admin@logistica.com" required></div>
+    <div class="grupo"><label>Senha</label><input type="password" name="senha" value="admin123" required></div>
+    <button class="botao">Entrar</button>
+  </form>
+  <p style="margin-top:16px"><a th:href="@{/rastrear}" style="color:#FF6B00">Rastrear sem login</a></p>
+</div>
+</body></html>

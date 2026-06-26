@@ -37,14 +37,13 @@ public class AuthController {
         return "index"; 
     }
     
-      @PostMapping("/login")
+    @PostMapping("/login")
     public String logar(@RequestParam String email, @RequestParam String senha, Model m){
         //Map user = rest.postForObject(API+"/auth/login", Map.of("email",email,"senha",senha), Map.class);
         //m.addAttribute("user", user);
         return "redirect:/dashboard";
     }
-    
-    
+  
     @GetMapping("/cadastrar") 
     public String cadastrar(){
         //Verificar se usuario Logado tem role como 'Admin'
@@ -57,7 +56,14 @@ public class AuthController {
         return "criar"; 
     }
     
-    //Editar Pacote
+    //POST Editar Pacote
+    
+    @GetMapping("/criar/loja") 
+    public String criarLoja(){
+        
+        return "criar"; //criar tela sera responsavel 
+        //por permitir a criacao de Loja e Pacote
+    }
     
     @GetMapping("/rastrear") 
     public String rastrear(){

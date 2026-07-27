@@ -8,8 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <style>
+        <style>
     * { 
         margin:0; 
         padding:0; 
@@ -133,10 +132,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     }
     </style>
     
+    </head>
     
-    <body>
-        <div>TODO write content</div>
-    </body>
+    
+  <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <div class="card">
+        <h1 class="titulo">Criar Remessa</h1>
+        <form th:action="@{/pacotes/criar}" method="post">
+            <div class="grupo">
+                <label>Loja de Origem *</label>
+                <select name="idLoja" required>
+                    <option value="">Selecione</option>
+                    <option th:each="loja : ${lojas}" th:value="${loja.id}" th:text="${loja.nomeEstabelecimento}"></option>
+                </select>
+            </div>
+            <div class="grupo">
+                <label>Endereço de Destino *</label>
+                <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
+            </div>
+            <!-- codigoRastreio, statusAtual, otpCodigo são gerados no Service, não precisa no form -->
+            <button type="submit" class="botao">Criar Remessa</button>
+        </form>
+    </div>
+</div>
+</body>
     
     
 </html>

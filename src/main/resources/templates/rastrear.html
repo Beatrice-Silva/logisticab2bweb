@@ -4,10 +4,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
 <head>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Dashboard</title>
 <style>
+=======
+    
+    <head><title>Rastreamento</title>
+          <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+>>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
     * { 
         margin:0; 
         padding:0; 
@@ -130,15 +138,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         color:#065F46; 
     }
     </style>
+<<<<<<< HEAD
 </head>
+=======
+    
+    </head>
+    <!-- UsuarioPublico -->
+>>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
 <body>
+    
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
   <h1 class="titulo">Visão Geral</h1>
   <div class="grid">
-    <div class="card"><div class="card-titulo">Criados</div><h2 th:text="${counts?.Criado ?: 0}">0</h2><span class="badge badge-azul">Aguardando</span></div>
-    <div class="card"><div class="card-titulo">Em Trânsito</div><h2 th:text="${counts?.'Em transito' ?: 0}">0</h2><span class="badge badge-laranja">Em rota</span></div>
-    <div class="card"><div class="card-titulo">Entregues</div><h2 th:text="${counts?.Entregue ?: 0}">0</h2><span class="badge badge-verde">Finalizado</span></div>
+      
+    <div class="card"><div class="card-titulo">Criados</div>
+    <h2 th:text="${counts?.Criado ?: 0}">0</h2>
+    <span class="badge badge-azul">Aguardando</span></div>
+      
+    <div class="card"><div class="card-titulo">Em Trânsito</div>
+    <h2 th:text="${counts?.'Em transito' ?: 0}">0</h2>
+    <span class="badge badge-laranja">Em rota</span></div>
+  
+    <div class="card"><div class="card-titulo">Entregues</div>
+    <h2 th:text="${counts?.Entregue ?: 0}">0</h2>
+    <span class="badge badge-verde">Finalizado</span></div>
+      
+      <div class="card"><div class="card-titulo">Coletado</div>
+    <h2 th:text="${counts?.Devolvido ?: 0}">0</h2>
+    <span class="badge badge-cinza">Cancelado</span></div>
+      
+  
   </div>
 </div>
 </body></html>

@@ -5,10 +5,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Criação</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
         <style>
+=======
+    <style>
+>>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
     * { 
         margin:0; 
         padding:0; 
@@ -133,6 +137,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
     
     </head>
+<<<<<<< HEAD
     
     
   <body>
@@ -158,6 +163,48 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </div>
 </div>
 </body>
+=======
+   
+    <div class="card card-login">
+        <h1 class="titulo">Pacotes</h1>
+        
+        <form th:action="@{/criar}" method="post">
+            
+
+            <div class="grupo"><label>Código LON:</label>
+            <input type=password name="codigoLON" required></div>
+            <br>
+     
+            <div class="grupo"><label>OTP Código:</label></div>
+            <input type=password name="OTPcodigo" required></div>
+            <br>
+            
+            <div class="grupo"><label>OTP expira:</label></div>
+            <input type=Date name="OTPexpira" required></div>
+            <br>
+            
+            <div class="grupo"><label>Statuls atual:</label></div>
+            <input type=text name="statusatual" required></div>
+            <br>
+            
+            <div class="grupo"><label>Peso:</label></div>
+            <input type=number name="peso" required></div>
+            <br>
+            
+            <div class="grupo"><label>Observação ou Descrição:</label></div>
+            <input type=text name="observdesc" required></div>
+            <br>
+            
+            <button class="botao">Criar remessa</button>
+            
+        </form>
+        <p style="margin-top: 16px"><a th:href="@{/}" style="color:#FFEDD5"></p>
+    </div>
+    
+    <body>
+
+    </body>
+>>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
     
     
 </html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xlmns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Verificação de acesso</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <form th:action="@{/criar}" method="post">
+            
+
+            <div class="grupo"><label>Código LON:</label>
+            <input type=password name="codigoLON" required></div>
+            <br>
+            
+        </form>
+        
+         <button class="botao">Verificar código de acesso</button>
+        
+        
+    </body>
+</html>

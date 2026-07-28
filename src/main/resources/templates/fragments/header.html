@@ -7,12 +7,44 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
 <nav>
-  <div>
+  
+    <div>
     <a th:href="@{/dashboard}">Dashboard</a>
     <a th:href="@{/criar}">Nova Remessa</a>
     <a th:href="@{/rastrear}">Rastrear</a>
   </div>
   <a th:href="@{/}"><button class="btn-sair">Sair</button></a>
+  
+  
+  
+  <header th:fragment="customheader">
+      
+      <th if role='FORNECEDOR'></th>
+      
+      <nav class="d-flex justify-content-center-between p-3 bg-secondarys">
+          
+          <ul class="nav">
+              <li class="nav-item">
+                  <a class="nav-link text-white" aria-current="page" th:href="@{/}">Página inicial</a>
+              </li>
+              
+              <li class="nav-item">
+                  <a class="nav-link text-white" aria-current="page" th:href="@{/dashboard}">dashboard</a>
+              </li>
+          </ul>
+          
+          <a th:href="@{/login}">
+              <button class="btn btn-danger">
+                  Deslogar
+              </button>
+              
+          </a>
+          
+          
+      </nav>
+  </header>
+  
+  
 </nav>
 </div>
 </html>

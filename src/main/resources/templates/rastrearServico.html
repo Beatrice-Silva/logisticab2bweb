@@ -3,13 +3,13 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html xlmns:th="http://www.thymeleaf.org">
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-             <style>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Rastreamento</title>
+<style>
+
     * { 
         margin:0; 
         padding:0; 
@@ -58,8 +58,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         box-shadow:0 2px 6px rgba(0,0,0,0.08); 
         border-left:4px solid #1E3A8A; 
         margin-bottom:20px; 
-        
-       
     }
     
     .card-login { 
@@ -134,9 +132,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         color:#065F46; 
     }
     </style>
-   
+</head>
+    
     </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+
+<body>
+    
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    
+  <h1 class="titulo">Serviço: EntreExpres</h1>
+  <br>  
+  <h1 class="titulo">Visão Geral</h1>
+  <div class="grid">
+      
+    <div class="card"><div class="card-titulo">Criados</div>
+    <h2 th:text="${counts?.Criado ?: 0}">0</h2>
+    <span class="badge badge-azul">Aguardando</span></div>
+      
+    <div class="card"><div class="card-titulo">Em Trânsito</div>
+    <h2 th:text="${counts?.'Em transito' ?: 0}">0</h2>
+    <span class="badge badge-laranja">Em rota</span></div>
+  
+    <div class="card"><div class="card-titulo">Entregues</div>
+    <h2 th:text="${counts?.Entregue ?: 0}">0</h2>
+    <span class="badge badge-verde">Finalizado</span></div>
+      
+      <div class="card"><div class="card-titulo">Coletado</div>
+    <h2 th:text="${counts?.Devolvido ?: 0}">0</h2>
+    <span class="badge badge-cinza">Cancelado</span></div>
+      
+  
+  </div>
+</div>
+</body></html>

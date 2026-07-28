@@ -3,13 +3,12 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html xlmns:th="http://www.thymeleaf.org">
+<html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Conta</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-             <style>
+         <style>
     * { 
         margin:0; 
         padding:0; 
@@ -137,6 +136,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
    
     </head>
     <body>
-        <div>TODO write content</div>
+        <div>Perfil</div>
+        
+                <h3>Tabela de Editais</h3>
+        
+        <table>
+            <tr>
+                <!-- 
+                Campo: Titulo, Descricao, Data_fechamento, Status
+                -->
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Data_Fechamento</th>
+                <th>Status</th>                              
+            </tr>
+            <tr th:each="e : ${lista}">
+                <td th:text="${e.titulo}"></td>
+                <td th:text="${e.descricao}"></td>
+                <td th:text="${e.data_fechamento}"></td>
+                <td th:text="${e.status}"></td>
+            </tr>
+            
+        </table>
+                
     </body>
 </html>

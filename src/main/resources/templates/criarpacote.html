@@ -8,11 +8,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>Criação</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
+
         <style>
-=======
-    <style>
->>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
     * { 
         margin:0; 
         padding:0; 
@@ -61,6 +58,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         box-shadow:0 2px 6px rgba(0,0,0,0.08); 
         border-left:4px solid #1E3A8A; 
         margin-bottom:20px; 
+        
+       
     }
     
     .card-login { 
@@ -137,33 +136,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
     
     </head>
-<<<<<<< HEAD
-    
-    
+   
   <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <div class="card">
+        
         <h1 class="titulo">Criar Remessa</h1>
+        
         <form th:action="@{/pacotes/criar}" method="post">
             <div class="grupo">
+                
                 <label>Loja de Origem *</label>
+                
                 <select name="idLoja" required>
                     <option value="">Selecione</option>
                     <option th:each="loja : ${lojas}" th:value="${loja.id}" th:text="${loja.nomeEstabelecimento}"></option>
                 </select>
+                
             </div>
+        
             <div class="grupo">
                 <label>Endereço de Destino *</label>
                 <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
             </div>
-            <!-- codigoRastreio, statusAtual, otpCodigo são gerados no Service, não precisa no form -->
+            
             <button type="submit" class="botao">Criar Remessa</button>
+        
         </form>
     </div>
 </div>
 </body>
-=======
+
    
     <div class="card card-login">
         <h1 class="titulo">Pacotes</h1>
@@ -200,11 +204,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </form>
         <p style="margin-top: 16px"><a th:href="@{/}" style="color:#FFEDD5"></p>
     </div>
-    
-    <body>
-
     </body>
->>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
-    
-    
+
 </html>

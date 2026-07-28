@@ -5,17 +5,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-<<<<<<< HEAD
+
         <link rel="stylesheet" th:href="@{/css/style.css}">
         <title>Login</title>
+        
         <style>
-=======
-        <title>Login</title>
-               <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
->>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
-    * { 
+* {
         margin:0; 
         padding:0; 
         box-sizing:border-box; 
@@ -136,66 +131,61 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         background:#D1FAE5; 
         color:#065F46; 
     }
-    </style>
+    </style> 
+    </head>  
     
-<<<<<<< HEAD
-    </head>
-    
-=======
-            
-<!-- 
+ 
+    <!-- 
 SCRIPT.JS=
-
 let titulo = document.;
 botao.style.size=50px;
-
 -Modo Escuro e Normal
-
 id=unico
-
 Validacao De Campo
-
  -->
- 
-    </head>
->>>>>>> a6c9adc4497b611e5d01e1afedd1f5e7326adf64
 <body>
     
-<div class="card card-login">
-  <h1 class="titulo">Sistema Logístico de rastreamento</h1>
+    <div class="card card-login">
+        <h1 class="titulo">Sistema Logístico de rastreamento</h1>
   
-  <form th:action="@{/login}" method="post">
+    <form 
+      class="" th:action="@{/login}" th:object="{credenciais}" method="post">
   
-    <div class="grupo"><label>E-mail:</label>
-    <input
-        type="email" 
-        class="campo"
-        oninput="validacao()" 
-        id="email"
-        value="admin@logistica.com" 
-        ></div>
+    <div class="grupo">
+        <label>E-mail:</label>
+    <input type="email" th:field="*{email}" class="campo" id="email" placeholder="admin@logistica.com"></div>
       
-    <div class="grupo"><label>Senha:</label>
-    <input 
-        type="password" 
-        class="campo"
-        oninput="validacao()" 
-        id="senha" 
-        value="admin123" 
-        ></div>
+    <div class="grupo">
+        <label>Senha:</label>
+        <input type="password" th:field="*{senha}" class="campo" id="senha" placeholder="admin123"></div>
+    </div>
     
-    <button 
-        type="submit" 
-        disabled 
-        class="botao" 
-        id="botaologar"
-        >Entrar</button>
+    <button style="width: 100%" type="submit" class="botaoenviar" id="botaologar">Logar</button>
+    </form>
   
-  </form>
-  <p style="margin-top:16px"><a th:href="@{/rastrear}" style="color:#FF6B00">Rastrear sem login</a></p>
-
+        
+        
+        <div class="card card-login">
+            <p style="margin-top: 16px"> 
   
+            <p>Usuário público pode acessar status da remessa através de código fornecido.
+  
+                <br>
+                <a th:href="@{/rastrear}" style="color:#FF6B00">Rastrear sem login</a>    
+                <br>
      
+                <a href="@{/cadastro}" class="botaovoltar"> Cadastrar</a>
+    <!-- Botao para cadastrar apenas para ADMIn ou OPERADOR -->
   
-</div>
+            </p>
+            
+              <div th:if="{erroServidor}"
+                     class="alert alert-danger"
+                     style="color: darkred ; background: salmon; padding: 12px; 
+                     border-radius: 6px; margin-bottom: 15px">
+                    <span th:text="${erroServidor}"> Erro padrão</span>
+                </div>
+ 
+        </div>
+        
 </body></html>

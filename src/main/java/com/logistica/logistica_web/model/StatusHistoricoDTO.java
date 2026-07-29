@@ -17,7 +17,7 @@ public class StatusHistoricoDTO {
     private Long id_pacote;
     private String status;
     private LocalDateTime data_hora;
-    private String desc_observ;
+    private String observacao;
     private Long id_usuario;
     
    
@@ -53,13 +53,14 @@ public class StatusHistoricoDTO {
         this.data_hora = data_hora;
     }
 
-    public String getDesc_observ() {
-        return desc_observ;
+    public String getObservacao() {
+        return observacao;
     }
 
-    public void setDesc_observ(String desc_observ) {
-        this.desc_observ = desc_observ;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
+
 
     public Long getId_usuario() {
         return id_usuario;

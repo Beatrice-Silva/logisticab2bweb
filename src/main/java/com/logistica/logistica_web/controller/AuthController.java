@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Aluno
  */
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
     
     AuthRestClientService rest;
@@ -46,29 +48,24 @@ public class AuthController {
   
     @GetMapping("/cadastrar") 
     public String cadastrar(){
-        //Verificar se usuario Logado tem role como 'Admin'
+        
         return "cadastro"; 
     }
     
     @GetMapping("/criar/pacote") 
     public String criarPacote(){
-        //Pacote ligado a loja existente
+        
         return "criar"; 
     }
     
-    //POST Editar Pacote
+    
     
     @GetMapping("/criar/loja") 
     public String criarLoja(){
         
-        return "criar"; //criar tela sera responsavel 
-        //por permitir a criacao de Loja e Pacote
+        return "criar";
     }
     
-    @GetMapping("/rastrear") 
-    public String rastrear(){
-        return "rastrear"; 
-    }
 
     @GetMapping("/dashboard") 
     public String mapear(Model m){

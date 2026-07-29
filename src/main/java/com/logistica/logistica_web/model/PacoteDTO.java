@@ -14,14 +14,29 @@ import java.time.LocalDateTime;
 public class PacoteDTO {
     
     private Long id;
-    private String codigoLon;
+    private String codigoRastreio;
     private String otp_codigo;
     private LocalDateTime otp_expira;
     private Long id_loja;
-    private String endereco;
+    private String enderecoDestino;
     private String status_atual;
-    private String desc_observ;
+    private String observacao;
     private Double peso;
+
+    public PacoteDTO() {
+    }
+
+    public PacoteDTO(Long id, String codigoRastreio, String otp_codigo, LocalDateTime otp_expira, Long id_loja, String enderecoDestino, String status_atual, String observacao, Double peso) {
+        this.id = id;
+        this.codigoRastreio = codigoRastreio;
+        this.otp_codigo = otp_codigo;
+        this.otp_expira = otp_expira;
+        this.id_loja = id_loja;
+        this.enderecoDestino = enderecoDestino;
+        this.status_atual = status_atual;
+        this.observacao = observacao;
+        this.peso = peso;
+    }
 
     public Long getId() {
         return id;
@@ -31,12 +46,12 @@ public class PacoteDTO {
         this.id = id;
     }
 
-    public String getCodigoLon() {
-        return codigoLon;
+    public String getCodigoRastreio() {
+        return codigoRastreio;
     }
 
-    public void setCodigoLon(String codigoLon) {
-        this.codigoLon = codigoLon;
+    public void setCodigoRastreio(String codigoRastreio) {
+        this.codigoRastreio = codigoRastreio;
     }
 
     public String getOtp_codigo() {
@@ -63,12 +78,12 @@ public class PacoteDTO {
         this.id_loja = id_loja;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getEnderecoDestino() {
+        return enderecoDestino;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setEnderecoDestino(String enderecoDestino) {
+        this.enderecoDestino = enderecoDestino;
     }
 
     public String getStatus_atual() {
@@ -79,12 +94,12 @@ public class PacoteDTO {
         this.status_atual = status_atual;
     }
 
-    public String getDesc_observ() {
-        return desc_observ;
+    public String getObservacao() {
+        return observacao;
     }
 
-    public void setDesc_observ(String desc_observ) {
-        this.desc_observ = desc_observ;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     public Double getPeso() {
@@ -95,6 +110,7 @@ public class PacoteDTO {
         this.peso = peso;
     }
     
+
 }
     
     

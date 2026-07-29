@@ -4,6 +4,7 @@
  */
 package com.logistica.logistica_web.service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.logistica.logistica_web.model.AuthResponseDTO;
 import com.logistica.logistica_web.model.LojaDTO;
 import com.logistica.logistica_web.model.PacoteDTO;
@@ -14,6 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -29,18 +31,17 @@ public class ApiService {
     private final String BASE_URL = "http://localhost:9003";
 
     
-    //logar (token e role)
     public AuthResponseDTO logar(UserRequestDTO credenciais){
         return restTemplate.postForObject(BASE_URL + "api/auth/logar", credenciais, AuthResponseDTO.class); 
     }
     
-    //registrar user
+   
     public void cadastrar(UsuarioDTO user){
         restTemplate.postForObject(BASE_URL + "api/auth/cadastrar", user, AuthResponseDTO.class); 
     }
     
     
-    //listar remessa por loja
+   
     public List<PacoteDTO> listarPacote(String token){
         
         HttpHeaders headers = new HttpHeaders();
@@ -56,7 +57,7 @@ public class ApiService {
         return response.getBody();
     }
     
-    //criar pacotes
+   
     public void criarPacote(PacoteDTO pacote, String token){
 
         HttpHeaders headers = new HttpHeaders();
@@ -65,15 +66,29 @@ public class ApiService {
         restTemplate.postForObject(BASE_URL + "api/auth/criar/pacote", entity, AuthResponseDTO.class); 
     }
     
-    //registrar pacotes
-    public void registrarPacote(PacoteDTO pacoteId,PacoteDTO pacote, String token){
+    
+    public PacoteDTO rastrear(String codigo){
+     return restTemplate.getForObject(BASE_URL + "/api/pacotes/" + codigo, PacoteDTO.class);
+             }
+    
+      public PacoteDTO atualizarStatus(Long id, String novoStatus, String otp, String token){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
-        HttpEntity<PacoteDTO> entity = new HttpEntity<> (pacote,headers);
-        restTemplate.postForObject(BASE_URL + "api/auth/" + pacoteId + "/pacote", entity, String.class); 
-    }
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Void> entity = new HttpEntity<> (headers);
+        restTemplate.postForObject(BASE_URL + "api/auth/" + id + "/loja", entity, String.class); 
+    
+        
+        String url = BASE_URL + "/api/pacotes/" + id + "/status?novoStatus=" + novoStatus;
+        if(otp != null && !otp.isBlank()){
+            url += "&otp=" + otp;
+        }
+        
+        ResponseEntity<PacoteDTO> resp = restTemplate.exchange(url, HttpMethod.PUT, entity, PacoteDTO.class);
+        return resp.getBody();
+      }  
 
-    //listar lojas
+    
     public List<LojaDTO> listarLojas(String token){
         
         HttpHeaders headers = new HttpHeaders();
@@ -89,7 +104,7 @@ public class ApiService {
         return response.getBody();
     }
     
-    //criar lojas
+    
     public void criarLoja(LojaDTO loja, String token){
 
         HttpHeaders headers = new HttpHeaders();
@@ -98,7 +113,7 @@ public class ApiService {
         restTemplate.postForObject(BASE_URL + "api/auth/cadastrar/loja", entity, AuthResponseDTO.class); 
     }
     
-    //registrar lojas
+    
     public void registrarPacote(Long lojaId, LojaDTO loja, String token){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);

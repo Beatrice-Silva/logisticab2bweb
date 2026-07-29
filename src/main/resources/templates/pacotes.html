@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+        
+        <h3>Remesssas:</h3>
+        
+          <h3>Tabela de Pacotes arquivadas</h3>
+        
+        <table>
+           <tr>
+                <th th:href="@{/criarPacote}">Id</th>
+                <th>Id Loja</th>
+                <th>Endereço</th>
+                <th>Status atual</th>
+                <th>Peso</th>
+                <th>Observação</th>
+            </tr>
+            
+            <tr th:each="p : ${lista}">
+                
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.idLoja}"></td>
+                <td th:text="${p.endereco}"></td>
+                <td th:text="${p.statusAtual}"></td>
+                <td th:text="${p.peso}"></td>
+                <td th:text="${p.observacao}"></td>
+            </tr>
+            
+        </table>
+        
+        
+    </body>
+</html>

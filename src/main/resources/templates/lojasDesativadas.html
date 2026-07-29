@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+       
+        <h3>Lojas desativadas de serviço:</h3>
+        
+          <table>
+           <tr>
+                <th>Id</th>
+                <th>Nome do estabelecimento</th>
+                <th>Cnpj</th>
+                <th>Id Operador</th>
+                <th>Contato</th>
+                <th>Cidade</th>
+                <th>Endereço</th>
+                
+            </tr>
+            
+            <tr th:each="e : ${lista}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.nome_estabelecimento}"></td>
+                <td th:text="${e.cnpj}"></td>
+                <td th:text="${e.idUsuario}"></td>
+                <td th:text="${e.contato}"></td>
+                <td th:text="${e.cidade}"></td>
+                <td th:text="${e.endereco}"></td>
+            </tr>
+            
+        </table>
+        
+    </body>
+</html>

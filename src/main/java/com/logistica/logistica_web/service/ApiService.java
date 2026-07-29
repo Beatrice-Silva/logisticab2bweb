@@ -28,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 public class ApiService {
     
     private final RestTemplate restTemplate= new RestTemplate();
-    private final String BASE_URL = "http://localhost:9003";
+    private final String BASE_URL = "http://localhost:9000";
 
     
     public AuthResponseDTO logar(UserRequestDTO credenciais){
@@ -88,7 +88,6 @@ public class ApiService {
         return resp.getBody();
       }  
 
-    
     public List<LojaDTO> listarLojas(String token){
         
         HttpHeaders headers = new HttpHeaders();
@@ -96,13 +95,29 @@ public class ApiService {
         HttpEntity<Void> entity = new HttpEntity<> (headers);
         
         ResponseEntity<List<LojaDTO>> response = restTemplate.exchange(
-            BASE_URL + "/api/pacotes",
+            BASE_URL + "/api/loja",
                 HttpMethod.GET, 
                 entity,
                 new ParameterizedTypeReference<List<LojaDTO>>() {}
                 );
         return response.getBody();
     }
+    
+    public List<UsuarioDTO> listarEntregadores(UsuarioDTO user, String token){
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<Void> entity = new HttpEntity<> (headers);
+        
+        ResponseEntity<List<UsuarioDTO>> response = restTemplate.exchange(
+            BASE_URL + "/api/entregadore",
+                HttpMethod.GET, 
+                entity,
+                new ParameterizedTypeReference<List<UsuarioDTO>>() {}
+                );
+        return response.getBody();
+    }
+      
     
     
     public void criarLoja(LojaDTO loja, String token){

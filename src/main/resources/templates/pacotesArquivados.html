@@ -134,8 +134,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         
+        <div th:replace="~{fragments/header :: header}"></div>
+        
+        
         <div>remessas arquivadas seram excluidas após uma semana sem atualização</div>
         
+        <h3>Tabela de Pacotes arquivadas</h3>
+        
+        <table>
+           <tr>
+                <th>Id</th>
+                <th>Id Loja</th>
+                <th>Endereço</th>
+                <th>Status atual</th>
+                <th>Peso</th>
+                <th>Observação</th>
+            </tr>
+            
+            <tr th:each="p : ${lista}">
+                
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.idLoja}"></td>
+                <td th:text="${p.endereco}"></td>
+                <td th:text="${p.statusAtual}"></td>
+                <td th:text="${p.peso}"></td>
+                <td th:text="${p.observacao}"></td>
+            </tr>
+            
+        </table>
         
         
     </body>

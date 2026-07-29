@@ -41,9 +41,11 @@ public class AuthController {
     
     @PostMapping("/login")
     public String logar(@RequestParam String email, @RequestParam String senha, Model m){
-        //Map user = rest.postForObject(API+"/auth/login", Map.of("email",email,"senha",senha), Map.class);
-        //m.addAttribute("user", user);
-        return "redirect:/dashboard";
+        /*
+        Map user = rest.postForObject(API+"/auth/login", Map.of("email",email,"senha",senha), Map.class);
+        m.addAttribute("user", user);
+*/
+    return "redirect:/dashboard";
     }
   
     @GetMapping("/cadastrar") 

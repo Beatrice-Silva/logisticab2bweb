@@ -136,7 +136,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
     
     </head>
-   
+    <!-- Pagina com foco em criacao e salvamento de pacotes -->
   <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
@@ -147,7 +147,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <form th:action="@{/pacotes/criar}" method="post">
             <div class="grupo">
                 
-                <label>Loja de Origem *</label>
+                <label>Loja de Origem</label>
                 
                 <select name="idLoja" required>
                     <option value="">Selecione</option>
@@ -157,7 +157,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         
             <div class="grupo">
-                <label>Endereço de Destino *</label>
+                <label>Endereço de Destino</label>
                 <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
             </div>
             
@@ -172,7 +172,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <div class="card card-login">
         <h1 class="titulo">Pacotes</h1>
         
-        <form th:action="@{/criar}" method="post">
+        <form th:action="@{/criarpacote}" method="post">
             
 
             <div class="grupo"><label>Código LON:</label>

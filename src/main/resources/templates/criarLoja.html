@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Criar Loja</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <!-- Pagina com foco em criacao e salvamento de lojas -->
+  <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <div class="card">
+        
+        <h1 class="titulo">Cadastrar estabelecimento</h1>
+        
+        <form th:action="@{/lojas/criar}" method="post">
+            <div class="grupo">
+                
+                <label>Estabelecimento</label>
+               
+                
+            </div>
+        
+            <div class="grupo">
+                <label>Endereço de Destino</label>
+                <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
+            </div>
+            
+            <button type="submit" class="botao">Criar Remessa</button>
+        
+        </form>
+    </div>
+</div>
+</body>
+
+   
+    <div class="card card-login">
+        <h1 class="titulo">Pacotes</h1>
+        
+        <form th:action="@{/criarpacote}" method="post">
+            
+
+            <div class="grupo"><label>Código LON:</label>
+            <input type=password name="codigoLON" required></div>
+            <br>
+     
+            <div class="grupo"><label>OTP Código:</label></div>
+            <input type=password name="OTPcodigo" required></div>
+            <br>
+            
+            <div class="grupo"><label>OTP expira:</label></div>
+            <input type=Date name="OTPexpira" required></div>
+            <br>
+            
+            <div class="grupo"><label>Statuls atual:</label></div>
+            <input type=text name="statusatual" required></div>
+            <br>
+            
+            <div class="grupo"><label>Peso:</label></div>
+            <input type=number name="peso" required></div>
+            <br>
+            
+            <div class="grupo"><label>Observação ou Descrição:</label></div>
+            <input type=text name="observdesc" required></div>
+            <br>
+            
+            <button class="botao">Criar remessa</button>
+            
+        </form>
+        <p style="margin-top: 16px"><a th:href="@{/}" style="color:#FFEDD5"></p>
+    </div>
+    </body>
+</html>

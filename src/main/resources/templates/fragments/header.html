@@ -2,30 +2,52 @@
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
+  <a th:href="@{/login}">
+              <button class="btn btn-danger">
+                  Deslogar
+              </button>
+-->              
+          </a>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
 <nav>
   
     <div>
-    <a th:href="@{/dashboard}">Dashboard</a>
-    <a th:href="@{/criar}">Nova Remessa</a>
-    <a th:href="@{/rastrear}">Rastrear</a>
-  </div>
-  <a th:href="@{/}"><button class="btn-sair">Sair</button></a>
-  
-  
-  
+    <th if role ='ENTREGADOR'>
+        <a th:href="@{/validarEntrega}">Validação de Entrega</a> 
+    </th>
+    
+    <th if role ='ADMIN'>
+        <a th:href="@{/perfil}">Perfil</a> 
+    </th>
+    
+    
+    <th if role ='FORNECEDOR'>
+        
+        <a th:href="@{/dashboard}">Dashboard</a>
+        <a th:href="@{/criar}">Novo Pacote</a>
+        <a th:href="@{/rastrear}">Rastrear</a> 
+        <a th:href="@{/criarloja}">Nova Loja</a>
+        
+        <a th:href="@{/perfil}">Perfil</a> 
+        <a th:href="@{/lojas}">Lojas</a>
+        <a th:href="@{/entregadores}">Entregadores</a>
+        <a th:href="@{/index}">Home</a>
+        
+    </th>
+    
+    </div>
+    
   <header th:fragment="customheader">
       
-      <th if role='FORNECEDOR'></th>
+      <th if role='FORNECEDOR'>
       
       <nav class="d-flex justify-content-center-between p-3 bg-secondarys">
           
           <ul class="nav">
               <li class="nav-item">
-                  <a class="nav-link text-white" aria-current="page" th:href="@{/}">Página inicial</a>
+                  <a class="nav-link text-white" aria-current="page" th:href="@{/index}">Página inicial</a>
               </li>
               
               <li class="nav-item">
@@ -33,15 +55,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
               </li>
           </ul>
           
+        
+          
           <a th:href="@{/login}">
-              <button class="btn btn-danger">
-                  Deslogar
-              </button>
-              
+              <button class="btn-sair">Deslogar</button>
           </a>
           
-          
       </nav>
+      
+      
+      
   </header>
   
   

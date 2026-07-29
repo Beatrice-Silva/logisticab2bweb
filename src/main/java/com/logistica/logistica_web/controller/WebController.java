@@ -56,13 +56,17 @@ public class WebController {// pacotes
     }
 
     @GetMapping("/rastrear")
-    public String rastrearPage() { return "pacotes/rastrear"; }
+    public String rastrearPage() {
+        return "pacotes/rastrear"; 
+    }
 
+    
     @PostMapping("/rastrear")
     public String rastrear(@RequestParam String codigo, Model model) {
         try {
             model.addAttribute("pacote", apiService.rastrear(codigo));
             return "pacotes/detalhe";
+            
         } catch (Exception e) {
             model.addAttribute("erro", "Pacote não encontrado: " + codigo);
             return "pacotes/rastrear";

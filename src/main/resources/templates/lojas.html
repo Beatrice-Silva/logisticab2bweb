@@ -136,22 +136,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
    
     </head>
     <body>
-
+        <!-- Clique em loja específica de tabela pode levar a-->
                 <h3>Tabela de Lojas cadastradas</h3>
         
         <table>
            <tr>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Nome Estabelecimento</th>
-                <th>Função</th>                              
+                <th>Id</th>
+                <th th:href="@{/criarLoja}">Nome do estabelecimento</th>
+                <th>Cnpj</th>
+                <th>Id Operador</th>
+                <th>Contato</th>
+                <th>Cidade</th>
+                <th>Endereço</th>
+                
             </tr>
             
             <tr th:each="e : ${lista}">
-                <td th:text="${e.nome}"></td>
-                <td th:text="${e.email}"></td>
+                <td th:text="${e.id}"></td>
                 <td th:text="${e.nome_estabelecimento}"></td>
-                <td th:text="${e.perfilrole}"></td>
+                <td th:text="${e.cnpj}"></td>
+                <td th:text="${e.idUsuario}"></td>
+                <td th:text="${e.contato}"></td>
+                <td th:text="${e.cidade}"></td>
+                <td th:text="${e.endereco}"></td>
             </tr>
             
         </table>

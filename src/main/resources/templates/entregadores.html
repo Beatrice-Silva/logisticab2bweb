@@ -136,22 +136,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
    
     </head>
     <body>
-       
+        <div class="titulo"> Lista de entregadores
+            
+        </div>
          <table>
             <tr>
                 
+                <th>Id:</th>
                 <th>Nome</th>
                 <th>Email</th>
-                <th>Nome Estabelecimento</th>
                 <th>Função</th>                              
             </tr>
             
             <tr th:each="e : ${lista}">
+                <td th:text="${e.id}"></td>
                 <td th:text="${e.nome}"></td>
                 <td th:text="${e.email}"></td>
-                <td th:text="${e.nome_estabelecimento}"></td>
-                <td th:text="${e.perfilrole}"></td>
+                <td th:text="${e.perfilRole}"></td>
+              
             </tr>
+            
+            
             
         </table>
         

@@ -31,8 +31,7 @@ public class WebController {// pacotes
     @Autowired
     private ApiService apiService;
 
-    // REMOVIDO qualquer método de login daqui - login fica só no AuthController
-
+    
     @GetMapping
     public String listar(HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");
@@ -74,9 +73,10 @@ public class WebController {// pacotes
     }
 
     @PostMapping("/{id}/status")
-    public String atualizarStatus(@PathVariable Long id, @RequestParam String novoStatus,
-                                  @RequestParam(required = false) String otp, HttpSession session) {
-        String token = (String) session.getAttribute("token");
+    public String atualizarStatus(@PathVariable Long id, 
+            @RequestParam String novoStatus,                                         @RequestParam(required = false) String otp, 
+            HttpSession session) {
+        String token = (String)session.getAttribute("token");
         apiService.atualizarStatus(id, novoStatus, otp, token);
         return "redirect:/pacotes";
     }

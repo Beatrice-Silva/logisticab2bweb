@@ -8,6 +8,7 @@ import com.logistica.logistica_web.model.AuthResponseDTO;
 import com.logistica.logistica_web.model.PacoteDTO;
 import com.logistica.logistica_web.model.UserRequestDTO;
 import com.logistica.logistica_web.model.UsuarioDTO;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -17,7 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
+
 
 /**
  *
@@ -26,13 +27,50 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AuthRestClientService {
 
-    @Value("${api.base-url:http://localhost:9000}")
-    private String baseUrl;
-    
-    private final RestTemplate rest = new RestTemplate();
+    private final RestClient restClient;
    
     
+    public AuthRestClientService(){//define a base URL que sera usada em todas requisicoes
+        this.restClient = RestClient.builder()
+                .baseUrl("http://localhost:9000/api")
+                .build();
+    }
     
+    public String login(UserRequestDTO user){
+        
+        return restClient.post()
+                .uri("/autenticar/logar")
+                .body(user)
+                .retrieve()
+                .body(String.class);
+    }
+    
+    public void registrar(UsuarioDTO user){
+        user.setPerfiRole("OPERADOR");
+        String retorno = 
+                restClient
+                .post()
+                .uri("/autenticar/registrar")
+                .body(user)
+                .retrieve()
+                .body(String.class);
+    }
+    
+    public List<PacoteDTO> listarEditais(String token){
+        PacoteDTO[] pacotes = restClient.get()
+            .uri("/pacotes")
+            .header("Authorization", "Bearer" + token)
+            .retrieve()
+            .body(PacoteDTO[].class);
+                
+        return Arrays.asList(pacotes);
+    }       
+    
+    
+    
+    
+            
+            /*
     public AuthResponseDTO login(String email, String senha){
         String url = baseUrl + "/api/auth/login";
         UserRequestDTO req = new UserRequestDTO(email, senha);
@@ -52,6 +90,6 @@ public class AuthRestClientService {
         ResponseEntity<String> resp = rest.exchange(url, HttpMethod.POST, entity, String.class);
         return resp.getBody();
     }
-   
+   */
     
 }

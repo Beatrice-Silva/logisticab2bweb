@@ -11,16 +11,13 @@ import com.logistica.logistica_web.model.UsuarioDTO;
 import com.logistica.logistica_web.service.AuthRestClientService;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
-import static jdk.javadoc.doclet.DocletEnvironment.ModuleMode.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  *
@@ -60,15 +57,21 @@ public class AuthController {
     return "redirect:/";
     }
     
-    @GetMapping("/cadastrar") 
-    public String cadastrar(){
-        
-        return "cadastro"; 
+    @GetMapping("/registrar") 
+    public String cadastrar(Model model){
+        UsuarioDTO novoUsuario = new UsuarioDTO();
+        model.addAttribute("usuario", novoUsuario);
+        return "registrar"; 
+    }
+    
+    @PostMapping("/registrar") 
+    public String mandarRegistro(@ModelAttribute UsuarioDTO usuario){        
+        restService.registrar(usuario);
+        return "redirect:/login"; 
     }
     
     @GetMapping("/listar/pacote") 
     public List<PacoteDTO> listarPacote(PacoteDTO pacote){
-        List<PacoteDTO> pacotes = listarPacote(pacote);
         
         return listarPacote(pacote); 
     }
@@ -81,18 +84,22 @@ public class AuthController {
     
     @GetMapping("/listar/loja") 
     public List<LojaDTO> listarLoja(LojaDTO loja){ 
+        
         return listarLoja(loja); 
+    }
+    
+    @GetMapping("/listar/entregador") 
+    public List<UsuarioDTO> listarEntregador(UsuarioDTO entregador){
+        
+        return listarEntregador(entregador); 
     }
     
     @GetMapping("/criar/loja") 
     public String criarLoja(){ 
-        return "criar";
+        return "";
     }
     
-    @GetMapping("/listar/loja") 
-    public List<UsuarioDTO> listarEntregador(UsuarioDTO entregador){
-        return listarEntregador(entregador); 
-    }
+    
     
     @GetMapping("/dashboard") 
     public String mapear(Model m){

@@ -164,10 +164,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <br>
                 <a th:href="@{/rastrear}" style="color:#FF6B00">Rastrear sem login</a>    
                 <br>
-     
+                
+                <div if role ='FORNECEDOR'>
                 <a href="@{/cadastro}" class="botaovoltar"> Cadastrar</a>
     <!-- Botao para cadastrar apenas para ADMIn ou OPERADOR -->
-  
+    
+                </div>
             </p>
             
               <div th:if="{erroServidor}"

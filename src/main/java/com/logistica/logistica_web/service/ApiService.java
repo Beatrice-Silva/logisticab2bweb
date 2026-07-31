@@ -4,7 +4,6 @@
  */
 package com.logistica.logistica_web.service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.logistica.logistica_web.model.AuthResponseDTO;
 import com.logistica.logistica_web.model.LojaDTO;
 import com.logistica.logistica_web.model.PacoteDTO;

@@ -10,12 +10,7 @@ import com.logistica.logistica_web.model.UserRequestDTO;
 import com.logistica.logistica_web.model.UsuarioDTO;
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -28,7 +23,7 @@ import org.springframework.web.client.RestClient;
 public class AuthRestClientService {
 
     private final RestClient restClient;
-   
+    
     
     public AuthRestClientService(){//define a base URL que sera usada em todas requisicoes
         this.restClient = RestClient.builder()
@@ -64,7 +59,30 @@ public class AuthRestClientService {
             .body(PacoteDTO[].class);
                 
         return Arrays.asList(pacotes);
-    }       
+    }
+    
+      public List<PacoteDTO> listarEntregadores(String token){
+        PacoteDTO[] pacotes = restClient.get()
+            .uri("/entregadores")
+            .header("Authorization", "Bearer" + token)
+            .retrieve()
+            .body(PacoteDTO[].class);
+                
+        return Arrays.asList(pacotes);
+    } 
+      
+      
+      public List<PacoteDTO> listarLojas(String token){
+        PacoteDTO[] pacotes = restClient.get()
+            .uri("/lojas")
+            .header("Authorization", "Bearer" + token)
+            .retrieve()
+            .body(PacoteDTO[].class);
+                
+        return Arrays.asList(pacotes);
+    } 
+    
+    
     
     
     

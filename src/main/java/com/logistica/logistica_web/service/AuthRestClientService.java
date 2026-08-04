@@ -27,14 +27,14 @@ public class AuthRestClientService {
     
     public AuthRestClientService(){//define a base URL que sera usada em todas requisicoes
         this.restClient = RestClient.builder()
-                .baseUrl("http://localhost:9000/api")
+                .baseUrl("http://localhost:8000/api")
                 .build();
     }
     
     public String login(UserRequestDTO user){
         
         return restClient.post()
-                .uri("/autenticar/logar")
+                .uri("/auth/logar")
                 .body(user)
                 .retrieve()
                 .body(String.class);
@@ -45,7 +45,7 @@ public class AuthRestClientService {
         String retorno = 
                 restClient
                 .post()
-                .uri("/autenticar/registrar")
+                .uri("/auth/registrar")
                 .body(user)
                 .retrieve()
                 .body(String.class);

@@ -133,36 +133,57 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 </head>
 
 <body>
-    
 <div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container">
   <h1 class="titulo">Visão Geral</h1>
   <div class="grid">
-      
-    <div class="card"><div class="card-titulo">Criados</div>
-    <h2 th:text="${counts?.Criado ?: 0}">0</h2>
-    <span class="badge badge-azul">Aguardando</span></div>
-    
-    <div class="card"><div class="card-titulo">Em Trânsito</div>
-    <h2 th:text="${counts?.'Em transito' ?: 0}">0</h2>
-    <span class="badge badge-laranja">Em rota</span></div>
-      
-    <div class="card"><div class="card-titulo">Entregues</div>
-    <h2 th:text="${counts?.Entregue ?: 0}">0</h2>
-    <span class="badge badge-verde">Finalizado</span></div>
-    
-    <div class="card"><div class="card-titulo">Coletado</div>
-    <h2 th:text="${counts?.Devolvido ?: 0}">0</h2>
-    <span class="badge badge-cinza">Devolvido</span></div>
 
-    <div class="card"><div class="card-titulo">Coletado</div>
-    <h2 th:text="${counts?.Devolvido ?: 0}">0</h2>
-    <span class="badge badge-cinza">Arquivado</span></div>
-      
+    <div class="card">
+        <div class="card-titulo">Criados</div>
+        <h2 th:text="${counts['CRIADO']?: 0}">0</h2>
+        <span class="badge badge-azul">Aguardando coleta</span>
+    </div>
+
+    <div class="card">
+        <div class="card-titulo">Coletados</div>
+        <h2 th:text="${counts['COLETADO']?: 0}">0</h2>
+        <span class="badge badge-amarelo">Coletado</span>
+    </div>
+
+    <div class="card">
+        <div class="card-titulo">Em Trânsito</div>
+        <h2 th:text="${counts['EM_TRANSITO']?: 0}">0</h2>
+        <span class="badge badge-laranja">Em rota</span>
+    </div>
+
+    <div class="card">
+        <div class="card-titulo">Entregues</div>
+        <h2 th:text="${counts['ENTREGUE']?: 0}">0</h2>
+        <span class="badge badge-verde">Finalizado</span>
+    </div>
+
+    <div class="card">
+        <div class="card-titulo">Devolvidos</div>
+        <h2 th:text="${counts['DEVOLVIDO']?: 0}">0</h2>
+        <span class="badge badge-vermelho">Cancelado</span>
+    </div>
+
+    <div class="card">
+        <div class="card-titulo">Arquivados</div>
+        <h2 th:text="${counts['ARQUIVADO']?: 0}">0</h2>
+        <span class="badge badge-cinza">Arquivado</span>
+    </div>
   </div>
+
+  <!-- JOIN por loja -->
+  <h2 style="margin-top:30px">Pacotes por Loja</h2>
+  <table>
+    <tr th:each="item : ${porLoja}">
+        <td th:text="${item[0]}">Nome Loja</td>
+        <td th:text="${item[1]}">0</td>
+    </tr>
+  </table>
 </div>
-
-
 </body></html>
 

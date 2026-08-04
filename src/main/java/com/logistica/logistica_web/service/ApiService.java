@@ -27,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 public class ApiService {
     
     private final RestTemplate restTemplate= new RestTemplate();
-    private final String BASE_URL = "http://localhost:9000";
+    private final String BASE_URL = "http://localhost:8000";
 
     
     public AuthResponseDTO logar(UserRequestDTO credenciais){

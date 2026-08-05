@@ -4,13 +4,12 @@
  */
 package com.logistica.logistica_web.controller;
 
-import com.logistica.logistica_web.model.LojaDTO;
-import com.logistica.logistica_web.model.PacoteDTO;
 import com.logistica.logistica_web.model.UserRequestDTO;
 import com.logistica.logistica_web.model.UsuarioDTO;
-import com.logistica.logistica_web.service.AuthRestClientService;
+import com.logistica.logistica_web.service.ApiService;
+
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
     
     @Autowired
-    private AuthRestClientService restService;
+     private ApiService apiService;
   
     @GetMapping("/") 
     public String home(){
@@ -41,20 +40,16 @@ public class AuthController {
     return "login";
     }
     
-    
     @PostMapping("/logar")
-    public String logar(
-            @ModelAttribute UserRequestDTO credenciais,
-            HttpSession session){
-        
+    public String logar(@ModelAttribute UserRequestDTO cred, HttpSession session){
         try{
-            String token = restService.login(credenciais);
+            String token = apiService.login(cred);
             session.setAttribute("token", token);
-            return "redirect:/"; 
+            return "redirect:/dashboard";
         }catch(Exception e){
+            e.printStackTrace();
             return "redirect:/login?erro";
         }
-
     }
     
     @GetMapping("/registrar") 
@@ -65,7 +60,7 @@ public class AuthController {
     
     @PostMapping("/registrar") 
     public String mandarRegistro(@ModelAttribute UsuarioDTO usuario){        
-        restService.registrar(usuario);
+        apiService.registrar(usuario);
         return "redirect:/login"; 
     }
     
@@ -76,7 +71,11 @@ public class AuthController {
     }
     
     @GetMapping("/dashboard")
-    public String dashboard(){
+    public String dashboard(HttpSession session, Model model){
+        String token = (String) session.getAttribute("token");
+        if(token == null) return "redirect:/login";
+        model.addAttribute("counts", apiService.getCounts(token));
+        model.addAttribute("porLoja", apiService.contarPorLoja(token));
         return "dashboard";
     }
 

@@ -41,7 +41,7 @@ public class ApiService {
     }
     
     public String registrar(UsuarioDTO user){
-        ResponseEntity<String> res = rest.postForEntity(BASE + "/api/auth/registrar", user, String.class);
+        ResponseEntity<String> res = rest.postForEntity(BASE + "api/registrar" , user, String.class);
         return res.getBody();
     }
     

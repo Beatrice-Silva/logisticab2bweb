@@ -30,7 +30,7 @@ public class AuthController {
   
     @GetMapping("/") 
     public String home(){
-        return "index"; 
+        return "login"; 
     }
     
     @GetMapping("/login")
@@ -52,7 +52,8 @@ public class AuthController {
         }
     }
     
-    @GetMapping("/registrar") 
+    @GetMapping("/registrar"
+            + "") 
     public String cadastrar(Model model){
         model.addAttribute("usuario",new UsuarioDTO());
         return "cadastro"; 

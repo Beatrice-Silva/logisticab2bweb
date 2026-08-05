@@ -52,7 +52,11 @@ public class PacoteController {// pacotes
         apiService.criarPacote(pacoteDTO, token);
         return "redirect:/pacotes";
     }
-
+/*
+    org.springframework.expression.spel.SpelParseException: 
+    Expression [counts?.'Em transito' ?: 0] @6: EL1049E:
+    Unexpected data after '.': ''Em transito''
+	*/
     @GetMapping("/rastrear")
     public String rastrearPage() {
         return "rastrearServico"; 

@@ -29,8 +29,12 @@ public class AuthController {
      private ApiService apiService;
   
     @GetMapping("/") 
-    public String home(){
-        return "index"; 
+    public String home(HttpSession session, Model model){
+       if(session.getAttribute("token") != null){
+        return "redirect:/dashboard";
+    }
+        model.addAttribute("credenciais", new UserRequestDTO());
+        return "login"; // 
     }
     
     @GetMapping("/login")

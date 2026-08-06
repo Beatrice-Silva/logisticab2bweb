@@ -142,79 +142,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <div class="card">
-        
         <h1 class="titulo">Criar Remessa</h1>
-        
         <form th:action="@{/pacotes/criar}" method="post">
             <div class="grupo">
-                
                 <label>Loja de Origem</label>
-                
                 <select name="idLoja" required>
                     <option value="">Selecione</option>
                     <option th:each="loja : ${lojas}" th:value="${loja.id}" th:text="${loja.nomeEstabelecimento}"></option>
                 </select>
-                
             </div>
-        
             <div class="grupo">
-                <label>Endereço de saída da entrega:</label>
+                <label>Endereço de saída:</label>
                 <input type="text" name="endereco" placeholder="Rua, número, bairro" required>
             </div>
-            
-            <!-- inner join/ Trazer o nome do estabelecimento que pertence 
-            Invez de id que seria maneira informal-->
-            <div class="grupo"><label>Endereço do destino:</label></div>
-            <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
-            <br>
-            
-            <button type="submit" class="botao">Criação de Remessa</button>
-        
+            <div class="grupo">
+                <label>Endereço de destino:</label>
+                <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
+            </div>
+            <button type="submit" class="botao">Criar Remessa</button>
         </form>
     </div>
-</div>
+
+    <div th:if="${param.erro}" class="alert alert-danger" style="color:darkred; background:salmon; padding:12px; border-radius:6px; margin-top:15px">
+            E-mail ou senha inválidos
+        </div>
+    
 </body>
-
-   
-    <div class="card card-login">
-        <h1 class="titulo">Pacotes</h1>
-        
-        <form th:action="@{/criarpacote}" method="post">
-            
-
-            <div class="grupo"><label>Código LON:</label>
-            <input type=password name="codigoLON" required></div>
-            <br>
-     
-            <div class="grupo"><label>OTP Código:</label></div>
-            <input type=password name="otpCodigo" required></div>
-            <br>
-            
-            <div class="grupo"><label>OTP expira:</label></div>
-            <input type=Date name="otpExpira" required></div>
-            <br>
-            
-            <div class="grupo"><label>Status atual:</label></div>
-            <input type=text name="statusatual" required></div>
-            <br>
-            
-            <div class="grupo"><label>Peso:</label></div>
-            <input type=number name="peso" required></div>
-            <br>
-            
-            <div class="grupo"><label>Descrição ou Observação:</label></div>
-            <input type=text name="observdesc" required></div>
-            <br>
-            
-            <div class="grupo"><label>Código rastreio:</label></div>
-            <input type=password name="codigoRastreio" required></div>
-            <br>
-            
-            <button class="botao">Criar remessa</button>
-            
-        </form>
-        <p style="margin-top: 16px"><a th:href="@{/}" style="color:#FFEDD5"></p>
-    </div>
-    </body>
+    
+    
 
 </html>

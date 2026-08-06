@@ -138,34 +138,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
     </head>
     
-    <body>
-        
-        <h3>Remesssas:</h3>
-        
-          <h3>Tabela de Pacotes</h3>
-        
-        <table>
+  <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 class="titulo">Tabela de Pacotes</h3>
+            <a th:href="@{/pacotes/novo}" class="botao" style="width:auto;text-decoration:none">+ Nova Remessa</a>
+        </div>
+        <table class="table">
            <tr>
-                <th th:href="@{/criarPacote}">Id</th>
-                <th>Id Loja</th>
-                <th>Endereço</th>
-                <th>Status atual</th>
-                <th>Peso</th>
-                <th>Observação</th>
+                <th>Id</th><th>Id Loja</th><th>Endereço</th><th>Status</th><th>Peso</th><th>Obs</th>
             </tr>
-            
             <tr th:each="p : ${lista}">
-                
                 <td th:text="${p.id}"></td>
                 <td th:text="${p.idLoja}"></td>
                 <td th:text="${p.endereco}"></td>
                 <td th:text="${p.statusAtual}"></td>
                 <td th:text="${p.peso}"></td>
-                <td th:text="${p.observacao}"></td>
+                <td th:text="${p.observDesc}"></td>
             </tr>
-            
         </table>
-        
-        
-    </body>
+    </div>
+</div>
+</body>
 </html>

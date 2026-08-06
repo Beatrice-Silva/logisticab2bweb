@@ -13,29 +13,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <div th:fragment="header">
 <nav>
   
-    <div>
-    <th if role ='ENTREGADOR'>
-        <a th:href="@{/validarEntrega}">Validação de Entrega</a> 
-    </th>
+  
+    <nav>
+  <div>
+    <a th:href="@{/dashboard}">Dashboard</a>
+    <a th:href="@{/pacotes}">Pacotes</a>
+    <a th:href="@{/lojas}">Lojas</a>
+  </div>
+  <div>
+    <a th:href="@{/pacotes/novo}">Nova Remessa</a>
+    <a th:href="@{/lojas/nova}">Nova Loja</a>
+    <a th:href="@{/registrar}">+ Usuário</a>
+    <a th:href="@{/logout}">Sair</a>
+  </div>
+</nav>
     
-    <th if role ='ADMIN'>
-        <a th:href="@{/perfil}">Perfil</a> 
-    </th>
-    
-    
-    <th if role ='FORNECEDOR'>
-        
-        <a th:href="@{/dashboard}">Dashboard</a>
-        <a th:href="@{/criar}">Novo Pacote</a>
-        <a th:href="@{/rastrear}">Rastrear</a> 
-        <a th:href="@{/criarloja}">Nova Loja</a>
-        
-        <a th:href="@{/perfil}">Perfil</a> 
-        <a th:href="@{/lojas}">Lojas</a>
-        <a th:href="@{/entregadores}">Entregadores</a>
-        <a th:href="@{/login}">Home</a>
-        
-    </th>
     
     </div>
     

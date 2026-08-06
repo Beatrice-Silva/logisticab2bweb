@@ -139,83 +139,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <div class="card">
-        
         <h1 class="titulo">Cadastrar estabelecimento</h1>
         
         <form th:action="@{/lojas/criar}" method="post">
-            <div class="grupo">
-                
-                <label>Estabelecimento</label>
-               
-                
-            </div>
-        
-            <div class="grupo">
-                <label>Endereço de Destino</label>
-                <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
+            
+            <div class="grupo"><label>Nome da loja</label>
+                <input type="text" name="nomeEstabelecimento" required>
             </div>
             
+            <div class="grupo"><label>CNPJ</label>
+                <input type="text" name="cnpj" required>
+            </div>
+            
+            <div class="grupo"><label>Contato E-mail</label>
+                <input type="email" name="contatoEmail" required>
+            </div>
+            
+            <div class="grupo"><label>Cidade</label>
+                <input type="text" name="cidade" required>
+            </div>
+            <div class="grupo"><label>Endereço</label><input type="text" name="endereco" required></div>
+            <div class="grupo"><label>Código LON</label><input type="text" name="codigoLon" required></div>
             <button type="submit" class="botao">Criar Loja</button>
-        
         </form>
     </div>
 </div>
 </body>
-
-   
-    <div class="card card-login">
-        <h1 class="titulo">Pacotes</h1>
-        
-        <form th:action="@{/criarpacote}" method="post">
-            
-
-            <div class="grupo"><label>idLoja</label>
-            <input type=text name="idLoja" required></div>
-            <br>
-     
-            <div class="grupo"><label>Nome da loja:</label></div>
-            <input type=text name="nomeEstabelecimento" required></div>
-            <br>
-            
-            <div class="grupo"><label>OTP expira:</label></div>
-            <input type=Date name="otpExpira" required></div>
-            <br>
-            
-            <div class="grupo"><label>Cnpj:</label></div>
-            <input type=text name="cnpj" required></div>
-            <br>
-            
-            <!-- Pega id de usuario Logado, assim 
-            conectando do id do usuario logado para 
-            o pacote quando cadastrado-->
-            
-            <div class="grupo"><label>Contato Email:</label></div>
-            <input type=text name="contatoEmail" required></div>
-            <br>
-            
-            <div class="grupo"><label>Cidade:</label></div>
-            <input type=text name="cidade" required></div>
-            <br>
-            
-            <div class="grupo"><label>Endereco:</label></div>
-            <input type=text name="endereco" required></div>
-            <br>
-
-            <!-- deixar como status ativo, uma vez que a loja e criada
-            deixar como default
-            -->
-            
-            <div class="grupo"><label>Código LON:</label></div>
-            <input type=text name="codigoLon" required></div>
-            <br>
-            
-            <!-- cod lon que sera gerado, sera apresentado diretamente ou apenas 
-            redirecionar apos o pressionar do "Criar remessa"-->
-            
-            <button class="botao">Criar remessa</button>
-            
-        </form>
-        <p style="margin-top: 16px"><a th:href="@{/}" style="color:#FFEDD5"></p>
-    </div>
-    </body>
 </html>

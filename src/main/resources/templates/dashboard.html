@@ -147,25 +147,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   </div>
 
   <div class="card" style="margin-top:20px">
-    <h3 class="titulo">Por Loja - INNER JOIN</h3>
+    <h3 class="titulo">Por Loja</h3>
     <table class="table">
         <tr th:each="item : ${porLoja}">
-            <td th:text="${item.nomeLoja}">Loja Centro</td>
-            <td th:text="${item.total}">0</td>
+            <td th:text="${item.nomeLoja}"></td>
+            <td th:text="${item.total}"></td>
         </tr>
     </table>
   </div>
 </div>
 
-  <!-- JOIN por loja
-  <h2 style="margin-top:30px">Pacotes por Loja</h2>
-  <table>
-    <tr th:each="item : ${porLoja}">
-        <td th:text="${item[0]}">Nome Loja</td>
-        <td th:text="${item[1]}">0</td>
-    </tr>
-  </table>
-  -->
+  
+ 
+  
+  
+  
 </div>
 </body></html>
 

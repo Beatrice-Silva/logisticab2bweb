@@ -139,26 +139,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
    
     </head>
-    <body>  
-                <h3>Tabela de Operadores</h3>
-        
-        <table>
-           <tr>
-                <th>Nome</th>
-                <th>Contato</th>
-                <th>Fornecedora</th>
-                <th>Função</th>                              
-            </tr>
-            
-            <tr th:each="e : ${lista}">
-                <td th:text="${e.nome}"></td>
-                <td th:text="${e.email}"></td>
-                <td th:text="${e.nome_estabelecimento}"></td>
-                <td th:text="${e.role}"></td>
-            </tr>
-            
-        </table>
-        
-        
-    </body>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+<div class="card">
+<h3 class="titulo">Tabela de Operadores</h3>
+<table class="table">
+   <tr><th>Nome</th><th>Email</th><th>Loja</th><th>Função</th></tr>
+    <tr th:each="e : ${lista}">
+        <td th:text="${e.nome}"></td>
+        <td th:text="${e.email}"></td>
+        <td th:text="${e.nomeEstabelecimento}"></td>
+        <td th:text="${e.role}"></td>
+    </tr>
+</table>
+</div>
+</div>
+</body>
 </html>

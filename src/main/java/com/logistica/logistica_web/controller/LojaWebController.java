@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author BEATRICE
  */
 @Controller
+@RequestMapping("/lojas")
 public class LojaWebController {
     
     @Autowired
@@ -39,9 +41,8 @@ public class LojaWebController {
         
         if(session.getAttribute("token") == null)
             return "redirect:/login";
-            model.addAttribute("lojaDTO", new LojaDTO());
         
-    
+            model.addAttribute("lojaDTO", new LojaDTO());
             return "criarLoja";   
         
     }

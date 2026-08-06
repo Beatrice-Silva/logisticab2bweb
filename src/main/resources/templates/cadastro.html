@@ -135,44 +135,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     }
     </style> 
     </head>
-    <body>
+  <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <div class="card" style="max-width:500px; margin:40px auto">
+        <h1 class="titulo">Criar conta</h1>
         
-        <div th:replace="~{fragments/header :: header}"></div>
-        
-        <div>Cadastro apenas permitido por Administradores ou Operadores:</div>
-        
-        
-        <div class="card">
-            <h1 class="titulo">Criar conta</h1>
+        <form th:action="@{/registrar}" th:object="${usuario}" method="post">
             
-            <form th:action="@{/registrar}" th:object="${user}" method="post">
-                
-                <div class="grupo">
-                    <label>Nome:</label>
-                    <input type="text" th:field="*{nome}" required />
-                </div>
-                
-                <div class="grupo">
-                    <label>E-mail:</label>
-                    <input type="text" th:field="*{nome}" required />
-                </div>
-                
-                <div class="grupo">
-                    <label>Senha:</label>
-                    <input type="password" th:field="*{senha}" required />
-                </div>
-                
-                <div>
-                    <button style="width:100%" type="submit" class="botaoenviar" id="botaologar">cadastrar</button>
-                </div>
-                
-                <div th:if="{erroServidor}"
-                     class="alert alert-danger"
-                     style="color: darkred ; background: salmon; padding: 12px; 
-                     border-radius: 6px; margin-bottom: 15px">
-                    <span th:text="${erroServidor}"> Erro padrão</span>
-                </div>              
-            </form>
-        </div>     
-    </body>
+            <div class="grupo">
+                <label>Nome:</label>
+                <input type="text" th:field="*{nome}" required>
+            </div>
+            
+            <div class="grupo">
+                <label>E-mail:</label>
+                <input type="email" th:field="*{email}" required>
+            </div>
+            <div class="grupo">
+                <label>Senha:</label>
+                <input type="password" th:field="*{senha}" required>
+            </div>
+            
+            <button style="width:100%" type="submit" class="botao">Cadastrar</button>
+            
+            <div th:if="${erro}" class="alert alert-danger" style="color:darkred;background:salmon;padding:12px;border-radius:6px;margin-top:15px">
+                <span th:text="${erro}">Erro</span>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
 </html>

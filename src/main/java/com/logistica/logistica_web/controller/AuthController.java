@@ -30,7 +30,7 @@ public class AuthController {
   
     @GetMapping("/") 
     public String home(){
-        return "login"; 
+        return "index"; 
     }
     
     @GetMapping("/login")

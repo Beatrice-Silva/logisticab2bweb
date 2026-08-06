@@ -10,10 +10,8 @@ import com.logistica.logistica_web.model.LojaDTO;
 import com.logistica.logistica_web.model.PacoteDTO;
 import com.logistica.logistica_web.model.UserRequestDTO;
 import com.logistica.logistica_web.model.UsuarioDTO;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import static javax.swing.text.html.HTML.Tag.BASE;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +19,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -32,7 +30,8 @@ import org.springframework.web.client.RestTemplate;
 public class ApiService {
     
     private final RestTemplate rest = new RestTemplate();
-    private final String BASE_URL = "http://localhost:8000";
+    private final String BASE = "http://localhost:8000";
+    
 
     
     public String login(UserRequestDTO cred){
@@ -41,7 +40,7 @@ public class ApiService {
     }
     
     public String registrar(UsuarioDTO user){
-        ResponseEntity<String> res = rest.postForEntity(BASE + "api/registrar" , user, String.class);
+        ResponseEntity<String> res = rest.postForEntity(BASE + "api/auth/registrar" , user, String.class);
         return res.getBody();
     }
     
@@ -75,10 +74,10 @@ public class ApiService {
         headers.setBearerAuth(token);
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Void> entity = new HttpEntity<> (headers);
-        rest.postForObject(BASE_URL + "api/auth/" + id + "/loja", entity, String.class); 
+        rest.postForObject(BASE + "api/auth/" + id + "/loja", entity, String.class); 
     
         
-        String url = BASE_URL + "/api/pacotes/" + id + "/status?novoStatus=" + novoStatus;
+        String url = BASE + "/api/pacotes/" + id + "/status?novoStatus=" + novoStatus;
         if(otp != null && !otp.isBlank()){
             url += "&otp=" + otp;
         }
@@ -94,7 +93,7 @@ public class ApiService {
         HttpEntity<Void> entity = new HttpEntity<> (headers);
         
         ResponseEntity<List<LojaDTO>> response = rest.exchange(
-            BASE_URL + "/api/loja",
+            BASE + "/api/loja",
                 HttpMethod.GET, 
                 entity,
                 new ParameterizedTypeReference<List<LojaDTO>>() {}
@@ -109,7 +108,7 @@ public class ApiService {
         HttpEntity<Void> entity = new HttpEntity<> (headers);
         
         ResponseEntity<List<UsuarioDTO>> response = rest.exchange(
-            BASE_URL + "/api/entregadore",
+            BASE + "/api/entregadore",
                 HttpMethod.GET, 
                 entity,
                 new ParameterizedTypeReference<List<UsuarioDTO>>() {}
@@ -122,7 +121,7 @@ public class ApiService {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         HttpEntity<LojaDTO> entity = new HttpEntity<> (loja, headers);
-        rest.postForObject(BASE_URL + "api/auth/cadastrar/loja", entity, AuthResponseDTO.class); 
+        rest.postForObject(BASE + "api/auth/cadastrar/loja", entity, AuthResponseDTO.class); 
     }
     
     
@@ -130,7 +129,7 @@ public class ApiService {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         HttpEntity<LojaDTO> entity = new HttpEntity<> (loja,headers);
-        rest.postForObject(BASE_URL + "api/auth/" + lojaId + "/loja", entity, String.class); 
+        rest.postForObject(BASE + "api/auth/" + lojaId + "/loja", entity, String.class); 
     }    
     
     

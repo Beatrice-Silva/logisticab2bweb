@@ -5,7 +5,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Listagem</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -148,16 +148,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </div>
         <table class="table">
            <tr>
-                <th>Id</th><th>Id Loja</th><th>Endereço</th><th>Status</th><th>Peso</th><th>Obs</th>
+               
+                <th>Estabelecimento</th>
+                <th>Contato</th>
+                
+                <th>Status</th>
+                <th>Peso</th>
+                <th>Observação</th>
+                
             </tr>
             <tr th:each="p : ${lista}">
-                <td th:text="${p.id}"></td>
-                <td th:text="${p.idLoja}"></td>
-                <td th:text="${p.endereco}"></td>
+
+                <td th:text="${p.nome_estabelecimento}"></td>
+                <td th:text="${p.contato_email}"></td>
+                
                 <td th:text="${p.statusAtual}"></td>
                 <td th:text="${p.peso}"></td>
                 <td th:text="${p.observDesc}"></td>
             </tr>
+            
         </table>
     </div>
 </div>

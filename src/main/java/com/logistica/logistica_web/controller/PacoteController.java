@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/pacotes")
-public class PacoteController {// pacotes
+public class PacoteController {
     
     @Autowired
     private ApiService apiService;

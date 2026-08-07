@@ -44,20 +44,27 @@ public class ApiService {
         return res.getBody();
     }
     
+    
+    
+    
+    
     public List<PacoteDTO> listarPacote(String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
         var entity = new HttpEntity<Void>(h);
-        var res = rest.exchange(BASE + "/api/pacotes", HttpMethod.GET, entity, new ParameterizedTypeReference<List<PacoteDTO>>(){});
+        var res = rest.exchange(BASE + "/api/pacotes/listar", HttpMethod.GET, entity, new ParameterizedTypeReference<List<PacoteDTO>>(){});
         return res.getBody();
     }
+    
+    
+    
     
    
     public void criarPacote(PacoteDTO dto, String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
-        // O BACK ESPERA loja.id
+
         Map body = Map.of(
             "enderecoDestino", dto.getEnderecoDestino(),
-            "descObserv", dto.getObservacao(),
+                "descObserv", dto.getObservacao(),
             "loja", Map.of("id", dto.getId_loja())
         );
         var entity = new HttpEntity<>(body, h);

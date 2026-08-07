@@ -10,20 +10,36 @@ package com.logistica.logistica_web.model;
  */
 public class LojaDTO {
     
-    private Long id;
+    private Long idLoja;
     private String nome_estabelecimento;
     private String cnpj;
     private Long id_usuario;
     private String contato_email;
+    private String codigoLon;
     private String cidade;
     private String endereco;
-    
+    private Boolean ativo = true;
+
+    public LojaDTO() {
+    }
+
+    public LojaDTO(Long id, String nome_estabelecimento, String cnpj, Long id_usuario, String contato_email, String codigoLon, String cidade, String endereco) {
+        this.idLoja = id;
+        this.nome_estabelecimento = nome_estabelecimento;
+        this.cnpj = cnpj;
+        this.id_usuario = id_usuario;
+        this.contato_email = contato_email;
+        this.codigoLon = codigoLon;
+        this.cidade = cidade;
+        this.endereco = endereco;
+    }
+
     public Long getId() {
-        return id;
+        return idLoja;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idLoja = idLoja;
     }
 
     public String getNome_estabelecimento() {
@@ -58,6 +74,14 @@ public class LojaDTO {
         this.contato_email = contato_email;
     }
 
+    public String getCodigoLon() {
+        return codigoLon;
+    }
+
+    public void setCodigoLon(String codigoLon) {
+        this.codigoLon = codigoLon;
+    }
+
     public String getCidade() {
         return cidade;
     }
@@ -73,4 +97,17 @@ public class LojaDTO {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+    
+    
+    
+    
+
 }

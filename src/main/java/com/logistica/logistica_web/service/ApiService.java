@@ -93,7 +93,7 @@ public class ApiService {
         HttpEntity<Void> entity = new HttpEntity<> (headers);
         
         ResponseEntity<List<LojaDTO>> response = rest.exchange(
-            BASE + "/api/loja",
+            BASE + "/loja",
                 HttpMethod.GET, 
                 entity,
                 new ParameterizedTypeReference<List<LojaDTO>>() {}

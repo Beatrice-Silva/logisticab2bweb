@@ -138,30 +138,57 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   <body>
 <div class="container">
     <div class="card" style="max-width:500px; margin:40px auto">
-        <h1 class="titulo">Criar conta</h1>
         
+        <div th:fragment="header">
+            
+            <a th:href="@{/login}" class="botao">Voltar</a>
+           
+            
+           
+            
+            
+        </div> 
+        <br>
+        <h1 class="titulo">Criar conta</h1>
+            
+        <p style="margin-top:16px">
+                     
+            <div style="
+                 background:lightgrey; padding:12px;border-radius:6px;margin-top:15px">
+           
+                <h4>Aviso!</h4>
+            É preciso que o cadastrador tenha permissão para a criação de
+            outras contas! Cadastrador deve conte 
+            função de Administrador ou Operador!     
+                
+            </div>
+            </p>
         <form th:action="@{/registrar}" th:object="${usuario}" method="post">
             
             <div class="grupo">
                 <label>Nome:</label>
-                <input type="text" th:field="*{nome}" required>
+                <input type="text" th:value="*{nome}" placeholder="nome" required>
             </div>
             
             <div class="grupo">
                 <label>E-mail:</label>
-                <input type="email" th:field="*{email}" required>
-            </div>
-            <div class="grupo">
-                <label>Senha:</label>
-                <input type="password" th:field="*{senha}" required>
+                <input type="email" th:value="*{email}" placeholder="nome123@gmail.com" required>
             </div>
             
-            <button style="width:100%" type="submit" class="botao">Cadastrar</button>
+            <div class="grupo">
+                <label>Senha:</label>
+                <input type="password" th:value="*{senha}" required>
+            </div>
+            
+            <button style="width:100%" type="submit"  class="botao">Cadastrar</button>
             
             <div th:if="${erro}" class="alert alert-danger" style="color:darkred;background:salmon;padding:12px;border-radius:6px;margin-top:15px">
                 <span th:text="${erro}">Erro</span>
             </div>
+        
         </form>
+        
+        
     </div>
 </div>
 </body>

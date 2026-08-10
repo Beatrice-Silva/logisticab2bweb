@@ -4,7 +4,7 @@
  */
 package com.logistica.logistica_web.service;
 
-import com.logistica.logistica_web.model.AuthResponseDTO;
+
 import com.logistica.logistica_web.model.LojaCountDTO;
 import com.logistica.logistica_web.model.LojaDTO;
 import com.logistica.logistica_web.model.PacoteDTO;
@@ -42,7 +42,15 @@ public class ApiService {
     public String registrar(UsuarioDTO user){
         ResponseEntity<String> res = rest.postForEntity(BASE + "api/auth/registrar" , user, String.class);
         return res.getBody();
+        
     }
+    
+     public void registrarPacote(Long lojaId, LojaDTO loja, String token){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<LojaDTO> entity = new HttpEntity<> (loja,headers);
+        rest.postForObject(BASE + "api/auth/" + lojaId + "/loja", entity, String.class); 
+    } 
     
     public List<PacoteDTO> listarPacote(String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
@@ -99,12 +107,7 @@ public class ApiService {
                 );
         return response.getBody();
     }
-    public void registrarPacote(Long lojaId, LojaDTO loja, String token){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        HttpEntity<LojaDTO> entity = new HttpEntity<> (loja,headers);
-        rest.postForObject(BASE + "api/auth/" + lojaId + "/loja", entity, String.class); 
-    }    
+    
     
     
     
@@ -157,6 +160,18 @@ public class ApiService {
         rest.exchange(BASE + "/api/lojas/" + id + "/arquivar", HttpMethod.PUT, entity, LojaDTO.class);
     }
     
+    public List<PacoteDTO> listarPacotesPorLoja(String token){
+        HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
+        var entity = new HttpEntity<Void>(h);
+        var res = rest.exchange(BASE + 
+                "/api/pacotes/listar/{id}", 
+                HttpMethod.GET, entity, 
+                new ParameterizedTypeReference<List<PacoteDTO>>(){});
+        
+        return res.getBody();
+    }
+    
+    /*
     public List<PacoteDTO> listarPacotesPorLoja(Long idLoja, String token) {
     return webClient.get()
         .uri("http://localhost:8080/api/pacotes/loja/" + idLoja)
@@ -165,8 +180,14 @@ public class ApiService {
         .bodyToFlux(PacoteDTO.class)
         .collectList()
         .block();
-}
+    }
     
+    
+    
+    
+    
+    
+    */
   
         
     

@@ -27,7 +27,7 @@ public class LojaDTO {
     public LojaDTO() {
     }
 
-    public LojaDTO(Long id, String nome_estabelecimento, String cnpj, Long id_usuario, String contato_email, String codigo_lon, String cidade, String endereco) {
+    public LojaDTO(Long idLoja, String nome_estabelecimento, String cnpj, Long id_usuario, String contato_email, String codigo_lon, String cidade, String endereco) {
         this.idLoja = idLoja;
         this.nome_estabelecimento = nome_estabelecimento;
         this.cnpj = cnpj;

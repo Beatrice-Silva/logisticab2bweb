@@ -28,8 +28,6 @@ public class LojaWebController {
 
     @Autowired
     private ApiService apiServ;
-    @Autowired
-    private LojaRepository apiServ;
 
     @GetMapping
     public String listar(HttpSession session, Model model) {
@@ -71,7 +69,6 @@ public class LojaWebController {
         String token = (String) session.getAttribute("token");
         if (token == null) return "redirect:/login";
 
-        // idLoja aqui É o id da loja sim
         LojaDTO loja = apiServ.listarLojas(token).stream()
                 .filter(l -> l.getIdLoja().equals(idLoja))
                 .findFirst().orElse(null);
@@ -80,9 +77,14 @@ public class LojaWebController {
         return "editarLoja";
     }
     
-    @GetMapping("/loja/{idLoja}")
-    public List<PacoteDTO> porLoja(@PathVariable Long idLoja) {
-    return lojaRepo.findByLojaId(idLoja); 
+    @GetMapping("/loja/{id}")
+    public String listarPacotesPorLoja(@PathVariable Long idLoja, HttpSession session, Model model) {
+        String token = (String) session.getAttribute("token");
+        
+        apiServ.listarPacotesPorLoja(token);
+        
+        model.addAttribute("lojaDTO", idLoja);
+        return "lojas"; 
     }
 
 

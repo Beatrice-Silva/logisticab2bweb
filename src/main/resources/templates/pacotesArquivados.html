@@ -136,36 +136,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style> 
     </head>
     <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    
+
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h3 class="titulo">Tabela de Pacotes</h3>
+    
+  </div>
+  <table class="table">
+    <tr>
         
-        <div th:replace="~{fragments/header :: header}"></div>
-        
-        
-        <div>remessas arquivadas seram excluidas após uma semana sem atualização</div>
-        
-        <h3>Tabela de Pacotes arquivadas</h3>
-        
-        <table>
-           <tr>
-                <th>Id</th>
-                <th>Id Loja</th>
-                <th>Endereço</th>
-                <th>Status atual</th>
-                <th>Peso</th>
-                <th>Observação</th>
-            </tr>
-            
-            <tr th:each="p : ${lista}">
-                
-                <td th:text="${p.id}"></td>
-                <td th:text="${p.idLoja}"></td>
-                <td th:text="${p.endereco}"></td>
-                <td th:text="${p.statusAtual}"></td>
-                <td th:text="${p.peso}"></td>
-                <td th:text="${p.observacao}"></td>
-            </tr>
-            
-        </table>
-        
-        
-    </body>
+      <th>Código</th>
+      <th>Estabelecimento</th>
+      <th>Destino</th>
+      <th>Contato</th>
+      <th>Status</th>
+      <th>Observação</th>
+      
+    </tr>
+    
+    <tr th:each="p : ${pacotes}">
+      <td th:text="${p.codigoRastreio}"></td>
+      <td th:text="${p.enderecoDestino}"></td>
+     <td th:text="${p.loja != null ? p.loja.nome_estabelecimento : '-'}"></td>
+     <td th:text="${p.statusAtual == 'CANCELADO'}"></td>
+     <td th:text="${p.emailDestinatario}"></td>
+      <td th:text="${p.descObserv}"></td>
+    </tr>
+    
+  </table>
+</div>
+</div>
+</body>
 </html>

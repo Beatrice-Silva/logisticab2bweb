@@ -52,11 +52,7 @@ public class PacoteController {
         apiService.criarPacote(pacoteDTO, token);
         return "redirect:/pacotes";
     }
-/*
-    org.springframework.expression.spel.SpelParseException: 
-    Expression [counts?.'Em transito' ?: 0] @6: EL1049E:
-    Unexpected data after '.': ''Em transito''
-	*/
+
     @GetMapping("/rastrear")
     public String rastrearPage() {
         return "rastrearServico"; 
@@ -79,11 +75,10 @@ public class PacoteController {
     String token = (String) session.getAttribute("token");
     if (token == null) return "redirect:/login";
 
-    model.addAttribute("pacotes", apiService.listarPacotesPorLoja(id, token));
+    model.addAttribute("pacotes", apiService.listarPacotesPorLoja(token));
     model.addAttribute("lojaId", id);
-    return "pacotes"; // reaproveita sua tabela de pacotes, mas só com os da loja
+    return "pacotes"; 
 }
-
 /*
     @PostMapping("/{id}/status")
     public String atualizarStatus(@PathVariable Long id, 

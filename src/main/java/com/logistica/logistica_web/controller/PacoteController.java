@@ -73,6 +73,17 @@ public class PacoteController {
             return "rastrearServico";
         }
     }
+    
+    @GetMapping("/loja/{id}")
+    public String pacotesDaLoja(@PathVariable Long id, HttpSession session, Model model) {
+    String token = (String) session.getAttribute("token");
+    if (token == null) return "redirect:/login";
+
+    model.addAttribute("pacotes", apiService.listarPacotesPorLoja(id, token));
+    model.addAttribute("lojaId", id);
+    return "pacotes"; // reaproveita sua tabela de pacotes, mas só com os da loja
+}
+
 /*
     @PostMapping("/{id}/status")
     public String atualizarStatus(@PathVariable Long id, 

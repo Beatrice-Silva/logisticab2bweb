@@ -134,35 +134,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     </head>
-    <!-- Pagina com foco em criacao e salvamento de lojas -->
+
   <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
-    <div class="card">
-        <h1 class="titulo">Cadastrar estabelecimento</h1>
-        
-        <form th:action="@{/lojas/criar}" method="post">
-            
-            <div class="grupo"><label>Nome da loja</label>
-                <input type="text" name="nomeEstabelecimento" required>
-            </div>
-            
-            <div class="grupo"><label>CNPJ</label>
-                <input type="text" name="cnpj" required>
-            </div>
-            
-            <div class="grupo"><label>Contato E-mail</label>
-                <input type="email" name="contatoEmail" required>
-            </div>
-            
-            <div class="grupo"><label>Cidade</label>
-                <input type="text" name="cidade" required>
-            </div>
-            <div class="grupo"><label>Endereço</label><input type="text" name="endereco" required></div>
-            <div class="grupo"><label>Código LON</label><input type="text" name="codigoLon" required></div>
-            <button type="submit" class="botao">Criar Loja</button>
-        </form>
-    </div>
+  <div class="card">
+    <h1 class="titulo">Cadastrar estabelecimento</h1>
+    <form th:action="@{/lojas/nova}" th:object="${lojaDTO}" method="post">
+      <div class="grupo"><label>Nome da loja</label>
+        <input type="text" th:field="*{nome_estabelecimento}" required>
+      </div>
+      <div class="grupo"><label>CNPJ</label>
+        <input type="text" th:field="*{cnpj}" required>
+      </div>
+      <div class="grupo"><label>Contato E-mail</label>
+        <input type="email" th:field="*{contato_email}" required>
+      </div>
+      <div class="grupo"><label>Cidade</label>
+        <input type="text" th:field="*{cidade}" required>
+      </div>
+      <div class="grupo"><label>Endereço</label>
+        <input type="text" th:field="*{endereco}" required>
+      </div>
+     <button type="submit" class="botao">Criar Loja</button>
+    </form>
+  </div>
 </div>
 </body>
 </html>

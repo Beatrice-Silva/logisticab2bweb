@@ -44,28 +44,20 @@ public class ApiService {
         return res.getBody();
     }
     
-    
-    
-    
-    
     public List<PacoteDTO> listarPacote(String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
         var entity = new HttpEntity<Void>(h);
         var res = rest.exchange(BASE + "/api/pacotes/listar", HttpMethod.GET, entity, new ParameterizedTypeReference<List<PacoteDTO>>(){});
         return res.getBody();
     }
-    
-    
-    
-    
-   
+
     public void criarPacote(PacoteDTO dto, String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
 
         Map body = Map.of(
             "enderecoDestino", dto.getEnderecoDestino(),
-                "descObserv", dto.getObservacao(),
-            "loja", Map.of("id", dto.getId_loja())
+                "descObserv", dto.getDescObserv(),
+            "loja", Map.of("id", dto.getLoja())
         );
         var entity = new HttpEntity<>(body, h);
         rest.postForEntity(BASE + "/api/pacotes/registrar", entity, String.class);
@@ -91,22 +83,7 @@ public class ApiService {
         
         ResponseEntity<PacoteDTO> resp = rest.exchange(url, HttpMethod.PUT, entity, PacoteDTO.class);
         return resp.getBody();
-      }  
-
-    public List<LojaDTO> listarLojas(String token){
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        HttpEntity<Void> entity = new HttpEntity<> (headers);
-        
-        ResponseEntity<List<LojaDTO>> response = rest.exchange(
-            BASE + "/loja",
-                HttpMethod.GET, 
-                entity,
-                new ParameterizedTypeReference<List<LojaDTO>>() {}
-                );
-        return response.getBody();
-    }
+      }
     
     public List<UsuarioDTO> listarEntregadores(UsuarioDTO user, String token){
         
@@ -122,16 +99,6 @@ public class ApiService {
                 );
         return response.getBody();
     }
-  
-    public void criarLoja(LojaDTO loja, String token){
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        HttpEntity<LojaDTO> entity = new HttpEntity<> (loja, headers);
-        rest.postForObject(BASE + "api/auth/cadastrar/loja", entity, AuthResponseDTO.class); 
-    }
-    
-    
     public void registrarPacote(Long lojaId, LojaDTO loja, String token){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
@@ -154,6 +121,51 @@ public class ApiService {
         var res = rest.exchange(BASE + "/api/pacotes/por-loja", HttpMethod.GET, entity, new ParameterizedTypeReference<List<LojaCountDTO>>(){});
         return res.getBody();
     }
+    
+     private HttpHeaders headers(String token){
+        HttpHeaders h = new HttpHeaders();
+        h.setBearerAuth(token.replace("Bearer ",""));
+        h.setContentType(MediaType.APPLICATION_JSON);
+        return h;
+    }
+
+    
+    public List<LojaDTO> listarLojas(String token){
+        var entity = new HttpEntity<Void>(headers(token));
+        var res = rest.exchange(BASE + "/api/lojas", HttpMethod.GET, entity, new ParameterizedTypeReference<List<LojaDTO>>(){});
+        return res.getBody();
+    }
+
+    public List<LojaDTO> listarAtivas(String token){
+        var entity = new HttpEntity<Void>(headers(token));
+        var res = rest.exchange(BASE + "/api/lojas/ativas", HttpMethod.GET, entity, new ParameterizedTypeReference<List<LojaDTO>>(){});
+        return res.getBody();
+    }
+
+    public void criarLoja(LojaDTO dto, String token){
+        var entity = new HttpEntity<>(dto, headers(token));
+        rest.postForObject(BASE + "/api/lojas", entity, LojaDTO.class);
+    }
+
+    public void editarLoja(Long id, LojaDTO dto, String token){
+        var entity = new HttpEntity<>(dto, headers(token));
+        rest.exchange(BASE + "/api/lojas/" + id, HttpMethod.PUT, entity, LojaDTO.class);
+    }
+
+    public void arquivarLoja(Long id, String token){
+        var entity = new HttpEntity<Void>(headers(token));
+        rest.exchange(BASE + "/api/lojas/" + id + "/arquivar", HttpMethod.PUT, entity, LojaDTO.class);
+    }
+    
+    public List<PacoteDTO> listarPacotesPorLoja(Long idLoja, String token) {
+    return webClient.get()
+        .uri("http://localhost:8080/api/pacotes/loja/" + idLoja)
+        .header("Authorization", "Bearer " + token)
+        .retrieve()
+        .bodyToFlux(PacoteDTO.class)
+        .collectList()
+        .block();
+}
     
   
         

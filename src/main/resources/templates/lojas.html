@@ -140,34 +140,41 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <!-- Clique em loja específica de tabela pode levar a-->
-                <h3>Tabela de Lojas cadastradas</h3>
-        
-    <div th:replace="~{fragments/header :: header}"></div>
-    <div class="container">
-    <div class="card">
+    <h3>Tabela de Lojas cadastradas</h3>
+
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+  <div class="card">
     <table class="table">
+      <thead>
         <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Cnpj</th>
-            <th>Id Operador</th>
-            <th>Contato</th>
-            <th>Cidade</th>
-            <th>Endereço</th>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>Cnpj</th>
+          <th>Id Operador</th>
+          <th>Contato</th>
+          <th>Cidade</th>
+          <th>Endereço</th>
+          
         </tr>
-        <tr th:each="e : ${lista}">
-            <td th:text="${e.id}"></td>
-            <td th:text="${e.nomeEstabelecimento}"></td>
-            <td th:text="${e.cnpj}"></td>
-            <td th:text="${e.idUsuario}"></td>
-            <td th:text="${e.contatoEmail}"></td>
-            <td th:text="${e.cidade}"></td>
-            <td th:text="${e.endereco}"></td>
+      </thead>
+      <tbody>
+        <tr th:each="e : ${lojas}">
+          <td th:text="${e.idLoja}"></td>
+          <td>
+            <a th:href="@{/pacotes/loja/{id}(id=${e.idLoja})}" th:text="${e.nome_estabelecimento}"></a>
+          </td>
+          <td th:text="${e.cnpj}"></td>
+          <td th:text="${e.id_usuario}"></td>
+          <td th:text="${e.contato_email}"></td>
+          <td th:text="${e.cidade}"></td>
+          <td th:text="${e.endereco}"></td>
+       
         </tr>
+      </tbody>
     </table>
-        
-    </div>
-    </div>
+  </div>
+</div>
                 
     </body>
 </html>

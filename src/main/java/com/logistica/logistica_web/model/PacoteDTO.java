@@ -13,46 +13,34 @@ import java.time.LocalDateTime;
 
 public class PacoteDTO {
     
-    private Long id_loja;
-
+    private Long id;
     private String codigoRastreio;
-    private Long loja;
+    private LojaDTO loja; // objeto
     private String enderecoDestino;
-    private Enum statusAtual;
+    private String statusAtual; // String, não Enum
     private String emailDestinatario;
-    private String otpCodigo;
-    private LocalDateTime otpExpira;
-    private String Observacao;
-    private LocalDateTime otp_expira;
-    
+    private String descObserv;
 
     public PacoteDTO() {
     }
 
-    public PacoteDTO(Long id_loja, String codigoRastreio, Long loja, String enderecoDestino, Enum statusAtual, String emailDestinatario, String otpCodigo, LocalDateTime otpExpira, String Observacao, LocalDateTime otp_expira) {
-        this.id_loja = id_loja;
+    public PacoteDTO(Long id, String codigoRastreio, LojaDTO loja, String enderecoDestino, String statusAtual, String emailDestinatario, String descObserv) {
+        this.id = id;
         this.codigoRastreio = codigoRastreio;
         this.loja = loja;
         this.enderecoDestino = enderecoDestino;
         this.statusAtual = statusAtual;
         this.emailDestinatario = emailDestinatario;
-        this.otpCodigo = otpCodigo;
-        this.otpExpira = otpExpira;
-        this.Observacao = Observacao;
-        this.otp_expira = otp_expira;
+        this.descObserv = descObserv;
     }
 
-    
-    
-    public Long getId_loja() {
-        return id_loja;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_loja(Long id_loja) {
-        this.id_loja = id_loja;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    
 
     public String getCodigoRastreio() {
         return codigoRastreio;
@@ -62,11 +50,11 @@ public class PacoteDTO {
         this.codigoRastreio = codigoRastreio;
     }
 
-    public Long getLoja() {
+    public LojaDTO getLoja() {
         return loja;
     }
 
-    public void setLoja(Long loja) {
+    public void setLoja(LojaDTO loja) {
         this.loja = loja;
     }
 
@@ -78,11 +66,11 @@ public class PacoteDTO {
         this.enderecoDestino = enderecoDestino;
     }
 
-    public Enum getStatusAtual() {
+    public String getStatusAtual() {
         return statusAtual;
     }
 
-    public void setStatusAtual(Enum statusAtual) {
+    public void setStatusAtual(String statusAtual) {
         this.statusAtual = statusAtual;
     }
 
@@ -94,38 +82,15 @@ public class PacoteDTO {
         this.emailDestinatario = emailDestinatario;
     }
 
-    public String getOtpCodigo() {
-        return otpCodigo;
+    public String getDescObserv() {
+        return descObserv;
     }
 
-    public void setOtpCodigo(String otpCodigo) {
-        this.otpCodigo = otpCodigo;
-    }
-
-    public LocalDateTime getOtpExpira() {
-        return otpExpira;
-    }
-
-    public void setOtpExpira(LocalDateTime otpExpira) {
-        this.otpExpira = otpExpira;
-    }
-
-    public String getObservacao() {
-        return Observacao;
-    }
-
-    public void setObservacao(String Observacao) {
-        this.Observacao = Observacao;
-    }
-
-    public LocalDateTime getOtp_expira() {
-        return otp_expira;
-    }
-
-    public void setOtp_expira(LocalDateTime otp_expira) {
-        this.otp_expira = otp_expira;
+    public void setDescObserv(String descObserv) {
+        this.descObserv = descObserv;
     }
     
+
     
     
 }

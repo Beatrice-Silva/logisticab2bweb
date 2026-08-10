@@ -137,35 +137,28 @@ body {
 }
             </style>
 </head>
-   
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="header">
-<nav>
-  
-  
-    <nav>
-  <div>
-    <a th:href="@{/pacotes}">Pacotes</a>
-    <a th:href="@{/lojas}">Lojas</a>
-  </div>
-  <div>
-    <a th:href="@{/pacotes/novo}">Nova Remessa</a>
-    <a th:href="@{/lojas/nova}">Nova Loja</a>
-    <a th:href="@{/registrar}">Cadastro Usuário</a>
-  </div>
-       
-</nav>
+
+<body>
+   <html xmlns:th="http://www.thymeleaf.org">
+        <div th:fragment="header">
+        <nav class="d-flex justify-content-between p-3">
+            <div> 
+                <a th:href="@{/pacotes}">Pacotes</a> |
+                <a th:href="@{/lojas}">Lojas</a> |
+                <a th:href="@{/lojas/arquivadas}">Arquivadas</a>
+            </div>
+            <div>
+                <a th:href="@{/pacotes/novo}">Nova Remessa</a> |
+                <a th:href="@{/lojas/nova}">Nova Loja</a>
+            </div>
+            <div>
+            <a th:href="@{/login}"><button class="btn-sair">Deslogar</button></a>
+            </div>
+            </nav>
+        </div> 
+</body>
     
-    <nav class="d-flex justify-content-center-between p-3 bg-secondarys">
-        
-          <a th:href="@{/login}">
-              <button class="btn-sair">Deslogar</button>
-          </a>
-        
-    </nav>
-    
-    
-    </div>
+
     <!--
       <th if role='FORNECEDOR'>
       

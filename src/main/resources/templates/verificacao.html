@@ -1,158 +1,46 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html xlmns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Verificação de acesso público</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <style>
-    * { 
-        margin:0; 
-        padding:0; 
-        box-sizing:border-box; 
-        font-family:'Segoe UI', Arial, sans-serif; 
-    }
-    body {
-        background:#F5F7FA; 
-        color:#1E293B; 
-        min-height:100vh; 
-    }
-    
-    nav { 
-        background:#1E3A8A; 
-        padding:16px 32px; 
-        display:flex; 
-        justify-content:space-between; 
-        align-items:center; 
-    }
-    nav a { 
-        color:white; 
-        text-decoration:none; 
-        margin-right:24px; 
-        font-weight:500; 
-    }
-    nav a:hover { 
-        color:#FF6B00; 
-    }
-    .btn-sair { 
-        background:#FF6B00; 
-        color:white; border:none; 
-        padding:8px 16px; 
-        border-radius:4px; 
-        cursor:pointer; 
-        font-weight:bold; 
-    }
-    .container { 
-        max-width:1100px; 
-        margin:32px auto; 
-        padding:0 16px; 
-    }
-    .card { 
-        background:white; 
-        padding:24px; 
-        border-radius:8px; 
-        box-shadow:0 2px 6px rgba(0,0,0,0.08); 
-        border-left:4px solid #1E3A8A; 
-        margin-bottom:20px; 
-        
-       
-    }
-    
-    .card-login { 
-        max-width:420px; 
-        margin:80px auto; 
-        text-align:center; 
-        border-left:none; 
-    }
-    .titulo { 
-        font-size:22px; 
-        color:#1E3A8A; 
-        margin-bottom:24px; 
-        font-weight:bold; 
-    }
-    .grupo { 
-        text-align:left; 
-        margin-bottom:16px; 
-    }
-    .grupo label { 
-        display:block; 
-        margin-bottom:6px;
-        font-weight:600; 
-        font-size:14px; 
-    }
-    .grupo input, .grupo select { 
-        width:100%; 
-        padding:12px; 
-        border:1px solid #CBD5E1; 
-        border-radius:4px; 
-        font-size:15px; 
-    }
-    .botao { 
-        width:100%; 
-        padding:12px; 
-        background:#1E3A8A; 
-        color:white; border:none; 
-        border-radius:4px; 
-        font-weight:bold; 
-        font-size:16px; 
-        cursor:pointer; 
-        margin-top:12px; 
-    }
-    .botao:hover { 
-        background:#152a65; 
-    }
-    .botao-laranja { 
-        background:#FF6B00; 
-    }
-    .botao-laranja:hover { 
-        background:#d95800; 
-    }
-    .grid { 
-        display:grid; 
-        grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); 
-        gap:20px; }
-    .badge { 
-        padding:4px 10px; 
-        border-radius:12px; 
-        font-size:12px; 
-        font-weight:bold; 
-    }
-    .badge-azul { 
-        background:#DBEAFE; 
-        color:#1E40AF; 
-    }
-    .badge-laranja { 
-        background:#FFEDD5; 
-        color:#C2410C; 
-    }
-    .badge-verde { 
-        background:#D1FAE5; 
-        color:#065F46; 
-    }
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Verificação de acesso público</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background:#F5F7FA; min-height:100vh; display:flex; align-items:center; justify-content:center; font-family:'Segoe UI', Arial, sans-serif; }
+        .card-login { max-width:440px; width:100%; background:white; padding:32px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border-left:4px solid #1E3A8A; }
+        .titulo { font-size:20px; color:#1E3A8A; font-weight:bold; margin-bottom:8px; }
+        .grupo label { display:block; margin-bottom:6px; font-weight:600; font-size:14px; color:#1E293B; }
+        .grupo input { width:100%; padding:12px; border:1px solid #CBD5E1; border-radius:6px; }
+        .botao { width:100%; padding:12px; background:#1E3A8A; color:white; border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:16px; }
+        .botao:hover { background:#152a65; }
+        .botao-laranja { background:#FF6B00; }
     </style>
-       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
- 
-    </head>
-    <body>
+</head>
+<body>
+    <div class="card-login">
+        <div class="text-center mb-3">
+            <div style="background:#DBEAFE; width:48px; height:48px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; color:#1E3A8A; font-size:22px">📦</div>
+        </div>
+        <div class="titulo text-center">Acompanhamento público</div>
+        <p class="text-muted small text-center mb-4">Informe o código LON fornecido pela plataforma para rastrear sua remessa.</p>
         
-        <div class="card card-"></div>
-        <form th:action="@{/verificacao}" method="post">
-            
-            <div>Para fazer o acompanhamento do rastreio de uma remessa
-                é preciso que informe a seguir o código LON fornecido pela plataforma.</div>
-            
-            
-            <div class="grupo"><label>Código LON:</label>    
-            <input type=password name="codigoLON" required></div>
-            <br>
+         <form th:action="@{/pacotes/rastrear}" method="post">
+            <div class="grupo">
+                <label>Código LON:</label>    
+                <input type="text" name="codigo" placeholder="Ex: LON-92831" required>
+            </div>
+            <button type="submit" class="botao botao-laranja">Verificar código de acesso</button>
         </form>
-        <button class="botao">Verificar código de acesso</button>
-        
-        <div>Entre em contato sobre suas dúvidas atrvés do EntreExpres@gmail.com </div>
-        
-    </body>
+
+        <div th:if="${erro}" class="alert alert-danger mt-3 small" th:text="${erro}"></div>
+        <div th:if="${pacote != null}" class="alert alert-success mt-3 small">
+            <b th:text="${pacote.codigoRastreio}"></b> - <span th:text="${pacote.statusAtual}"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <small class="text-muted">Dúvidas? EntreExpres@gmail.com</small><br>
+            <a th:href="@{/login}" class="small" style="color:#1E3A8A; text-decoration:none">Voltar ao login</a>
+        </div>
+    </div>
+</body>
 </html>

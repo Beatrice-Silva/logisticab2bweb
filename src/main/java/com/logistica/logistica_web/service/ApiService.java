@@ -76,6 +76,7 @@ public class ApiService {
         return rest.getForObject(BASE + "/api/pacotes/" + codigo, PacoteDTO.class);
     }
     
+  
       public PacoteDTO atualizarStatus(Long id, String novoStatus, String otp, String token){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);

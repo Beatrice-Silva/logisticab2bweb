@@ -34,7 +34,7 @@ public class AuthController {
         return "redirect:/dashboard";
     }
         model.addAttribute("credenciais", new UserRequestDTO());
-        return "login"; // 
+        return "index";  
     }
     
     @GetMapping("/login")
@@ -56,8 +56,7 @@ public class AuthController {
         }
     }
     
-    @GetMapping("/registrar"
-            + "") 
+    @GetMapping("/registrar") 
     public String cadastrar(Model model){
         model.addAttribute("usuario",new UsuarioDTO());
         return "cadastro"; 

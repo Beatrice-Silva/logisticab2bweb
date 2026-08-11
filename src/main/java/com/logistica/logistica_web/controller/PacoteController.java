@@ -53,12 +53,12 @@ public class PacoteController {
         return "redirect:/pacotes";
     }
 
-    @GetMapping("/rastrear")
+    @GetMapping("/rastrear") //rastrear servico
     public String rastrearPage() {
         return "rastrearServico"; 
     }
  
-    @PostMapping("/rastrear")
+    @PostMapping("/rastrear")//buscar codigo
     public String rastrear(@RequestParam String codigo, Model model) {
         try {
             model.addAttribute("pacote", apiService.rastrear(codigo));

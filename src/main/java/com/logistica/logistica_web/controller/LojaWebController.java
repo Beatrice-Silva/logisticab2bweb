@@ -5,10 +5,10 @@
 package com.logistica.logistica_web.controller;
 
 import com.logistica.logistica_web.model.LojaDTO;
-import com.logistica.logistica_web.model.PacoteDTO;
+
 import com.logistica.logistica_web.service.ApiService;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,10 +33,30 @@ public class LojaWebController {
     public String listar(HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");
         if (token == null) return "redirect:/login";
-
         model.addAttribute("lojas", apiServ.listarLojas(token));
         return "lojas";
     }
+    
+    @GetMapping("/listar/desativas")
+    public String listarDesativadas(HttpSession session, Model model) {
+        String token = (String) session.getAttribute("token");
+        if (token == null) return "redirect:/login";
+        model.addAttribute("lojas", apiServ.listarLojas(token));
+        return "lojasDesativadas";
+    }
+
+    @GetMapping("/listar/{idLoja}")
+    public String listarPorId(@PathVariable Long idLoja, HttpSession session, Model model){
+        
+        String token = (String) session.getAttribute("token");
+        
+        if (token == null) return "redirect:/login";
+        model.addAttribute("lojas", apiServ.listarLojas(token));
+        
+        return "lojas";
+    }
+   
+    
 
     @GetMapping("/nova")
     public String nova(HttpSession session, Model model) {
@@ -49,7 +69,7 @@ public class LojaWebController {
 
     @PostMapping("/nova")
     public String salvar(@ModelAttribute LojaDTO dto, HttpSession session, Model model) {
-        String token = (String) session.getAttribute("token"); // FALTAVA ISSO, por isso token não inicializado
+        String token = (String) session.getAttribute("token"); 
         if (token == null) return "redirect:/login";
 
         try {

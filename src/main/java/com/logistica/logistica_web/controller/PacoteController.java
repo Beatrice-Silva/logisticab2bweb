@@ -29,7 +29,23 @@ public class PacoteController {
     
     @Autowired
     private ApiService apiService;
+    
 
+    @GetMapping("/novo")
+    public String novoForm(Model model, HttpSession session) {
+        if (session.getAttribute("token") == null) return "redirect:/auth/login";
+        model.addAttribute("pacoteDTO", new PacoteDTO());
+        return "criarpacote";
+    }
+    
+    
+
+    @PostMapping("/novo")
+    public String criar(@ModelAttribute PacoteDTO pacoteDTO, HttpSession session) {
+        String token = (String) session.getAttribute("token");
+        apiService.criarPacote(pacoteDTO, token);
+        return "redirect:/pacotes";
+    }
     
     @GetMapping
     public String listar(HttpSession session, Model model) {
@@ -38,38 +54,37 @@ public class PacoteController {
         model.addAttribute("pacotes", apiService.listarPacote(token));
         return "pacotes";
     }
-
-    @GetMapping("/novo")
-    public String novoForm(Model model, HttpSession session) {
-        if (session.getAttribute("token") == null) return "redirect:/auth/login";
-        model.addAttribute("pacoteDTO", new PacoteDTO());
-        return "criarpacote";
-    }
-
-    @PostMapping("/novo")
-    public String criar(@ModelAttribute PacoteDTO pacoteDTO, HttpSession session) {
-        String token = (String) session.getAttribute("token");
-        apiService.criarPacote(pacoteDTO, token);
-        return "redirect:/pacotes";
-    }
-
-    @GetMapping("/rastrear") //rastrear servico
-    public String rastrearPage() {
-        return "rastrearServico"; 
-    }
+    
  
-    @PostMapping("/rastrear")//buscar codigo
-    public String rastrear(@RequestParam String codigo, Model model) {
+    @PostMapping("/rastrear/{codigo}")
+    public String rastrear(
+            @PathVariable String codigo, 
+            Model model) {
+       
         try {
             model.addAttribute("pacote", apiService.rastrear(codigo));
             return "verificacao";
             
         } catch (Exception e) {
             model.addAttribute("erro", "Pacote não encontrado: " + codigo);
-            return "rastrearServico";
+            return "rastrear";
         }
     }
     
+    @GetMapping("/public/rastreio/{codigo}")
+    public String rastreioPublico(
+            @PathVariable String codigo, 
+            Model model){
+         try {
+            model.addAttribute("pacote", apiService.rastrear(codigo));
+            return "verificacao";
+            
+        } catch (Exception e) {
+            model.addAttribute("erro", "Pacote não encontrado: " + codigo);
+            return "rastrear";
+        }
+    }
+
     @GetMapping("/loja/{id}")
     public String pacotesDaLoja(@PathVariable Long id, HttpSession session, Model model) {
     String token = (String) session.getAttribute("token");
@@ -79,16 +94,17 @@ public class PacoteController {
     model.addAttribute("lojaId", id);
     return "pacotes"; 
 }
-/*
+
     @PostMapping("/{id}/status")
     public String atualizarStatus(@PathVariable Long id, 
-            @RequestParam String novoStatus,                                         @RequestParam(required = false) String otp, 
+            @RequestParam String novoStatus,                                         
+            @RequestParam(required = false) String otp, 
             HttpSession session) {
         String token = (String)session.getAttribute("token");
         apiService.atualizarStatus(id, novoStatus, otp, token);
         return "redirect:/pacotes";
     }
-*/
+
 }
 
 

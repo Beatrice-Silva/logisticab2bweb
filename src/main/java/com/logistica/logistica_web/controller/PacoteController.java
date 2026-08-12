@@ -30,7 +30,14 @@ public class PacoteController {
     @Autowired
     private ApiService apiService;
     
-
+    @GetMapping
+    public String listar(HttpSession session, Model model) {
+        String token = (String) session.getAttribute("token");
+        if (token == null) return "redirect:/login";
+        model.addAttribute("pacotes", apiService.listarPacote(token));
+        return "pacotes";
+    }
+    
     @GetMapping("/novo")
     public String novoForm(Model model, HttpSession session) {
         if (session.getAttribute("token") == null) return "redirect:/auth/login";
@@ -46,42 +53,20 @@ public class PacoteController {
         apiService.criarPacote(pacoteDTO, token);
         return "redirect:/pacotes";
     }
-    
-    @GetMapping
-    public String listar(HttpSession session, Model model) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) return "redirect:/login";
-        model.addAttribute("pacotes", apiService.listarPacote(token));
-        return "pacotes";
+   
+  @GetMapping("/rastrear")
+    public String rastrearPage(){
+        return "rastrearServico"; 
     }
-    
- 
-    @PostMapping("/rastrear/{codigo}")
-    public String rastrear(
-            @PathVariable String codigo, 
-            Model model) {
-       
+
+    @PostMapping("/rastrear")
+    public String rastrear(@RequestParam String codigo, Model model){
         try {
             model.addAttribute("pacote", apiService.rastrear(codigo));
             return "verificacao";
-            
         } catch (Exception e) {
             model.addAttribute("erro", "Pacote não encontrado: " + codigo);
-            return "rastrear";
-        }
-    }
-    
-    @GetMapping("/public/rastreio/{codigo}")
-    public String rastreioPublico(
-            @PathVariable String codigo, 
-            Model model){
-         try {
-            model.addAttribute("pacote", apiService.rastrear(codigo));
-            return "verificacao";
-            
-        } catch (Exception e) {
-            model.addAttribute("erro", "Pacote não encontrado: " + codigo);
-            return "rastrear";
+            return "rastrearServico";
         }
     }
 
@@ -90,7 +75,7 @@ public class PacoteController {
     String token = (String) session.getAttribute("token");
     if (token == null) return "redirect:/login";
 
-    model.addAttribute("pacotes", apiService.listarPacotesPorLoja(token));
+    model.addAttribute("pacotes", apiService.listarPacotesPorLoja(id, token));
     model.addAttribute("lojaId", id);
     return "pacotes"; 
 }

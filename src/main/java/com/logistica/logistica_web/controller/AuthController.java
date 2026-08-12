@@ -9,6 +9,8 @@ import com.logistica.logistica_web.model.UsuarioDTO;
 import com.logistica.logistica_web.service.ApiService;
 
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,15 +29,14 @@ public class AuthController {
     
     @Autowired
      private ApiService apiService;
-  
-    @GetMapping("/") 
-    public String home(HttpSession session, Model model){
-       if(session.getAttribute("token") != null){
-        return "redirect:/dashboard";
-    }
-        model.addAttribute("credenciais", new UserRequestDTO());
-        return "index";  
-    }
+  @GetMapping({"/", "/index"})
+public String home(HttpSession session, Model model){
+   if(session.getAttribute("token") != null){
+       return "redirect:/dashboard";
+   }
+   model.addAttribute("credenciais", new UserRequestDTO());
+   return "index";  
+}
     
     @GetMapping("/login")
     public String login(
@@ -78,8 +79,13 @@ public class AuthController {
     public String dashboard(HttpSession session, Model model){
         String token = (String) session.getAttribute("token");
         if(token == null) return "redirect:/login";
+        try{
         model.addAttribute("counts", apiService.getCounts(token));
         model.addAttribute("porLoja", apiService.contarPorLoja(token));
+    }catch(Exception e){
+        model.addAttribute("counts", Map.of());
+        model.addAttribute("porLoja", List.of());
+    }
         return "dashboard";
     }
 

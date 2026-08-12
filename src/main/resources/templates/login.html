@@ -17,16 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         box-sizing:border-box; 
         font-family:'Segoe UI', Arial, sans-serif; 
     }
-    body {
-    min-height:100vh; background: linear-gradient(135deg, #1e2a5e 0%, #2a4ab7 100%); display:flex; align-items:center; justify-content:center; padding:20px}
-    .card-login{max-width:440px; width:100%; border:0; border-radius:24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2)}
-    .btn-orange{background:#f97316; color:#fff; font-weight:700; padding:12px; border-radius:12px}
-    .btn-orange:hover{background:#ea580c; color:#fff}
-    .input-group-text{background:#f8fafc; border-right:0}
-    .form-control{border-left:0; padding:12px}
-    .form-control:focus{box-shadow:none; border-color:#dee2e6} 
-    
-    
+
     nav { 
         background:#1E3A8A; 
         padding:16px 32px; 
@@ -141,52 +132,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     
 <body>
 
-<div class="card card-login">
-  <div class="card-body p-4 p-md-5">
-    <!-- LOGO -->
-    <div class="text-center mb-4">
-      <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-3 p-3 mb-3" style="width:56px;height:56px">
-        <i class="bi bi-box-seam fs-3" style="color:#1e2a5e"></i>
-      </div>
-      <h3 class="fw-bold mb-1" style="color:#1e2a5e">LogisticaWeb</h3>
-      <p class="text-muted small">Sistema logístico de rastreamento</p>
-    </div>
+    <div class="card card-login">
+        <h1 class="titulo">Sistema Logístico de rastreamento</h1>
+  
+       
+        <form th:action="@{/logar}" th:object="${credenciais}" method="post">
+            <div class="grupo">
+                <label>E-mail:</label>
+                <input type="email" th:field="*{email}" class="campo" placeholder="admin@logistica.com" required>
+            </div>
+            <div class="grupo">
+                <label>Senha:</label>
+                <input type="password" th:field="*{senha}" class="campo" placeholder="admin123" required>
+            </div>
+            <button style="width:100%" type="submit" class="botao">Logar</button>
+        </form>
 
-    <form th:action="@{/logar}" th:object="${credenciais}" method="post">
-      <div class="mb-3">
-        <label class="form-label small fw-semibold">E-mail</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-          <input type="email" th:field="*{email}" class="form-control" placeholder="admin@logistica.com" required>
+        <p style="margin-top:16px">
+            Usuário público pode acessar status da remessa através de código fornecido.<br>
+           
+            <a th:href="@{/pacotes/rastrearServico}" style="color:#FF6B00">Rastrear sem login</a><br><br>
+            
+            <a th:href="@{/registrar}" class="botaovoltar">Cadastrar</a>
+        </p>
+        
+      
+        <div th:if="${param.erro}" class="alert alert-danger" style="color:darkred; background:salmon; padding:12px; border-radius:6px; margin-top:15px">
+            E-mail ou senha inválidos
         </div>
-      </div>
-      <div class="mb-4">
-        <label class="form-label small fw-semibold">Senha</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-lock"></i></span>
-          <input type="password" th:field="*{senha}" class="form-control" placeholder="••••••••" required>
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-orange w-100">Entrar <i class="bi bi-arrow-right ms-1"></i></button>
-    </form>
-
-    
-    <div th:if="${param.erro}" class="alert alert-danger d-flex align-items-center gap-2 mt-4 rounded-3" style="background:#fef2f2; border-color:#fecaca; color:#991b1b">
-      <i class="bi bi-exclamation-circle"></i>
-      <div class="small">E-mail ou senha inválidos</div>
     </div>
-
-    <div class="text-center mt-4">
-      <div class="d-flex align-items-center gap-2 my-3">
-        <hr class="flex-grow-1"><span class="text-muted small">OU</span><hr class="flex-grow-1">
-      </div>
-      <a th:href="@{/pacotes/rastrearServico}" class="btn btn-outline-secondary w-100 rounded-3">
-        <i class="bi bi-search"></i> Rastrear sem login
-      </a>
-      <p class="small mt-3 text-muted">Não tem conta? <a th:href="@{/registrar}" style="color:#f97316; font-weight:700; text-decoration:none">Cadastre-se</a></p>
-    </div>
-  </div>
-</div>
-
 </body></html>

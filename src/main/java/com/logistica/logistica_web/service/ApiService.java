@@ -32,7 +32,13 @@ public class ApiService {
     private final RestTemplate rest = new RestTemplate();
     private final String BASE = "http://localhost:8000";
     
-
+    private HttpHeaders headers(String token){
+        HttpHeaders h = new HttpHeaders();
+     h.setBearerAuth(token.replace("Bearer",""));
+     h.setContentType(MediaType.APPLICATION_JSON);
+    return h;
+    }
+    
     
     public String login(UserRequestDTO cred){
      ResponseEntity<String> res = rest.postForEntity(BASE + "/api/auth/logar", cred, String.class);
@@ -51,14 +57,7 @@ public class ApiService {
         HttpEntity<LojaDTO> entity = new HttpEntity<> (loja,headers);
         rest.postForObject(BASE + "api/auth/" + lojaId + "/loja", entity, String.class); 
     } 
-    
-    public List<PacoteDTO> listarPacote(String token){
-        HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
-        var entity = new HttpEntity<Void>(h);
-        var res = rest.exchange(BASE + "/api/pacotes/listar", HttpMethod.GET, entity, new ParameterizedTypeReference<List<PacoteDTO>>(){});
-        return res.getBody();
-    }
-
+     
     public void criarPacote(PacoteDTO dto, String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
 
@@ -71,7 +70,13 @@ public class ApiService {
         rest.postForEntity(BASE + "/api/pacotes/registrar", entity, String.class);
     }
     
-    
+    public List<PacoteDTO> listarPacote(String token){
+        HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
+        var entity = new HttpEntity<Void>(h);
+        var res = rest.exchange(BASE + "/api/pacotes/listar", HttpMethod.GET, entity, new ParameterizedTypeReference<List<PacoteDTO>>(){});
+        return res.getBody();
+    }
+
     public PacoteDTO rastrear(String codigo){
         return rest.getForObject(BASE + "/api/pacotes/" + codigo, PacoteDTO.class);
     }
@@ -108,10 +113,7 @@ public class ApiService {
                 );
         return response.getBody();
     }
-    
-    
-    
-    
+
     public Map<String,Long> getCounts(String token){
         HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
         var entity = new HttpEntity<Void>(h);
@@ -125,72 +127,43 @@ public class ApiService {
         var res = rest.exchange(BASE + "/api/pacotes/por-loja", HttpMethod.GET, entity, new ParameterizedTypeReference<List<LojaCountDTO>>(){});
         return res.getBody();
     }
-    
-     private HttpHeaders headers(String token){
-        HttpHeaders h = new HttpHeaders();
-        h.setBearerAuth(token.replace("Bearer ",""));
-        h.setContentType(MediaType.APPLICATION_JSON);
-        return h;
-    }
-
-    
-    public List<LojaDTO> listarLojas(String token){
-        var entity = new HttpEntity<Void>(headers(token));
-        var res = rest.exchange(BASE + "/api/lojas", HttpMethod.GET, entity, new ParameterizedTypeReference<List<LojaDTO>>(){});
-        return res.getBody();
-    }
-
-    public List<LojaDTO> listarAtivas(String token){
-        var entity = new HttpEntity<Void>(headers(token));
-        var res = rest.exchange(BASE + "/api/lojas/ativas", HttpMethod.GET, entity, new ParameterizedTypeReference<List<LojaDTO>>(){});
-        return res.getBody();
-    }
-
-    public void criarLoja(LojaDTO dto, String token){
-        var entity = new HttpEntity<>(dto, headers(token));
-        rest.postForObject(BASE + "/api/lojas", entity, LojaDTO.class);
-    }
-
+ 
     public void editarLoja(Long id, LojaDTO dto, String token){
         var entity = new HttpEntity<>(dto, headers(token));
-        rest.exchange(BASE + "/api/lojas/" + id, HttpMethod.PUT, entity, LojaDTO.class);
+        rest.exchange(BASE + "/api/lojas/" + id, HttpMethod.PUT, 
+                new HttpEntity<>(dto, headers(token)),
+                LojaDTO.class);
     }
 
-    public void arquivarLoja(Long id, String token){
-        var entity = new HttpEntity<Void>(headers(token));
-        rest.exchange(BASE + "/api/lojas/" + id + "/arquivar", HttpMethod.PUT, entity, LojaDTO.class);
+    public List<LojaDTO> listarLojas(String token){ 
+        return rest.exchange(BASE + "/api/lojas", 
+                HttpMethod.GET, new HttpEntity<Void>(headers(token)), 
+                new ParameterizedTypeReference<List<LojaDTO>>(){}).getBody(); 
     }
     
-    public List<PacoteDTO> listarPacotesPorLoja(String token){
-        HttpHeaders h = new HttpHeaders(); h.setBearerAuth(token);
-        var entity = new HttpEntity<Void>(h);
-        var res = rest.exchange(BASE + 
-                "/api/pacotes/listar/{id}", 
-                HttpMethod.GET, entity, 
-                new ParameterizedTypeReference<List<PacoteDTO>>(){});
-        
-        return res.getBody();
+    public List<LojaDTO> listarAtivas(String token){ 
+        return rest.exchange(BASE + "/api/lojas/ativas", 
+                HttpMethod.GET, new HttpEntity<Void>(headers(token)), 
+                new ParameterizedTypeReference<List<LojaDTO>>(){}).getBody(); 
     }
     
-    /*
-    public List<PacoteDTO> listarPacotesPorLoja(Long idLoja, String token) {
-    return webClient.get()
-        .uri("http://localhost:8080/api/pacotes/loja/" + idLoja)
-        .header("Authorization", "Bearer " + token)
-        .retrieve()
-        .bodyToFlux(PacoteDTO.class)
-        .collectList()
-        .block();
+    public void criarLoja(LojaDTO dto, String token){ 
+        rest.postForObject(BASE + "/api/lojas", 
+                new HttpEntity<>(dto, headers(token)), 
+                LojaDTO.class); 
     }
     
+    public void arquivarLoja(Long id, String token){ 
+        rest.exchange(BASE + "/api/lojas/" + id + "/arquivar", 
+                HttpMethod.PUT, new HttpEntity<Void>(headers(token)), 
+                Void.class); 
+    }   
     
-    
-    
-    
-    
-    */
-  
-        
-    
-    
+    public List<PacoteDTO> listarPacotesPorLoja(Long idLoja, String token){
+        return rest.exchange(BASE + "/api/pacotes/loja/" + idLoja, 
+                HttpMethod.GET, new HttpEntity<Void>(headers(token)), 
+                new ParameterizedTypeReference<List<PacoteDTO>>(){})
+                .getBody();
+    }
+ 
 }

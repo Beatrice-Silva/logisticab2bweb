@@ -27,10 +27,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AuthController {
     
-    @Autowired
-     private ApiService apiService;
-  @GetMapping({"/", "/index"})
-public String home(HttpSession session, Model model){
+   @Autowired
+   private ApiService apiService;
+   @GetMapping("/")
+   public String home(HttpSession session, Model model){
    if(session.getAttribute("token") != null){
        return "redirect:/dashboard";
    }

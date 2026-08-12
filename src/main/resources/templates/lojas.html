@@ -140,16 +140,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <!-- Clique em loja específica de tabela pode levar a-->
-    <h3>Tabela de Lojas cadastradas</h3>
+   
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
-  <div class="card">
+  <div class="card"> <h3>Tabela de Lojas cadastradas</h3>
+      
+      <br>
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th>Nome do Estabelecimento</th>
           <th>Cnpj</th>
-          <th>Id Operador</th>
           <th>Contato</th>
           <th>Código Lon</th>
           <th>Cidade</th>
@@ -163,8 +165,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
           <td>
             <a th:href="@{/pacotes/loja/{id}(id=${e.idLoja})}" th:text="${e.nome_estabelecimento}"></a>
           </td>
+          <td th:text="${e.nome_estabelecimento}"></td>
           <td th:text="${e.cnpj}"></td>
-          <td th:text="${e.id_usuario}"></td>
           <td th:text="${e.contato_email}"></td>
           <td th:text="${e.codigo_lon}"></td>
           <td th:text="${e.cidade}"></td>

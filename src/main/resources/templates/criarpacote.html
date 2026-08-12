@@ -9,8 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <style>
+
+<style>
     * { 
         margin:0; 
         padding:0; 
@@ -143,28 +143,40 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <div class="container">
     <div class="card">
         <h1 class="titulo">Criar Remessa</h1>
+        
         <form th:action="@{/pacotes/criar}" method="post">
             <div class="grupo">
+                
                 <label>Loja de Origem</label>
                 <select name="idLoja" required>
+                    
                     <option value="">Selecione</option>
-                    <option th:each="loja : ${lojas}" th:value="${loja.id}" th:text="${loja.nomeEstabelecimento}"></option>
+                    <option th:each="loja : ${lojas}" th:value="${loja.idLoja}" th:text="${loja.nome_estabelecimento}"></option>
                 </select>
             </div>
+            
+            
             <div class="grupo">
                 <label>Endereço de saída:</label>
                 <input type="text" name="endereco" placeholder="Rua, número, bairro" required>
             </div>
+            
+            
             <div class="grupo">
                 <label>Endereço de destino:</label>
                 <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
             </div>
-            <button type="submit" class="botao">Criar Remessa</button>
+            
+            
+            <button type="submit" 
+                    class="botao">Criar Remessa</button>
+        
+        
         </form>
     </div>
 
     <div th:if="${param.erro}" class="alert alert-danger" style="color:darkred; background:salmon; padding:12px; border-radius:6px; margin-top:15px">
-            E-mail ou senha inválidos
+            Campo(s) inválidos!
         </div>
     
 </body>

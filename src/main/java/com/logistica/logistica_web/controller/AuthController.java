@@ -57,11 +57,22 @@ public class AuthController {
         }
     }
     
+    /*
+    @PostMapping("/registrar") 
+    public String registrar(Model model, @ModelAttribute UsuarioDTO usuario){
+        
+        model.addAttribute("usuario",new UsuarioDTO());
+        apiService.registrar(usuario);
+        return "redirect:/login"; 
+    }
+     
+    
     @GetMapping("/registrar") 
     public String cadastrar(Model model){
         model.addAttribute("usuario",new UsuarioDTO());
         return "cadastro"; 
     }
+*/
     
     @PostMapping("/registrar") 
     public String mandarRegistro(@ModelAttribute UsuarioDTO usuario){        

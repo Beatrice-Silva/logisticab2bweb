@@ -12,8 +12,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
        
        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <style>
+      
     * {
         margin:0; 
         padding:0; 
@@ -134,7 +134,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
   <body>
   <nav>
-     <a class="icon-link" th:href="@{/}">
+     <a class="icon-link" th:href="@{/index}">
             Voltar
             <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -149,12 +149,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     Serviço: EntreExpress
     </a>
    
-  
     </nav>   
-      
-      
       <br>
-      
     <div class="container">
         
     <div class="card" style="max-width:500px; margin:40px auto">
@@ -164,27 +160,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             
             <div class="grupo">
                 <label>Nome:</label>
-                <input type="text" th:field="*{nome}" required>
+                <input type="text" th:field="*{nome}" placeolder="exemplo@email.com" required>
             </div>
             
             <div class="grupo">
                 <label>E-mail:</label>
-                <input type="email" th:field="*{email}" required>
+                <input type="email" th:field="*{email}" placeolder="exemplo@email.com" required>
             </div>
             <div class="grupo">
                 <label>Senha:</label>
-                <input type="password" th:field="*{senha}" required>
+                <input type="password" th:field="*{senha}" placeolder="********" required>
             </div>
             
             <button style="width:100%" type="submit" class="botao">Cadastrar</button>
             
-           
-<SPAN TH:IF=${ERROERMISSAO}
-CLASS=
-        ROLE=alert
-        >
-        
-       
+
             
             
             <div th:if="${erro}" class="alert alert-danger" style="color:darkred;background:salmon;padding:12px;border-radius:6px;margin-top:15px">
@@ -196,7 +186,7 @@ CLASS=
         <br>
          
         
-        <a class="botao" th:href="@{/}" style="color:white; background:orange" >Rastrear sem login</a>
+        <a class="botao" th:href="@{/rastrearServico}" style="color:white; background:orange" >Rastrear sem login</a>
         
             
           

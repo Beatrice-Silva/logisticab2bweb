@@ -26,7 +26,7 @@
     <hr>
     <div th:if="${encontrado}" class="alert alert-success rounded-3">
       <b th:text="${pacote.codigoRastreio}">LON-123</b><br>
-      <span th:text="${pacote.statusAtual}">EM_TRANSITO</span> - 
+      <span th:text="${pacote.statusAtual}">EM_TRANSITO</span> 
       <span th:text="${pacote.enderecoDestino}">Rua X</span>
     </div>
     <div th:if="${!encontrado}" class="alert alert-danger rounded-3" th:text="${erro}">Não encontrado</div>

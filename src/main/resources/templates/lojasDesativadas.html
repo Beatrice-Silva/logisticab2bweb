@@ -152,14 +152,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 
             </tr>
             
-            <tr th:each="e : ${lista}">
-                <td th:text="${e.id}"></td>
+            <tr th:each="e : ${lojas}">
+            
+                <td th:text="${p.status: '0'}"></td>
+            
+                <td>
+            <a th:href="@{/pacotes/loja/{id}(id=${e.idLoja})}" th:text="${e.nome_estabelecimento}"></a>
+            </td>                       
                 <td th:text="${e.nome_estabelecimento}"></td>
                 <td th:text="${e.cnpj}"></td>
                 <td th:text="${e.idUsuario}"></td>
                 <td th:text="${e.contato}"></td>
                 <td th:text="${e.cidade}"></td>
                 <td th:text="${e.endereco}"></td>
+                
+                
             </tr>            
         </table>        
     </body>

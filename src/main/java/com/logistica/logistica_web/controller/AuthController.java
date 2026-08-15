@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 /**
@@ -57,28 +58,25 @@ public class AuthController {
         }
     }
     
-    /*
-    @PostMapping("/registrar") 
-    public String registrar(Model model, @ModelAttribute UsuarioDTO usuario){
-        
-        model.addAttribute("usuario",new UsuarioDTO());
-        apiService.registrar(usuario);
-        return "redirect:/login"; 
-    }
-     
     
     @GetMapping("/registrar") 
     public String cadastrar(Model model){
         model.addAttribute("usuario",new UsuarioDTO());
         return "cadastro"; 
     }
-*/
+
     
-    @PostMapping("/registrar") 
-    public String mandarRegistro(@ModelAttribute UsuarioDTO usuario){        
+   @PostMapping("/registrar")
+    public String mandarRegistro(@ModelAttribute UsuarioDTO usuario, RedirectAttributes redirect){
+    try{
         apiService.registrar(usuario);
-        return "redirect:/login"; 
+        redirect.addFlashAttribute("sucesso", "Conta criada! Faça login com " + usuario.getEmail());
+        return "redirect:/login";
+    }catch(Exception e){
+        redirect.addFlashAttribute("erro", "Erro ao cadastrar: " + e.getMessage());
+        return "redirect:/registrar";
     }
+}
     
     @GetMapping("/logout")
     public String logout(HttpSession session){

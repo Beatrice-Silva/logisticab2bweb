@@ -44,37 +44,23 @@ public class ApiService {
      ResponseEntity<String> res = rest.postForEntity(BASE + "/api/auth/logar", cred, String.class);
         return res.getBody();
     }
-    /*
+ 
     public String registrar(UsuarioDTO user){
-        ResponseEntity<String> res = rest.postForEntity(BASE + "api/auth/registrar" , user, String.class);
-        return res.getBody();
-        
+    String url = "http://localhost:8000/api/auth/registrar";
+    try {
+        return rest.postForEntity(url, user, String.class).getBody();
+    } catch (Exception e){
+        e.printStackTrace();
+        throw e;
     }
-    
-     public void registrar(UsuarioDTO user){
-        HttpHeaders h = new HttpHeaders();
-        
-        Map body = Map.of(
-            "nome", user.getNome(),
-            "email", user.getEmail(),
-            "senha", user.getSenha()
-        );
-        var entity = new HttpEntity<>(body, h);
-        rest.postForObject(BASE + "api/auth/registrar", entity, String.class); 
-    } 
-    */
-    
-    public String registrar(UsuarioDTO user){
-        ResponseEntity<String> res = rest.postForEntity(BASE + "api/auth/registrar" , user, String.class);
-        return res.getBody();
-        
-    }
+}
+   
     
      public void registrarPacote(Long lojaId, LojaDTO loja, String token){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         HttpEntity<LojaDTO> entity = new HttpEntity<> (loja,headers);
-        rest.postForObject(BASE + "api/auth/" + lojaId + "/loja", entity, String.class); 
+        rest.postForObject(BASE + "/api/auth/" + lojaId + "/loja", entity, String.class); 
     } 
      
     public void criarPacote(PacoteDTO dto, String token){
@@ -106,7 +92,7 @@ public class ApiService {
         headers.setBearerAuth(token);
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Void> entity = new HttpEntity<> (headers);
-        rest.postForObject(BASE + "api/auth/" + id + "/loja", entity, String.class); 
+        rest.postForObject(BASE + "/api/auth/" + id + "/loja", entity, String.class); 
     
         
         String url = BASE + "/api/pacotes/" + id + "/status?novoStatus=" + novoStatus;

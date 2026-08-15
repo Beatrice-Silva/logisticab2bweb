@@ -158,6 +158,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         
         <form th:action="@{/registrar}" th:object="${usuario}" method="post">
             
+            
+            <div th:if="${sucesso}" style="color:darkgreen;background:#bbf7d0;padding:12px;border-radius:6px;margin-bottom:15px">
+            <span th:text="${sucesso}"></span>
+            </div>
+
+                
+            
             <div class="grupo">
                 <label>Nome:</label>
                 <input type="text" th:field="*{nome}" placeolder="exemplo@email.com" required>
@@ -174,7 +181,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             
             <button style="width:100%" type="submit" class="botao">Cadastrar</button>
             
-
+                <div th:if="${param.erro}" style="color:darkred;background:salmon;padding:12px;border-radius:6px;margin-bottom:15px">
+                Email ou senha inválidos
+                </div>
             
             
             <div th:if="${erro}" class="alert alert-danger" style="color:darkred;background:salmon;padding:12px;border-radius:6px;margin-top:15px">
@@ -185,7 +194,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         
         <br>
          
-        
+       
         <a class="botao" th:href="@{/rastrearServico}" style="color:white; background:orange" >Rastrear sem login</a>
         
             

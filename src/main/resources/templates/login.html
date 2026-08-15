@@ -159,6 +159,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
        
       
         <form th:action="@{/logar}" th:object="${credenciais}" method="post">
+             <div th:if="${sucesso}" style="color:darkgreen;background:#bbf7d0;padding:12px;border-radius:6px;margin-bottom:15px">
+            <span th:text="${sucesso}"></span>
+            </div>
             <div class="grupo">
                 <label>E-mail:</label>
                 <input type="email" th:field="*{email}" class="campo" placeholder="admin@logistica.com" required>

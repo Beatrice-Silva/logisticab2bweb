@@ -104,10 +104,8 @@ public String dashboard(HttpSession session, Model model){
     if(token == null) return "redirect:/login";
     try{
         model.addAttribute("counts", apiService.getCounts(token));
-        model.addAttribute("porLoja", apiService.contarPorLoja(token));
     }catch(Exception e){
         model.addAttribute("counts", Map.of());
-        model.addAttribute("porLoja", List.of());
     }
     return "dashboard";
 }

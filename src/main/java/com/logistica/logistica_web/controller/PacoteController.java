@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -95,7 +96,14 @@ public class PacoteController {
             return "rastrearServico";
         }
     }
-*/
+*/ @GetMapping("/{id}/entregar")
+    public String entregarPage(@PathVariable Long id, HttpSession session, Model model){
+        String token = (String) session.getAttribute("token");
+        if(token == null) return "redirect:/login";
+        model.addAttribute("pacoteId", id);
+        return "pacotes/entregar";
+    }
+    
     @GetMapping("/loja/{id}")
     public String pacotesDaLoja(@PathVariable Long id, HttpSession session, Model model) {
     String token = (String) session.getAttribute("token");
@@ -105,6 +113,19 @@ public class PacoteController {
     model.addAttribute("lojaId", id);
     return "pacotes"; 
 }
+    @PostMapping("/{id}/entregar")
+    public String entregar(@PathVariable Long id, @RequestParam String otp, HttpSession session, RedirectAttributes redirect){
+        String token = (String) session.getAttribute("token");
+        try{
+            apiService.atualizarStatus(id, "ENTREGUE", otp, token);
+            redirect.addFlashAttribute("sucesso", "Entrega confirmada!");
+        }catch(Exception e){
+            redirect.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/pacotes/" + id + "/entregar";
+        }
+        return "redirect:/dashboard";
+        }
+    
 
     @PostMapping("/{id}/status")
     public String atualizarStatus(@PathVariable Long id, 
@@ -115,6 +136,7 @@ public class PacoteController {
         apiService.atualizarStatus(id, novoStatus, otp, token);
         return "redirect:/pacotes";
     }
+    
 
 }
 

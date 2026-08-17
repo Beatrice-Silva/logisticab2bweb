@@ -98,18 +98,16 @@ public class AuthController {
         return "dashboard";
     }*/
     
-    @GetMapping("/dashboard")
+@GetMapping("/dashboard")
 public String dashboard(HttpSession session, Model model){
     String token = (String) session.getAttribute("token");
     if(token == null) return "redirect:/login";
     try{
         model.addAttribute("counts", apiService.getCounts(token));
         model.addAttribute("porLoja", apiService.contarPorLoja(token));
-        model.addAttribute("recentes", apiService.listarRecentes(token));
     }catch(Exception e){
         model.addAttribute("counts", Map.of());
         model.addAttribute("porLoja", List.of());
-        model.addAttribute("recentes", List.of());
     }
     return "dashboard";
 }

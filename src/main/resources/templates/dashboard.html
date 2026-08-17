@@ -149,57 +149,47 @@
               <button class="btn-sair">Deslogar</button>
           </a>
     </nav>  
-
 <div class="container">
-    
   <h1 class="titulo">Visão Geral</h1>
   <div class="grid">
-    <div class="card">
-        <div class="card-titulo">Criados</div>
-        <h2 th:text="${counts['CRIADO']?:0}">0</h2>
-        <span class="badge badge-azul">Aguardando coleta</span>
-    </div>
-      
-    <div class="card">
-        <div class="card-titulo">Coletados</div>
-        <h2 th:text="${counts['COLETADO']?:0}">0</h2>
-        <span class="badge badge-laranja">Coletado</span>
-    </div>
-      
-    <div class="card">
-        <div class="card-titulo">Em Trânsito</div>
-        <h2 th:text="${counts['EM_TRANSITO']?:0}">0</h2>
-        <span class="badge badge-laranja">Em rota</span>
-    </div>
-      
-    <div class="card">
-        <div class="card-titulo">Entregues</div>
-        <h2 th:text="${counts['ENTREGUE']?:0}">0</h2>
-        <span class="badge badge-verde">Finalizado</span>
-    </div>
-      
-    <div class="card">
-        <div class="card-titulo">Devolvidos</div>
-        <h2 th:text="${counts['DEVOLVIDO']?:0}">0</h2>
-        <span class="badge badge-vermelho">Cancelado</span>
-    </div>
-      
-    <div class="card">
-        <div class="card-titulo">Arquivados</div>
-        <h2 th:text="${counts['ARQUIVADO']?:0}">0</h2>
-        <span class="badge badge-cinza">Arquivado</span>
-    </div>
+    <div class="card"><div>CRIADOS</div><h2 th:text="${counts['CRIADO']?:0}">0</h2><span class="badge badge-azul">Aguardando coleta</span></div>
+    <div class="card"><div>EM TRÂNSITO</div><h2 th:text="${counts['EM_TRANSITO']?:0}">0</h2><span class="badge badge-laranja">Em rota</span></div>
+    <div class="card"><div>ENTREGUES</div><h2 th:text="${counts['ENTREGUE']?:0}">0</h2><span class="badge badge-verde">Finalizado</span></div>
+    <div class="card"><div>DEVOLVIDOS</div><h2 th:text="${counts['DEVOLVIDO']?:0}">0</h2><span class="badge badge-vermelho">Cancelado</span></div>
   </div>
 
-  <div class="card" style="margin-top:20px">
-    <h3 class="titulo">Por Loja</h3>
-    <table class="table">
-        
+  <div class="card" style="margin-top:24px">
+    <div style="display:flex; justify-content:space-between; align-items:center">
+      <h3 class="titulo" style="margin-bottom:0">Volume por Loja - Cliente B2B</h3>
+      <a th:href="@{/lojas}" class="btn btn-sm btn-outline-primary">Gerenciar lojas</a>
+    </div>
+    
+    <div th:if="${#lists.isEmpty(porLoja)}" style="padding:20px; color:#64748B; text-align:center">
+      Nenhuma remessa vinculada a loja ainda. Crie uma loja e vincule no cadastro de pacote.
+    </div>
+
+    <table class="table table-hover" th:if="${!#lists.isEmpty(porLoja)}" style="margin-top:16px">
+      <thead><tr><th>Loja</th><th style="text-align:right">Total de Pacotes</th><th></th></tr></thead>
+      <tbody>
         <tr th:each="item : ${porLoja}">
-            <td th:text="${item.nomeEstabelecimento}"></td>
-            <td th:text="${item.total}"></td>
+          <td>
+            <strong th:text="${item.nomeEstabelecimento}">Loja A</strong>
+            <br><small style="color:#64748B" th:text="${item.cnpj != null ? item.cnpj : ''}"></small>
+          </td>
+          <td style="text-align:right"><span class="badge badge-azul" th:text="${item.total}">12</span></td>
+          <td style="text-align:right">
+            <a th:href="@{/pacotes/loja/{id}(id=${item.idLoja})}" class="botao" style="padding:6px 12px; font-size:13px; text-decoration:none">Ver pacotes</a>
+          </td>
         </tr>
+      </tbody>
     </table>
+  </div>
+
+  <div class="card">
+    <h3 class="titulo">Atividades Recentes</h3>
+    <div th:each="r : ${recentes}" style="border-bottom:1px solid #eee; padding:8px 0">
+      <small th:text="${r.dataHora}">10:30</small> - <span th:text="${r.descricao}">Status alterado</span>
+    </div>
   </div>
 </div>
 </body>

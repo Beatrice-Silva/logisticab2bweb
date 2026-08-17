@@ -41,6 +41,7 @@ public class ApiService {
         h.setContentType(MediaType.APPLICATION_JSON);
         return h;
     }
+    
     /*
     public String login(UserRequestDTO cred){
         ResponseEntity<String> res = rest.postForEntity(BASE + "/api/auth/logar", cred, String.class);
@@ -52,7 +53,7 @@ public class ApiService {
     
     public String login(UserRequestDTO cred){
     try{
-        // Tenta pegar como Map primeiro
+        
         ResponseEntity<Map> res = rest.postForEntity(BASE + "/api/auth/logar", cred, Map.class);
         Object t = res.getBody().get("token");
         if(t == null) t = res.getBody().get("accessToken");
@@ -72,7 +73,9 @@ public class ApiService {
     }
     
     public String registrar(UsuarioDTO user){
-        return rest.postForEntity(BASE + "/api/auth/registrar", user, String.class).getBody();
+        ResponseEntity<Map> res = rest.postForEntity(BASE + "/api/auth/registrar", user, Map.class);
+    
+        return res.getBody().toString();   
     }
     
   

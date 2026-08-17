@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Edicao</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+  <div class="card">
+    <h1 class="titulo">Editar estabelecimento</h1>
+    <form th:action="@{/lojas/editar/{id}(id=${lojaDTO.idLoja})}" th:object="${lojaDTO}" method="post">
+      <div class="grupo"><label>Nome da loja</label>
+        <input type="text" th:field="*{nomeEstabelecimento}" required>
+      </div>
+      <div class="grupo"><label>CNPJ</label>
+        <input type="text" th:field="*{cnpj}" readonly>
+      </div>
+      <div class="grupo"><label>Contato E-mail</label>
+        <input type="email" th:field="*{contatoEmail}" required>
+      </div>
+      <div class="grupo"><label>Cidade</label>
+        <input type="text" th:field="*{cidade}" required>
+      </div>
+      <div class="grupo"><label>Endereço</label>
+        <input type="text" th:field="*{endereco}" required>
+      </div>
+      <button type="submit" class="botao">Salvar</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

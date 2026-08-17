@@ -145,7 +145,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <form th:action="@{/lojas/nova}" th:object="${lojaDTO}" method="post">
       
         <div class="grupo"><label>Nome da loja</label>
-        <input type="text" th:field="*{nome_estabelecimento}" required>
+        <input type="text" th:field="*{nomeEstabelecimento}" required>
       </div>
         
       <div class="grupo"><label>CNPJ</label>
@@ -153,7 +153,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       </div>
         
       <div class="grupo"><label>Contato E-mail</label>
-        <input type="email" th:field="*{contato_email}" required>
+        <input type="email" th:field="*{contatoEmail}" required>
       </div>
         
       <div class="grupo"><label>Cidade</label>

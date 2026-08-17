@@ -138,44 +138,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
    
     </head>
-    <body>
-        <!-- Clique em loja específica de tabela pode levar a-->
-   
+ <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
-  <div class="card"> <h3>Tabela de Lojas cadastradas</h3>
-      
-      <br>
+  <div class="card"> 
+    <h3>Tabela de Lojas cadastradas</h3>
     <table class="table">
       <thead>
         <tr>
-          <th></th>
           <th>Nome do Estabelecimento</th>
           <th>Cnpj</th>
           <th>Contato</th>
           <th>Código Lon</th>
           <th>Cidade</th>
           <th>Endereço</th>
-          
         </tr>
       </thead>
       <tbody>
         <tr th:each="e : ${lojas}">
-          
           <td>
-            <a th:href="@{/pacotes/loja/{id}(id=${e.idLoja})}" th:text="${e.nome_estabelecimento}"></a>
+           
+            <a th:href="@{/lojas/editar/{id}(id=${e.idLoja})}" 
+               th:text="${e.nomeEstabelecimento}"></a>
           </td>
-          <td th:text="${e.nome_estabelecimento}"></td>
           <td th:text="${e.cnpj}"></td>
-          <td th:text="${e.contato_email}"></td>
-          <td th:text="${e.codigo_lon}"></td>
+          <td th:text="${e.contatoEmail}"></td>
+          <td th:text="${e.codigoLon}"></td>
           <td th:text="${e.cidade}"></td>
           <td th:text="${e.endereco}"></td>
-       
+          <td>
+    <!-- Botão ativo só pra OPERADOR ou ADMIN -->
+    <a th:if="${session.perfil == 'OPERADOR' or session.perfil == 'ADMIN'}" 
+       th:href="@{/lojas/editar/{id}(id=${e.idLoja})}" 
+       class="botao">Editar</a>
+
+    <!-- Botão bloqueado pra ENTREGADOR -->
+    <button th:if="${session.perfil == 'ENTREGADOR'}" disabled title="Sem permissão">Editar</button>
+  </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>       
-    </body>
+</body>
 </html>

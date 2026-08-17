@@ -4,6 +4,8 @@
  */
 package com.logistica.logistica_web.model;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author BEATRICE
@@ -16,15 +18,25 @@ public class UsuarioDTO {
     private String senha;
     private String perfiRole;
 
+    private Integer tentativasOtp = 0; 
+
+    private LocalDateTime bloqueadoAte;
+
+    private LocalDateTime criadoEm = LocalDateTime.now(); 
+
+    private String status; 
+    
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Long id, String nome, String email, String senha, String perfiRole) {
+    public UsuarioDTO(Long id, String nome, String email, String senha, String perfiRole, LocalDateTime bloqueadoAte, String status) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.perfiRole = perfiRole;
+        this.bloqueadoAte = bloqueadoAte;
+        this.status = status;
     }
 
     public Long getId() {
@@ -66,6 +78,40 @@ public class UsuarioDTO {
     public void setPerfiRole(String perfiRole) {
         this.perfiRole = perfiRole;
     }
+
+    public Integer getTentativasOtp() {
+        return tentativasOtp;
+    }
+
+    public void setTentativasOtp(Integer tentativasOtp) {
+        this.tentativasOtp = tentativasOtp;
+    }
+
+    public LocalDateTime getBloqueadoAte() {
+        return bloqueadoAte;
+    }
+
+    public void setBloqueadoAte(LocalDateTime bloqueadoAte) {
+        this.bloqueadoAte = bloqueadoAte;
+    }
+
+    public LocalDateTime getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(LocalDateTime criadoEm) {
+        this.criadoEm = criadoEm;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
     
     
     

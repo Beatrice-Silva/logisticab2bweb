@@ -4,22 +4,31 @@
  */
 package com.logistica.logistica_web.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author BEATRICE
  */
 public class LojaDTO {
     
+    @JsonAlias({"id"})
     private Long idLoja;
     
-    private String nome_estabelecimento;
+    @JsonAlias({"nome_estabelecimento", "nomeEstabelecimento"})
+    private String nomeEstabelecimento;
     
     private String cnpj;
-    
-    private Long id_usuario;
-    private String contato_email;
 
-    private String codigo_lon;
+    @JsonProperty("id_usuario")
+    private Long idUsuario;
+
+    @JsonProperty("contato_email")
+    private String contatoEmail;
+
+    @JsonProperty("codigo_lon")
+    private String codigoLon;
     
     private String cidade;
     private String endereco;
@@ -27,31 +36,37 @@ public class LojaDTO {
     public LojaDTO() {
     }
 
-    public LojaDTO(Long idLoja, String nome_estabelecimento, String cnpj, Long id_usuario, String contato_email, String codigo_lon, String cidade, String endereco) {
+    public LojaDTO(Long idLoja, String nomeEstabelecimento, String cnpj, Long idUsuario, String contatoEmail, String codigoLon, String cidade, String endereco) {
         this.idLoja = idLoja;
-        this.nome_estabelecimento = nome_estabelecimento;
+        this.nomeEstabelecimento = nomeEstabelecimento;
         this.cnpj = cnpj;
-        this.id_usuario = id_usuario;
-        this.contato_email = contato_email;
-        this.codigo_lon = codigo_lon;
+        this.idUsuario = idUsuario;
+        this.contatoEmail = contatoEmail;
+        this.codigoLon = codigoLon;
         this.cidade = cidade;
         this.endereco = endereco;
     }
+    
+    @JsonProperty("id")
+    public Long getId() { return idLoja; }
+    
+    @JsonProperty("id")
+    public void setId(Long id) { this.idLoja = id; }
 
     public Long getIdLoja() {
         return idLoja;
     }
 
-    public void setIdLoja(Long id) {
+    public void setIdLoja(Long idLoja) {
         this.idLoja = idLoja;
     }
 
-    public String getNome_estabelecimento() {
-        return nome_estabelecimento;
+    public String getNomeEstabelecimento() {
+        return nomeEstabelecimento;
     }
 
-    public void setNome_estabelecimento(String nome_estabelecimento) {
-        this.nome_estabelecimento = nome_estabelecimento;
+    public void setNomeEstabelecimento(String nomeEstabelecimento) {
+        this.nomeEstabelecimento = nomeEstabelecimento;
     }
 
     public String getCnpj() {
@@ -62,34 +77,34 @@ public class LojaDTO {
         this.cnpj = cnpj;
     }
 
-    public Long getId_usuario() {
-        return id_usuario;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getContato_email() {
-        return contato_email;
+    public String getContatoEmail() {
+        return contatoEmail;
     }
 
-    public void setContato_email(String contato_email) {
-        this.contato_email = contato_email;
+    public void setContatoEmail(String contatoEmail) {
+        this.contatoEmail = contatoEmail;
     }
 
-    public String getCodigo_lon() {
-        return codigo_lon;
+    public String getCodigoLon() {
+        return codigoLon;
     }
 
-    public void setCodigo_lon(String codigo_lon) {
-        this.codigo_lon = codigo_lon;
+    public void setCodigoLon(String codigoLon) {
+        this.codigoLon = codigoLon;
     }
 
     public String getCidade() {
         return cidade;
     }
-
+ 
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
@@ -102,12 +117,5 @@ public class LojaDTO {
         this.endereco = endereco;
     }
 
-    
-    
-    
-    
-    
-    
-    
-
+   
 }

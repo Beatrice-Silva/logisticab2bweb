@@ -134,7 +134,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     
     
    <nav>
-       <a class="icon-link" th:href="@{/}">
+       <a class="icon-link" th:href="@{/index}">
             Voltar
             <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -151,7 +151,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   </a>
         
   
+        <nav class="d-flex justify-content-center-between p-3 bg-secondarys">
         
+         
+        
+    </nav>
     </nav>  
     <div class="card card-login">
         <h1 class="titulo">Sistema Logístico de rastreamento</h1>
@@ -177,23 +181,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         
         <br>
         
-       <p style="color:grey; background:lightgrey; padding:12px; border-radius:6px; margin-top:15px">
-            
-            Usuário público pode acessar status da remessa através de código fornecido<br>    
-        
-            <br>
-        <a class="botao" th:href="@{/pacotes/rastrearServico}" style="color:white; background:orange" >Rastrear sem login</a>
-        </p>
+       
         <br>
         <p>Não possui uma conta ainda?
        
         <a class="botao" th:href="@{/registrar}" style="color:darkblue; background:lightgrey"> Comece aqui</a>
         </p>
        
-        <div th:if="${param.erro}" class="alert alert-danger" style="color:darkred; background:salmon; padding:12px; border-radius:6px; margin-top:15px">
-        
+        <div th:if="${param.erro}" class="alert alert-danger" style="color:darkred; background:salmon; padding:12px; border-radius:6px; margin-top:15px"> 
             E-mail ou senha inválidos
-        
         </div>
+         
+        <p style="color:grey; background:lightgrey; padding:12px; border-radius:6px; margin-top:15px">
+            
+            Usuário público pode acessar status e confirmação da remessa através de código fornecido<br>    
+        
+            <br>
+        <a class="botao" th:href="@{/pacotes/rastrear}" style=" color:white; background:orange; display:block; text-align:center; text-decoration:none">
+        Verificação por código
+        </a>
+        </p>
+        
+        
     </div>
 </body></html>

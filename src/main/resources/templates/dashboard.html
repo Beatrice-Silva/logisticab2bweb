@@ -144,6 +144,10 @@
   
   Serviço: EntreExpress
   </a>
+    
+    <a th:href="@{/logout}">
+              <button class="btn-sair">Deslogar</button>
+          </a>
     </nav>  
 
 <div class="container">
@@ -192,7 +196,7 @@
     <table class="table">
         
         <tr th:each="item : ${porLoja}">
-            <td th:text="${item.nome_estabelecimento}"></td>
+            <td th:text="${item.nomeEstabelecimento}"></td>
             <td th:text="${item.total}"></td>
         </tr>
     </table>

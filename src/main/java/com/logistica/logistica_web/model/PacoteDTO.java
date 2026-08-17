@@ -14,23 +14,35 @@ import java.time.LocalDateTime;
 public class PacoteDTO {
     
     private Long id;
+    
     private String codigoRastreio;
-    private LojaDTO loja; // objeto
+    
+    private LojaDTO loja;
+    
     private String enderecoDestino;
-    private String statusAtual; // String, não Enum
+    
+    private String statusAtual;
+    
     private String emailDestinatario;
+    
+    private String otpCodigo;
+    
+    private LocalDateTime otpExpira;
+    
     private String descObserv;
 
     public PacoteDTO() {
     }
 
-    public PacoteDTO(Long id, String codigoRastreio, LojaDTO loja, String enderecoDestino, String statusAtual, String emailDestinatario, String descObserv) {
+    public PacoteDTO(Long id, String codigoRastreio, LojaDTO loja, String enderecoDestino, String statusAtual, String emailDestinatario, String otpCodigo, LocalDateTime otpExpira, String descObserv) {
         this.id = id;
         this.codigoRastreio = codigoRastreio;
         this.loja = loja;
         this.enderecoDestino = enderecoDestino;
         this.statusAtual = statusAtual;
         this.emailDestinatario = emailDestinatario;
+        this.otpCodigo = otpCodigo;
+        this.otpExpira = otpExpira;
         this.descObserv = descObserv;
     }
 
@@ -82,6 +94,22 @@ public class PacoteDTO {
         this.emailDestinatario = emailDestinatario;
     }
 
+    public String getOtpCodigo() {
+        return otpCodigo;
+    }
+
+    public void setOtpCodigo(String otpCodigo) {
+        this.otpCodigo = otpCodigo;
+    }
+
+    public LocalDateTime getOtpExpira() {
+        return otpExpira;
+    }
+
+    public void setOtpExpira(LocalDateTime otpExpira) {
+        this.otpExpira = otpExpira;
+    }
+
     public String getDescObserv() {
         return descObserv;
     }
@@ -89,8 +117,9 @@ public class PacoteDTO {
     public void setDescObserv(String descObserv) {
         this.descObserv = descObserv;
     }
-    
 
     
+    
+
     
 }

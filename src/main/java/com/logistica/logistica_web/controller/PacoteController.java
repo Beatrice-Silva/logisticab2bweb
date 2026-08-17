@@ -5,6 +5,7 @@
 package com.logistica.logistica_web.controller;
 
 
+import com.logistica.logistica_web.model.LojaDTO;
 import com.logistica.logistica_web.model.PacoteDTO;
 import com.logistica.logistica_web.service.ApiService;
 import jakarta.servlet.http.HttpSession;
@@ -38,27 +39,52 @@ public class PacoteController {
         return "pacotes";
     }
     
-    @GetMapping("/novo")
+@GetMapping("/novo")
     public String novoForm(Model model, HttpSession session) {
-        if (session.getAttribute("token") == null) return "redirect:/auth/login";
+        String token = (String) session.getAttribute("token");
+        if (token == null) return "redirect:/login";
+
         model.addAttribute("pacoteDTO", new PacoteDTO());
+        model.addAttribute("lojas", apiService.listarAtivas(token)); // AQUI BUSCA AS LOJAS
         return "criarpacote";
     }
     
-    
-
     @PostMapping("/novo")
-    public String criar(@ModelAttribute PacoteDTO pacoteDTO, HttpSession session) {
-        String token = (String) session.getAttribute("token");
-        apiService.criarPacote(pacoteDTO, token);
-        return "redirect:/pacotes";
+    public String criar(@RequestParam Long idLoja,
+                    @RequestParam String enderecoDestino,
+                    HttpSession session) {
+    String token = (String) session.getAttribute("token");
+    
+    
+    LojaDTO lojaRef = new LojaDTO();
+    lojaRef.setIdLoja(idLoja);
+
+    PacoteDTO dto = new PacoteDTO();
+    dto.setLoja(lojaRef);
+    dto.setEnderecoDestino(enderecoDestino);
+    dto.setDescObserv("Criado via WEB");
+
+    apiService.criarPacote(dto, token);
+    return "redirect:/pacotes";
+}
+      @PostMapping("/rastrear")
+    public String rastrear(@RequestParam String codigo, Model model){
+    System.out.println("BUSCANDO CODIGO: " + codigo);
+    try {
+        PacoteDTO p = apiService.rastrear(codigo.trim());
+        model.addAttribute("pacote", p);
+        return "verificacao";
+    } catch (Exception e) {
+        e.printStackTrace();
+        model.addAttribute("erro", "Pacote não encontrado: " + codigo + " | Erro API: " + e.getMessage());
+        return "rastrearServico";
     }
-   
-  @GetMapping("/rastrear")
+}
+    @GetMapping("/rastrear")
     public String rastrearPage(){
         return "rastrearServico"; 
     }
-
+/*
     @PostMapping("/rastrear")
     public String rastrear(@RequestParam String codigo, Model model){
         try {
@@ -69,7 +95,7 @@ public class PacoteController {
             return "rastrearServico";
         }
     }
-
+*/
     @GetMapping("/loja/{id}")
     public String pacotesDaLoja(@PathVariable Long id, HttpSession session, Model model) {
     String token = (String) session.getAttribute("token");

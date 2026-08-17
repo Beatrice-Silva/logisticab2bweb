@@ -138,38 +138,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
     </head>
     
-  <body>
+<body>
 <div th:replace="~{fragments/header :: header}"></div>
-
-<div class="container">
-    <div class="card">
+<div class="container"><div class="card">
+<h3 class="titulo">Tabela de Pacotes</h3>
+<table class="table">
     
-
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    
-      <h3 class="titulo">Tabela de Pacotes</h3>
-    
-  </div>
-  <table class="table">
-    <tr>
-      <th>Código</th>
-      <th>Estabelecimento</th>
-      <th>Destino</th>
-      <th>Contato</th>
-      <th>Status</th>
-      <th>Observação</th>
-      
-    </tr>
-    <tr th:each="p : ${pacotes}">
-      <td th:text="${p.codigoRastreio}"></td>
-      <td th:text="${p.enderecoDestino}"></td>
-     <td th:text="${p.loja != null ? p.loja.nome_estabelecimento : '-'}"></td>
-     <td th:text="${p.statusAtual}"></td>
-     <td th:text="${p.emailDestinatario}"></td>
-      <td th:text="${p.descObserv}"></td>
-    </tr>
-  </table>
-</div>
-</div>
+<tr>
+    <th>Código</th>
+    <th>Estabelecimento</th>
+    <th>Destino</th>
+    <th>Contato</th>
+    <th>Status</th>
+    <th>Observação</th>
+</tr>
+<tr th:each="p : ${pacotes}">
+  <td th:text="${p.codigoRastreio}"></td>
+  <td th:text="${p.loja != null ? p.loja.nomeEstabelecimento : '-'}"></td>
+  <td th:text="${p.enderecoDestino}"></td>
+  <td th:text="${p.emailDestinatario}"></td>
+  <td th:text="${p.statusAtual}"></td>
+  <td th:text="${p.descObserv}"></td>
+</tr>
+</table>
+</div></div>
 </body>
 </html>

@@ -37,6 +37,7 @@ public class LojaWebController {
         return "lojas";
     }
     
+
     @GetMapping("/nova")
     public String nova(HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");
@@ -62,7 +63,21 @@ public class LojaWebController {
             throw ex;
         }
     }
+    @GetMapping("/{id}")
+    public String editarForm(@PathVariable Long id, HttpSession session, Model model){
+    String perfil = (String) session.getAttribute("perfil");
+    if(!perfil.equals("OPERADOR") && !perfil.equals("ADMIN")){
+        return "redirect:/lojas?erro=sem_permissao";
+    }
+    String token = (String) session.getAttribute("token");
+    LojaDTO loja = apiServ.listarAtivas(token).stream()
+        .filter(l -> l.getIdLoja().equals(id))
+        .findFirst().orElse(null);
+    model.addAttribute("lojaDTO", loja);
+    return "editarLoja";
+    }
 
+/*
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Long idLoja, HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");
@@ -75,18 +90,8 @@ public class LojaWebController {
         model.addAttribute("lojaDTO", loja);
         return "editarLoja";
     }
-    
-    /*
-    @GetMapping("/loja/{id}")
-    public String listarPacotesPorLoja(@PathVariable Long idLoja, HttpSession session, Model model) {
-        String token = (String) session.getAttribute("token");
-        
-        apiServ.listarPacotesPorLoja(token);
-        
-        model.addAttribute("lojaDTO", idLoja);
-        return "lojas"; 
-    }
-*/
+    */
+
 
     @PostMapping("/{id}/arquivar")
     public String arquivar(@PathVariable Long id, HttpSession session){
@@ -96,23 +101,3 @@ public class LojaWebController {
     }
 }
     
-/*
-
-    @GetMapping("/listar/desativas")
-    public String listarDesativadas(HttpSession session, Model model) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) return "redirect:/login";
-        model.addAttribute("lojas", apiServ.listarLojas(token));
-        return "lojasDesativadas";
-    }
-
-    @GetMapping("/listar/{idLoja}")
-    public String listarPorId(@PathVariable Long idLoja, HttpSession session, Model model){
-        
-        String token = (String) session.getAttribute("token");
-        
-        if (token == null) return "redirect:/login";
-        model.addAttribute("lojas", apiServ.listarLojas(token));
-        
-        return "lojas";
-    }*/

@@ -83,6 +83,7 @@ public class AuthController {
         session.invalidate();
         return "redirect:/";
     }
+    
     /*
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model){

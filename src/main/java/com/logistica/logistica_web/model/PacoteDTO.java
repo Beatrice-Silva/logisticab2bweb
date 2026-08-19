@@ -62,7 +62,7 @@ public class PacoteDTO {
 
     public String getCodigoRastreio() {
         return codigoRastreio;
-    }
+    } 
 
     public void setCodigoRastreio(String codigoRastreio) {
         this.codigoRastreio = codigoRastreio;

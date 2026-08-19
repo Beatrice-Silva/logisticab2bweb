@@ -5,6 +5,7 @@
 package com.logistica.logistica_web.service;
 
 
+import com.logistica.logistica_web.model.AuthResponseDTO;
 import com.logistica.logistica_web.model.LojaCountDTO;
 import com.logistica.logistica_web.model.LojaDTO;
 import com.logistica.logistica_web.model.PacoteDTO;
@@ -46,10 +47,7 @@ public class ApiService {
     public String login(UserRequestDTO cred){
         ResponseEntity<String> res = rest.postForEntity(BASE + "/api/auth/logar", cred, String.class);
         return res.getBody();
-    }*/
-   
-    
-    
+    }
     
     public String login(UserRequestDTO cred){
     try{
@@ -59,18 +57,35 @@ public class ApiService {
         if(t == null) t = res.getBody().get("accessToken");
         if(t != null) return t.toString().replace("\"","").trim();
         
-        // Se não for Map, pega String pura
+        
         ResponseEntity<String> res2 = rest.postForEntity(BASE + "/api/auth/logar", cred, String.class);
         String body = res2.getBody();
-        // limpa aspas e Bearer
+        
         return body.replace("\"","").replace("Bearer","").trim();
     }catch(Exception e){
         throw new RuntimeException("Login falhou: " + e.getMessage());
     }
-
-
+    }
+    */
+   
+    
+    public AuthResponseDTO login(UserRequestDTO cred){
+        
+     try{
+        ResponseEntity<Map> res = rest.postForEntity(BASE + "/api/auth/logar", cred, Map.class);
+        String token = res.getBody().get("token").toString();
+        String role = res.getBody().getOrDefault("role", "OPERADOR").toString();
+        String email = res.getBody().getOrDefault("email", cred.getEmail()).toString();
+        
+        token = token.replace("\"","").replace("Bearer","").trim();
+        return new AuthResponseDTO(token, role.toUpperCase(), email);
+    }catch(Exception e){
+        throw new RuntimeException("Login falhou: " + e.getMessage());
+    }
     
     }
+    
+    
     
     public String registrar(UsuarioDTO user){
         ResponseEntity<Map> res = rest.postForEntity(BASE + "/api/auth/registrar", user, Map.class);
@@ -118,6 +133,15 @@ public class ApiService {
         }
     }
 }
+    public void atualizarPacote(Long id, PacoteDTO dto, String token){
+    
+    rest.exchange(BASE + "/api/pacotes/" + id, HttpMethod.PUT, 
+        new HttpEntity<>(dto, headers(token)), PacoteDTO.class);
+}
+    
+    public void criarLoja(LojaDTO dto, String token){ 
+    rest.postForObject(BASE + "/api/lojas", new HttpEntity<>(dto, headers(token)), LojaDTO.class); 
+}
     
     public PacoteDTO atualizarStatus(Long id, String novoStatus, String otp, String token){
         String url = BASE + "/api/pacotes/" + id + "/status?novoStatus=" + novoStatus;
@@ -151,10 +175,15 @@ public class ApiService {
                 new HttpEntity<Void>(headers(token)), new ParameterizedTypeReference<List<LojaDTO>>(){}).getBody(); 
     }
     
-    public void criarLoja(LojaDTO dto, String token){ 
-        rest.postForObject(BASE + "/api/lojas", new HttpEntity<>(dto, headers(token)), LojaDTO.class); 
-    }
     
+    public void atualizarLoja(LojaDTO dto, String token){ 
+        rest.exchange(BASE + "/api/lojas/" + dto.getIdLoja(), 
+                HttpMethod.PUT, 
+                new HttpEntity<>(dto, headers(token)), 
+                LojaDTO.class);
+    }
+            
+            
     public void arquivarLoja(Long id, String token){ 
         rest.exchange(BASE + "/api/lojas/" + id + "/arquivar", HttpMethod.PUT, 
                 new HttpEntity<Void>(headers(token)), Void.class); 

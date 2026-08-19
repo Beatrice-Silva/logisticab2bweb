@@ -14,13 +14,24 @@ import java.time.LocalDateTime;
 public class StatusHistoricoDTO {
 
     private Long id;    
-    private Long id_pacote;
+    private Long idPacote;
     private String status;
-    private LocalDateTime data_hora;
+    private LocalDateTime dataHora;
     private String observacao;
-    private Long id_usuario;
-    
-   
+    private Long idUsuario;
+
+    public StatusHistoricoDTO() {
+    }
+
+    public StatusHistoricoDTO(Long id, Long idPacote, String status, LocalDateTime dataHora, String observacao, Long idUsuario) {
+        this.id = id;
+        this.idPacote = idPacote;
+        this.status = status;
+        this.dataHora = dataHora;
+        this.observacao = observacao;
+        this.idUsuario = idUsuario;
+    }
+
     public Long getId() {
         return id;
     }
@@ -29,12 +40,12 @@ public class StatusHistoricoDTO {
         this.id = id;
     }
 
-    public Long getId_pacote() {
-        return id_pacote;
+    public Long getIdPacote() {
+        return idPacote;
     }
 
-    public void setId_pacote(Long id_pacote) {
-        this.id_pacote = id_pacote;
+    public void setIdPacote(Long idPacote) {
+        this.idPacote = idPacote;
     }
 
     public String getStatus() {
@@ -45,12 +56,12 @@ public class StatusHistoricoDTO {
         this.status = status;
     }
 
-    public LocalDateTime getData_hora() {
-        return data_hora;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
 
-    public void setData_hora(LocalDateTime data_hora) {
-        this.data_hora = data_hora;
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public String getObservacao() {
@@ -61,14 +72,15 @@ public class StatusHistoricoDTO {
         this.observacao = observacao;
     }
 
-
-    public Long getId_usuario() {
-        return id_usuario;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
+    
+   
     
     
 }

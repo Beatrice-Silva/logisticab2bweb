@@ -134,31 +134,29 @@
 
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-       
-</nav>
 <div class="container">
-    
     <div class="card">
         <h1 class="titulo">Criar Remessa</h1>
-        
        <form th:action="@{/pacotes/novo}" method="post">
-    <div class="grupo">
-        <label>Loja de Origem</label>
-        <select name="idLoja" required>
-            <option value="">Selecione</option>
-            <option th:each="loja : ${lojas}" 
-                    th:value="${loja.idLoja}" 
-                    th:text="${loja.nomeEstabelecimento}"></option>
-        </select>
-    </div>
-    
-    <div class="grupo">
-        <label>Endereço de destino:</label>
-        <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
-    </div>
-    
-    <button type="submit" class="botao">Criar Pacote</button>
-</form>
+            <div class="grupo">
+                <label>Loja de Origem</label>
+                <select name="idLoja" required>
+                    <option value="">Selecione</option>
+                    <option th:each="loja : ${lojas}" 
+                            th:value="${loja.idLoja}" 
+                            th:text="${loja.nomeEstabelecimento}"></option>
+                </select>
+            </div>
+            <div class="grupo">
+                <label>Endereço de destino:</label>
+                <input type="text" name="enderecoDestino" placeholder="Rua, número, bairro" required>
+            </div>
+            <div class="grupo">
+                <label>E-mail do destinatário (receberá o OTP):</label>
+                <input type="email" name="emailDestinatario" placeholder="cliente@email.com" required>
+            </div>
+            <button type="submit" class="botao">Criar Pacote</button>
+        </form>
     </div>
 </div>
 </body>

@@ -4,6 +4,7 @@
  */
 package com.logistica.logistica_web.controller;
 
+import com.logistica.logistica_web.model.AuthResponseDTO;
 import com.logistica.logistica_web.model.UserRequestDTO;
 import com.logistica.logistica_web.model.UsuarioDTO;
 import com.logistica.logistica_web.service.ApiService;
@@ -45,19 +46,36 @@ public class AuthController {
         model.addAttribute("credenciais", new UserRequestDTO());
     return "login";
     }
+    /*
+    @PostMapping("/logar")
+    public String logar(@ModelAttribute UserRequestDTO cred, HttpSession session){
+    try{
+        String token = apiService.login(cred);
+        session.setAttribute("token", token);
+        // ADICIONA ISSO PRA LOJA EDITAR FUNCIONAR
+        UsuarioDTO me = apiService.me(token);
+        session.setAttribute("perfil", me.getPerfilRole());
+        return "redirect:/dashboard";
+    }catch(Exception e){
+        e.printStackTrace();
+        return "redirect:/login?erro";
+    }
+}
+    */
     
     @PostMapping("/logar")
     public String logar(@ModelAttribute UserRequestDTO cred, HttpSession session){
-        try{
-            String token = apiService.login(cred);
-            session.setAttribute("token", token);
-            return "redirect:/dashboard";
-        }catch(Exception e){
-            e.printStackTrace();
-            return "redirect:/login?erro";
-        }
+    try{
+        AuthResponseDTO auth = apiService.login(cred);
+        session.setAttribute("token", auth.getToken());
+        session.setAttribute("perfil", auth.getRole()); 
+        session.setAttribute("email", auth.getEmail());
+        return "redirect:/dashboard";
+    }catch(Exception e){
+        e.printStackTrace();
+        return "redirect:/login?erro";
     }
-    
+}
     
     @GetMapping("/registrar") 
     public String cadastrar(Model model){
@@ -97,7 +115,7 @@ public class AuthController {
         model.addAttribute("porLoja", List.of());
     }
         return "dashboard";
-    }*/
+    }
     
 @GetMapping("/dashboard")
 public String dashboard(HttpSession session, Model model){
@@ -110,5 +128,32 @@ public String dashboard(HttpSession session, Model model){
     }
     return "dashboard";
 }
+*/
+    
+    @GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model){
+        String token = (String) session.getAttribute("token");
+        if(token == null) return "redirect:/login";
+        
+        String perfil = (String) session.getAttribute("perfil");
+        
+        if("ENTREGADOR".equalsIgnoreCase(perfil)){
+            return "redirect:/pacotes"; 
+        }
+        
+        try{
+            model.addAttribute("counts", apiService.getCounts(token));
+            model.addAttribute("porLoja", apiService.contarPorLoja(token));
+            model.addAttribute("recentes", apiService.listarRecentes(token));
+        }catch(Exception e){
+            model.addAttribute("counts", Map.of());
+            model.addAttribute("porLoja", List.of());
+            model.addAttribute("recentes", List.of());
+        }
+        return "dashboard";
+    }
+
+
+    
 
 }

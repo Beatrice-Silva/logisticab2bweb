@@ -13,10 +13,11 @@ import java.time.LocalDateTime;
 public class UsuarioDTO {
     
     private Long id;
+    
     private String nome;
     private String email;
     private String senha;
-    private String perfiRole;
+    private String perfilRole;
 
     private Integer tentativasOtp = 0; 
 
@@ -34,7 +35,7 @@ public class UsuarioDTO {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.perfiRole = perfiRole;
+        this.perfilRole = perfiRole;
         this.bloqueadoAte = bloqueadoAte;
         this.status = status;
     }
@@ -71,12 +72,12 @@ public class UsuarioDTO {
         this.senha = senha;
     }
 
-    public String getPerfiRole() {
-        return perfiRole;
+    public String getPerfilRole() {
+        return perfilRole;
     }
 
-    public void setPerfiRole(String perfiRole) {
-        this.perfiRole = perfiRole;
+    public void setPerfilRole(String perfiRole) {
+        this.perfilRole = perfiRole;
     }
 
     public Integer getTentativasOtp() {

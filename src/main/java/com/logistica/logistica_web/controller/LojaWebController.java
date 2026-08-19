@@ -28,7 +28,24 @@ public class LojaWebController {
 
     @Autowired
     private ApiService apiServ;
-
+    
+    private boolean temPerfil(HttpSession session, String... perfis){
+    String p = (String) session.getAttribute("perfil");
+    if(p == null) return false;
+    for(String perfil : perfis){
+        if(p.equalsIgnoreCase(perfil)) return true;
+    }
+    return false;
+}
+    
+    @PostMapping("/editar/{id}")
+    public String editarSalvar(@PathVariable Long id, @ModelAttribute LojaDTO dto, HttpSession session){
+    String token = (String) session.getAttribute("token");
+    if(!temPerfil(session, "ADMIN","OPERADOR")) return "redirect:/lojas";
+    dto.setIdLoja(id);
+    apiServ.atualizarLoja(dto, token); // cria esse método igual ao criarLoja mas com PUT
+    return "redirect:/lojas";
+    }
     @GetMapping
     public String listar(HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");
@@ -38,31 +55,51 @@ public class LojaWebController {
     }
     
 
-    @GetMapping("/nova")
-    public String nova(HttpSession session, Model model) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) return "redirect:/login";
+   @GetMapping("/nova")
+public String nova(HttpSession session, Model model) {
+    if(!temPerfil(session, "ADMIN","OPERADOR")) 
+        return "redirect:/dashboard?erro=sem_permissao";
+    
+    String token = (String) session.getAttribute("token");
+    if (token == null) return "redirect:/login";
 
-        model.addAttribute("lojaDTO", new LojaDTO());
-        return "criarLoja";
-    }
+    // GET só cria o objeto vazio e manda pra tela
+    model.addAttribute("lojaDTO", new LojaDTO());
+    return "criarLoja";
+}
 
-    @PostMapping("/nova")
-    public String salvar(@ModelAttribute LojaDTO dto, HttpSession session, Model model) {
-        String token = (String) session.getAttribute("token"); 
-        if (token == null) return "redirect:/login";
+@PostMapping("/nova")
+public String salvar(@ModelAttribute LojaDTO dto, HttpSession session, Model model) {
+    String token = (String) session.getAttribute("token"); 
+    if (token == null) return "redirect:/login";
 
-        try {
-            apiServ.criarLoja(dto, token);
-            return "redirect:/lojas";
-        } catch (Exception ex) {
-            if (ex.getMessage().contains("cnpj") || ex.getMessage().contains("Duplicate")) {
-                model.addAttribute("erro", "CNPJ já cadastrado: " + dto.getCnpj());
-                return "criarLoja";
-            }
-            throw ex;
+    try {
+        apiServ.criarLoja(dto, token);
+        return "redirect:/lojas";
+    } catch (Exception ex) {
+        if (ex.getMessage().contains("cnpj") || ex.getMessage().contains("Duplicate")) {
+            model.addAttribute("erro", "CNPJ já cadastrado: " + dto.getCnpj());
+            model.addAttribute("lojaDTO", dto); // devolve o que digitou
+            return "criarLoja";
         }
+        throw ex;
     }
+}
+    
+    @GetMapping("/editar/{id}")
+    public String editarForm(@PathVariable Long id, HttpSession session, Model model){
+    if(!temPerfil(session, "ADMIN","OPERADOR")) return "redirect:/lojas?erro=sem_permissao";
+    String token = (String) session.getAttribute("token");
+    if(token == null) return "redirect:/login";
+    // busca nas ativas E inativas
+    LojaDTO loja = apiServ.listarLojas(token).stream()
+        .filter(l -> l.getIdLoja().equals(id)).findFirst().orElse(null);
+    model.addAttribute("lojaDTO", loja);
+    return "editarLoja";
+}
+    
+    
+    /*
     @GetMapping("/{id}")
     public String editarForm(@PathVariable Long id, HttpSession session, Model model){
     String perfil = (String) session.getAttribute("perfil");
@@ -77,7 +114,7 @@ public class LojaWebController {
     return "editarLoja";
     }
 
-/*
+
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Long idLoja, HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");

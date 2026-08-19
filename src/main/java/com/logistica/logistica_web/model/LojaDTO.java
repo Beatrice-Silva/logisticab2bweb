@@ -12,30 +12,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author BEATRICE
  */
 public class LojaDTO {
+ 
     
-    @JsonAlias({"id"})
+    @JsonAlias({"id", "idLoja", "id_loja"})
     private Long idLoja;
     
-    @JsonAlias({"nome_estabelecimento", "nomeEstabelecimento"})
+    @JsonAlias({"nomeEstabelecimento", "nome_estabelecimento", "nome"})
     private String nomeEstabelecimento;
     
     private String cnpj;
 
-    @JsonProperty("id_usuario")
+    @JsonAlias({"id_usuario", "idUsuario"})
     private Long idUsuario;
 
-    @JsonProperty("contato_email")
+    @JsonAlias({"contato_email", "contatoEmail", "email"})
     private String contatoEmail;
 
-    @JsonProperty("codigo_lon")
+    @JsonAlias({"codigo_lon", "codigoLon"})
     private String codigoLon;
     
     private String cidade;
     private String endereco;
 
-    public LojaDTO() {
-    }
+    public LojaDTO() {}
 
+    // construtor com todos
     public LojaDTO(Long idLoja, String nomeEstabelecimento, String cnpj, Long idUsuario, String contatoEmail, String codigoLon, String cidade, String endereco) {
         this.idLoja = idLoja;
         this.nomeEstabelecimento = nomeEstabelecimento;
@@ -47,75 +48,30 @@ public class LojaDTO {
         this.endereco = endereco;
     }
     
-    @JsonProperty("id")
-    public Long getId() { return idLoja; }
-    
-    @JsonProperty("id")
-    public void setId(Long id) { this.idLoja = id; }
+    public Long getIdLoja() { return idLoja; }
+    public void setIdLoja(Long idLoja) { this.idLoja = idLoja; }
 
-    public Long getIdLoja() {
-        return idLoja;
-    }
+    public String getNomeEstabelecimento() { return nomeEstabelecimento; }
+    public void setNomeEstabelecimento(String nomeEstabelecimento) { this.nomeEstabelecimento = nomeEstabelecimento; }
 
-    public void setIdLoja(Long idLoja) {
-        this.idLoja = idLoja;
-    }
+    public String getCnpj() { return cnpj; }
+    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
-    public String getNomeEstabelecimento() {
-        return nomeEstabelecimento;
-    }
+    public Long getIdUsuario() { return idUsuario; }
+    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
 
-    public void setNomeEstabelecimento(String nomeEstabelecimento) {
-        this.nomeEstabelecimento = nomeEstabelecimento;
-    }
+    public String getContatoEmail() { return contatoEmail; }
+    public void setContatoEmail(String contatoEmail) { this.contatoEmail = contatoEmail; }
 
-    public String getCnpj() {
-        return cnpj;
-    }
+    public String getCodigoLon() { return codigoLon; }
+    public void setCodigoLon(String codigoLon) { this.codigoLon = codigoLon; }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+    public String getCidade() { return cidade; }
+    public void setCidade(String cidade) { this.cidade = cidade; }
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getContatoEmail() {
-        return contatoEmail;
-    }
-
-    public void setContatoEmail(String contatoEmail) {
-        this.contatoEmail = contatoEmail;
-    }
-
-    public String getCodigoLon() {
-        return codigoLon;
-    }
-
-    public void setCodigoLon(String codigoLon) {
-        this.codigoLon = codigoLon;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
- 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-   
+    public String getEndereco() { return endereco; }
+    public void setEndereco(String endereco) { this.endereco = endereco; }
 }
+    
+    
+

@@ -142,25 +142,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container"><div class="card">
 <h3 class="titulo">Tabela de Pacotes</h3>
+<div style="overflow-x:auto">
 <table class="table">
-    
 <tr>
-    <th>Código</th>
-    <th>Estabelecimento</th>
-    <th>Destino</th>
-    <th>Contato</th>
-    <th>Status</th>
-    <th>Observação</th>
+    <th>Código</th><th>Estabelecimento</th><th>Destino</th><th>Status</th><th style="min-width:220px">Ações</th>
 </tr>
 <tr th:each="p : ${pacotes}">
-  <td th:text="${p.codigoRastreio}"></td>
+  <td><b th:text="${p.codigoRastreio}"></b></td>
   <td th:text="${p.loja != null ? p.loja.nomeEstabelecimento : '-'}"></td>
-  <td th:text="${p.enderecoDestino}"></td>
-  <td th:text="${p.emailDestinatario}"></td>
-  <td th:text="${p.statusAtual}"></td>
-  <td th:text="${p.descObserv}"></td>
+  <td th:text="${p.enderecoDestino}" style="max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis"></td>
+  <td>
+     
+    <span th:text="${p.statusAtual}" 
+          th:classappend="${p.statusAtual == 'CRIADO'} ? 'badge badge-cinza' :  (${p.statusAtual == 'COLETADO'} ? 'badge-laranja' : 'badge-verde')"</span>
+ </td>
+  <td>
+    <div th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}" style="display:flex; gap:6px">
+        <form th:if="${p.statusAtual == 'CRIADO'}" th:action="@{/pacotes/{id}/status(id=${p.id})}" method="post"><input type="hidden" name="novoStatus" value="COLETADO"/><button class="btn btn-sm">Coletar</button></form>
+        <form th:if="${p.statusAtual == 'COLETADO'}" th:action="@{/pacotes/{id}/status(id=${p.id})}" method="post"><input type="hidden" name="novoStatus" value="EM_TRANSITO"/><button class="btn btn-sm">Em Trânsito</button></form>
+        <a th:href="@{/pacotes/editar/{id}(id=${p.id})}" class="btn-sec btn-sm">Editar</a>
+    </div>
+    <div th:if="${session.perfil == 'ENTREGADOR'}" style="display:flex; gap:6px">
+        <form th:if="${!jaTemEmTransito and p.statusAtual == 'CRIADO'}" th:action="@{/pacotes/{id}/pegar(id=${p.id})}" method="post"><button class="btn btn-sm">Pegar</button></form>
+        <span th:if="${jaTemEmTransito and pacoteAtualId != p.id}" style="color:#999">Bloqueado</span>
+        <a th:if="${pacoteAtualId == p.id and p.statusAtual == 'EM_TRANSITO'}" th:href="@{/pacotes/{id}/entregar(id=${p.id})}" class="btn btn-laranja btn-sm">Entregar OTP</a>
+    </div>
+  </td>
 </tr>
 </table>
+</div>
 </div></div>
 </body>
+
 </html>

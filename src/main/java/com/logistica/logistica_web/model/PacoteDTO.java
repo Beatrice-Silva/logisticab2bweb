@@ -4,6 +4,8 @@
  */
 package com.logistica.logistica_web.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 
 /**
@@ -13,16 +15,19 @@ import java.time.LocalDateTime;
 
 public class PacoteDTO {
     
+    @JsonAlias({"id","idPacote"})
     private Long id;
-    
+    @JsonAlias({"codigoRastreio","codigo_rastreio","codigo"})
     private String codigoRastreio;
     
     private LojaDTO loja;
     
     private String enderecoDestino;
     
+    @JsonAlias({"statusAtual","status_atual","status"})
     private String statusAtual;
     
+    @JsonAlias({"emailDestinatario","email_destinatario","email"}) //aceitar diferentes nomes
     private String emailDestinatario;
     
     private String otpCodigo;
@@ -30,6 +35,7 @@ public class PacoteDTO {
     private LocalDateTime otpExpira;
     
     private String descObserv;
+    
 
     public PacoteDTO() {
     }
@@ -117,9 +123,17 @@ public class PacoteDTO {
     public void setDescObserv(String descObserv) {
         this.descObserv = descObserv;
     }
+    
+     
+    
+    
+    
+    
+    
+    
+    
+    
+     
 
-    
-    
-
-    
+   
 }

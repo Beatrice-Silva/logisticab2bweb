@@ -17,10 +17,14 @@ public class PacoteDTO {
     
     @JsonAlias({"id","idPacote"})
     private Long id;
+    
+    
     @JsonAlias({"codigoRastreio","codigo_rastreio","codigo"})
     private String codigoRastreio;
-    
+     
     private LojaDTO loja;
+    
+    private String codigoLon;
     
     private String enderecoDestino;
     
@@ -36,21 +40,40 @@ public class PacoteDTO {
     
     private String descObserv;
     
+    @JsonAlias({"idEntregador","id_entregador","entregadorId"})
+    private Long idEntregador;
+
+    public String getCodigoLon() {
+        return codigoLon;
+    }
+
+    public void setCodigoLon(String codigoLon) {
+        this.codigoLon = codigoLon;
+    }
+
+    
+    public Long getIdEntregador(){return idEntregador;}
+    public void setIdEntregador(Long idEntregador){this.idEntregador=idEntregador;}
+    
 
     public PacoteDTO() {
     }
 
-    public PacoteDTO(Long id, String codigoRastreio, LojaDTO loja, String enderecoDestino, String statusAtual, String emailDestinatario, String otpCodigo, LocalDateTime otpExpira, String descObserv) {
+    public PacoteDTO(Long id, String codigoRastreio, LojaDTO loja, String codigoLon, String enderecoDestino, String statusAtual, String emailDestinatario, String otpCodigo, LocalDateTime otpExpira, String descObserv, Long idEntregador) {
         this.id = id;
         this.codigoRastreio = codigoRastreio;
         this.loja = loja;
+        this.codigoLon = codigoLon;
         this.enderecoDestino = enderecoDestino;
         this.statusAtual = statusAtual;
         this.emailDestinatario = emailDestinatario;
         this.otpCodigo = otpCodigo;
         this.otpExpira = otpExpira;
         this.descObserv = descObserv;
+        this.idEntregador = idEntregador;
     }
+
+   
 
     public Long getId() {
         return id;

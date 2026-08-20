@@ -1,44 +1,22 @@
-
-<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+<nav style="background:#1E3A8A; padding:12px 24px; display:flex; justify-content:space-between; align-items:center;">
+  <div style="display:flex; gap:20px; align-items:center;">
+    <a th:href="@{/dashboard}" style="color:white; font-weight:bold; text-decoration:none;">📦 EntreExpress</a>
+    <a th:href="@{/dashboard}" style="color:white; text-decoration:none;">Dashboard</a>
+    <a th:href="@{/pacotes}" style="color:white; text-decoration:none;">Remessas</a>
     
-    <style>
-            .navbar-logistica{background:#fff; border-bottom:1px solid #e2e8f0}
-    .nav-link-logistica{font-weight:600; color:#475569; padding:8px 14px!important; border-radius:10px}
-    .nav-link-logistica:hover, .nav-link-logistica.active{background:#f1f5f9; color:#1e2a5e}
-    .btn-orange{background:#f97316; color:#fff; font-weight:700; border-radius:10px; padding:8px 16px}
-    .btn-orange:hover{background:#ea580c; color:#fff}
-    .search-box{background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:6px 12px}
-    .search-box input{border:0; background:transparent; outline:none; font-size:14px; width:200px}
+    <!-- SÓ OPERADOR/ADMIN CRIA -->
+    <a th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}" th:href="@{/lojas}" style="color:white; text-decoration:none;">Lojas</a>
+    <a th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}" th:href="@{/pacotes/novo}" style="background:#FF6B00; color:white; padding:6px 12px; border-radius:6px; text-decoration:none; font-weight:bold;">+ Nova Remessa</a>
+    <a th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}" th:href="@{/lojas/novo}" style="background:white; color:#1E3A8A; padding:6px 12px; border-radius:6px; text-decoration:none; font-weight:bold;">+ Nova Loja</a>
 
-        </style>
-        
-    <div th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}">
-    <a href="/lojas/nova">Cadastrar Loja</a>
-    </div>
-
-    <div th:if="${session.perfil == 'ENTREGADOR' or session.perfil == 'OPERADOR' or session.perfil == 'ADMIN'}">
-    <a th:href="@{/pacotes/{id}/entregar(id=${pacote.id})}">Entregar com OTP</a>
-    </div>
-        
-    <div th:fragment="header">
-    <nav style="background:#1E3A8A; padding:16px 32px; display:flex; justify-content:space-between;">
-        
-   <div th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}">
-    <a href="/lojas/nova">Cadastrar Loja</a>
-    </div>
+    <!-- TODOS PODEM VERIFICAR, INCLUSIVE ENTREGADOR -->
+    <a th:href="@{/pacotes/rastrear}" style="color:white; text-decoration:none;">Rastrear</a>
     
-    
-  <div>
-    <a th:href="@{/dashboard}">Dashboard</a>
-    <a th:href="@{/pacotes}">Remessas</a>
-    <a th:href="@{/pacotes/novo}">Nova Remessa</a>
   </div>
   <div>
-   <a th:href="@{/lojas/nova}">Nova Loja</a>
-   <a th:href="@{/lojas}">Lojas</a>
-   <a th:href="@{/pacotes/rastrear}">Rastrear</a>
-   <a th:href="@{/logout}"><button class="btn-sair">Sair</button></a>
+    <span class="badge" style="border:1px solid #93C5FD; color:#DBEAFE; padding:4px 10px; border-radius:12px;" th:text="${session.perfil}"></span>
+    <a th:href="@{/logout}" class="btn" style="background:#FF6B00; color:white; margin-left:12px;">Sair</a>
   </div>
 </nav>
 </div>
-</html>

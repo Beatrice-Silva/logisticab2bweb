@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Usuários - EntreExpress</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{background:#F5F7FA; font-family:'Segoe UI', Arial}
+        .container{max-width:1300px; margin:32px auto}
+        .card{border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06); border:none; border-left:4px solid #1E3A8A}
+        .card-admin{border-left-color:#1E3A8A}
+        .card-operador{border-left-color:#FF6B00}
+        .card-entregador{border-left-color:#22c55e}
+        .badge-role{padding:4px 10px; border-radius:12px; font-size:11px; font-weight:bold}
+        .user-item{padding:10px 12px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center}
+        .user-item:last-child{border:0}
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <h2 class="mb-4" style="color:#1E3A8A; font-weight:bold">Gestão de Usuários por Classificação</h2>
+    <div class="row g-4">
+        <!-- ADMIN -->
+        <div class="col-md-4">
+            <div class="card card-admin p-3">
+                <h5><span class="badge-role" style="background:#DBEAFE; color:#1E3A8A">ADMIN</span> <small th:text="${'(' + #lists.size(admins) + ')'}"></small></h5>
+                <p class="small text-muted">Acesso total</p>
+                <div th:each="u : ${admins}" class="user-item">
+                    <div><b th:text="${u.nome}">Nome</b><br><small th:text="${u.email}"></small></div>
+                    <span class="badge bg-primary">Admin</span>
+                </div>
+            </div>
+        </div>
+        <!-- OPERADOR -->
+        <div class="col-md-4">
+            <div class="card card-operador p-3">
+                <h5><span class="badge-role" style="background:#FFEDD5; color:#C2410C">OPERADOR</span> <small th:text="${'(' + #lists.size(operadores) + ')'}"></small></h5>
+                <p class="small text-muted">Gerencia lojas e cria remessas</p>
+                <div th:each="u : ${operadores}" class="user-item">
+                    <div><b th:text="${u.nome}">Nome</b><br><small th:text="${u.email}"></small></div>
+                    <small th:text="${u.totalLojas != null ? u.totalLojas + ' lojas' : ''}"></small>
+                </div>
+            </div>
+        </div>
+        <!-- ENTREGADOR -->
+        <div class="col-md-4">
+            <div class="card card-entregador p-3">
+                <h5><span class="badge-role" style="background:#D1FAE5; color:#065F46">ENTREGADOR</span> <small th:text="${'(' + #lists.size(entregadores) + ')'}"></small></h5>
+                <p class="small text-muted">Só 1 pacote por vez (COLETADO/EM_TRANSITO)</p>
+                <div th:each="u : ${entregadores}" class="user-item">
+                    <div>
+                        <b th:text="${u.nome}">Nome</b><br><small th:text="${u.email}"></small>
+                        <div th:if="${u.pacoteAtual != null}" class="mt-1"><span class="badge bg-warning text-dark" th:text="${u.pacoteAtual.codigoRastreio + ' - ' + u.pacoteAtual.statusAtual}"></span></div>
+                        <div th:if="${u.pacoteAtual == null}" class="mt-1"><span class="badge bg-success">Livre</span></div>
+                    </div>
+                    <div>
+                        <button th:if="${u.pacoteAtual == null}" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" th:attr="data-bs-target='#atribuirModal'+${u.id}">Atribuir</button>
+                        <button th:if="${u.pacoteAtual != null}" class="btn btn-sm btn-secondary" disabled>Ocupado</button>
+                    </div>
+
+                    <!-- Modal Atribuir -->
+                    <div class="modal fade" th:id="'atribuirModal'+${u.id}" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <form th:action="@{/usuarios/atribuir}" method="post">
+                            <div class="modal-header"><h6>Atribuir pacote para <span th:text="${u.nome}"></span></h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                            <div class="modal-body">
+                                <input type="hidden" name="idEntregador" th:value="${u.id}">
+                                <label class="small">Selecione pacote CRIADO</label>
+                                <select name="idPacote" class="form-select" required>
+                                    <option value="">Selecione</option>
+                                    <option th:each="p : ${pacotesDisponiveis}" th:value="${p.id}" th:text="${p.codigoRastreio + ' - ' + p.enderecoDestino}"></option>
+                                </select>
+                                <small class="text-muted">Regra: só 1 pacote COLETADO/EM_TRANSITO por entregador</small>
+                            </div>
+                            <div class="modal-footer"><button type="submit" class="btn btn-success">Confirmar</button></div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${erro}" class="alert alert-danger mt-3" th:text="${erro}"></div>
+    <div th:if="${sucesso}" class="alert alert-success mt-3" th:text="${sucesso}"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

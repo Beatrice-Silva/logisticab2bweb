@@ -139,7 +139,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     
 <body>
+    
 <div th:replace="~{fragments/header :: header}"></div>
+
 <div class="container"><div class="card">
 <h3 class="titulo">Tabela de Pacotes</h3>
 <div style="overflow-x:auto">
@@ -161,7 +163,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       <td th:text="${p.enderecoDestino}" style="max-width:250px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis"></td>
       <td th:if="${session.perfil != 'ENTREGADOR'}" th:text="${p.emailDestinatario}"></td>
       
-      <!-- STATUS COM BADGE - AGORA MOSTRA CRIADO -->
+     
       <td>
         <span class="badge" 
               th:text="${p.statusAtual}"
@@ -171,10 +173,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </span>
       </td>
 
-      <!-- AÇÕES - TUDO NA MESMA COLUNA -->
+      
       <td>
         <div style="display:flex; gap:6px; flex-wrap:wrap;">
-          <!-- ADMIN / OPERADOR -->
+          
           <div th:if="${session.perfil == 'ADMIN' or session.perfil == 'OPERADOR'}" style="display:flex; gap:6px;">
             <form th:if="${p.statusAtual == 'CRIADO'}" th:action="@{/pacotes/{id}/status(id=${p.id})}" method="post">
               <input type="hidden" name="novoStatus" value="COLETADO"/>
@@ -186,7 +188,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </form>
           </div>
 
-          <!-- ENTREGADOR -->
           <div th:if="${session.perfil == 'ENTREGADOR'}" style="display:flex; gap:6px;">
             <form th:if="${!jaTemEmTransito and p.statusAtual == 'CRIADO'}" th:action="@{/pacotes/{id}/pegar(id=${p.id})}" method="post">
               <button class="botao" style="padding:6px 10px; font-size:12px; width:auto; margin:0;">Pegar</button>

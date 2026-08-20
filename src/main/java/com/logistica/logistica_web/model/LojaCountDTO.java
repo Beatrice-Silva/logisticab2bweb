@@ -19,7 +19,7 @@ public class LojaCountDTO {
     public String getNome(){ return nome; }
     public void setNome(String nome){ this.nome=nome; }
 
-    // esses 2 são pra não quebrar o dashboard antigo
+    
     @JsonProperty("nomeEstabelecimento")
     public String getNomeEstabelecimento(){ return nome; }
     public void setNomeEstabelecimento(String n){ this.nome=n; }

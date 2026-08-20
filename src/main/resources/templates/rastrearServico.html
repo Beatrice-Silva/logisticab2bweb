@@ -23,15 +23,15 @@
         </div>
         <div class="titulo text-center">Acompanhamento público</div>
         <p class="text-muted small text-center mb-4">Informe o código LON fornecido pela plataforma para rastrear sua remessa.</p>
-        
-         <form th:action="@{/pacotes/rastrear}" method="post">
-            <div class="grupo">
-                <label>Código LON:</label>    
-                <input type="text" name="codigo" placeholder="Ex: LON-92831" required>
-            </div>
-            <button type="submit" class="botao botao-laranja">Verificar código de acesso</button>
-        </form>
+        <p class="text-muted small text-center mb-4">Informe o código BRLON que foi enviado por e-mail para rastrear sua remessa.</p>
 
+<form th:action="@{/pacotes/rastrear}" method="post">
+    <div class="grupo">
+        <label>Código de Rastreio (BRLON):</label>    
+        <input type="text" name="codigo" placeholder="Ex: BRLON26080001" required>
+    </div>
+    <button type="submit" class="botao botao-laranja">Verificar código</button>
+</form>
         <div th:if="${erro}" class="alert alert-danger mt-3 small" th:text="${erro}"></div>
         <div th:if="${pacote != null}" class="alert alert-success mt-3 small">
             <b th:text="${pacote.codigoRastreio}"></b> - <span th:text="${pacote.statusAtual}"></span>

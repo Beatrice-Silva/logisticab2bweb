@@ -55,7 +55,7 @@ public class LojaWebController {
     }
     
 
-   @GetMapping("/nova")
+   @GetMapping("/novo")
 public String nova(HttpSession session, Model model) {
     if(!temPerfil(session, "ADMIN","OPERADOR")) 
         return "redirect:/dashboard?erro=sem_permissao";

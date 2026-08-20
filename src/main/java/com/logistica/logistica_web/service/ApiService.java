@@ -29,8 +29,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  *
  * @author Aluno
- */
-@Service
+ */@Service
 public class ApiService {
     
     private final RestTemplate rest = new RestTemplate();
@@ -101,20 +100,24 @@ public class ApiService {
     }
     
     public void criarPacote(PacoteDTO dto, String token){
-    Map<String, Object> lojaMap = Map.of("id", dto.getLoja().getIdLoja());
-    Map<String, Object> body = new HashMap<>();
+    HttpHeaders h = new HttpHeaders();
+    h.set("Authorization", "Bearer " + token.replace("Bearer","").trim());
+    h.setContentType(MediaType.APPLICATION_JSON);
+
+    Map<String,Object> lojaMap = Map.of("id", dto.getLoja().getIdLoja());
+    Map<String,Object> body = new HashMap<>();
     body.put("loja", lojaMap);
     body.put("enderecoDestino", dto.getEnderecoDestino());
-    body.put("emailDestinatario", dto.getEmailDestinatario()!= null? dto.getEmailDestinatario() : "cliente@teste.com");
+    body.put("emailDestinatario", dto.getEmailDestinatario());
     body.put("descObserv", dto.getDescObserv());
 
-    HttpEntity<Map<String,Object>> entity = new HttpEntity<>(body, headers(token));
+    HttpEntity<Map<String,Object>> entity = new HttpEntity<>(body, h);
     rest.postForEntity(BASE + "/api/pacotes/registrar", entity, String.class);
-}
+    }
     
     public List<PacoteDTO> listarPacote(String token){
         var entity = new HttpEntity<Void>(headers(token));
-        var res = rest.exchange(BASE + "/api/pacotes/listar", HttpMethod.GET, entity, 
+        var res = rest.exchange(BASE + "/api/pacotes", HttpMethod.GET, entity, 
                 new ParameterizedTypeReference<List<PacoteDTO>>(){});
         return res.getBody();
 
@@ -142,12 +145,15 @@ public class ApiService {
     public void criarLoja(LojaDTO dto, String token){ 
     rest.postForObject(BASE + "/api/lojas", new HttpEntity<>(dto, headers(token)), LojaDTO.class); 
 }
+ 
+   public String atualizarStatus(Long id, String novoStatus, String otp, String token){
+    String url = BASE + "/api/pacotes/" + id + "/status?novo=" + novoStatus;
+    if(otp != null && !otp.isBlank()) url += "&otp=" + otp;
     
-    public PacoteDTO atualizarStatus(Long id, String novoStatus, String otp, String token){
-        String url = BASE + "/api/pacotes/" + id + "/status?novoStatus=" + novoStatus;
-        if(otp != null && !otp.isBlank()) url += "&otp=" + otp;
-        return rest.exchange(url, HttpMethod.PUT, new HttpEntity<Void>(headers(token)), PacoteDTO.class).getBody();
-    }
+    
+    var res = rest.exchange(url, HttpMethod.PUT, new HttpEntity<Void>(headers(token)), String.class);
+    return res.getBody();
+}
     
     public Map<String,Long> getCounts(String token){
         var res = rest.exchange(BASE + "/api/pacotes/estatisticas", HttpMethod.GET, 
@@ -195,6 +201,25 @@ public class ApiService {
                 .getBody();
     }
     
+    public List<UsuarioDTO> listarUsuarios(String token){
+    var entity = new HttpEntity<Void>(headers(token));
+    var res = rest.exchange(BASE + "/api/usuarios", HttpMethod.GET, entity,
+            new ParameterizedTypeReference<List<UsuarioDTO>>(){});
+    return res.getBody();
+    }
+
+    public void atribuirPacote(Long idPacote, Long idEntregador, String token){
+    String url = BASE + "/api/pacotes/" + idPacote + "/atribuir?entregadorId=" + idEntregador;
+    rest.exchange(url, HttpMethod.PUT, new HttpEntity<Void>(headers(token)), String.class);
+    }
+
+    public long contarLojasPorUsuario(Long idUsuario, String token){
+    try{
+        var entity = new HttpEntity<Void>(headers(token));
+        var res = rest.exchange(BASE + "/api/lojas/usuario/" + idUsuario + "/count", HttpMethod.GET, entity, Long.class);
+        return res.getBody() != null ? res.getBody() : 0;
+    }catch(Exception e){ return 0; }
+    }
     public List<StatusHistoricoDTO> listarRecentes(String token){
     try{
         var entity = new HttpEntity<Void>(headers(token));

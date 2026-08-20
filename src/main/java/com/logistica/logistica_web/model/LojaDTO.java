@@ -32,12 +32,11 @@ public class LojaDTO {
     private String codigoLon;
     
     private String cidade;
-    private String endereco;
+    private String enderecoDestino;
 
     public LojaDTO() {}
 
-    // construtor com todos
-    public LojaDTO(Long idLoja, String nomeEstabelecimento, String cnpj, Long idUsuario, String contatoEmail, String codigoLon, String cidade, String endereco) {
+    public LojaDTO(Long idLoja, String nomeEstabelecimento, String cnpj, Long idUsuario, String contatoEmail, String codigoLon, String cidade, String enderecoDestino) {
         this.idLoja = idLoja;
         this.nomeEstabelecimento = nomeEstabelecimento;
         this.cnpj = cnpj;
@@ -45,33 +44,73 @@ public class LojaDTO {
         this.contatoEmail = contatoEmail;
         this.codigoLon = codigoLon;
         this.cidade = cidade;
-        this.endereco = endereco;
+        this.enderecoDestino = enderecoDestino;
     }
-    
-    public Long getIdLoja() { return idLoja; }
-    public void setIdLoja(Long idLoja) { this.idLoja = idLoja; }
 
-    public String getNomeEstabelecimento() { return nomeEstabelecimento; }
-    public void setNomeEstabelecimento(String nomeEstabelecimento) { this.nomeEstabelecimento = nomeEstabelecimento; }
+    public Long getIdLoja() {
+        return idLoja;
+    }
 
-    public String getCnpj() { return cnpj; }
-    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+    public void setIdLoja(Long idLoja) {
+        this.idLoja = idLoja;
+    }
 
-    public Long getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
+    public String getNomeEstabelecimento() {
+        return nomeEstabelecimento;
+    }
 
-    public String getContatoEmail() { return contatoEmail; }
-    public void setContatoEmail(String contatoEmail) { this.contatoEmail = contatoEmail; }
+    public void setNomeEstabelecimento(String nomeEstabelecimento) {
+        this.nomeEstabelecimento = nomeEstabelecimento;
+    }
 
-    public String getCodigoLon() { return codigoLon; }
-    public void setCodigoLon(String codigoLon) { this.codigoLon = codigoLon; }
+    public String getCnpj() {
+        return cnpj;
+    }
 
-    public String getCidade() { return cidade; }
-    public void setCidade(String cidade) { this.cidade = cidade; }
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
 
-    public String getEndereco() { return endereco; }
-    public void setEndereco(String endereco) { this.endereco = endereco; }
-}
-    
-    
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getContatoEmail() {
+        return contatoEmail;
+    }
+
+    public void setContatoEmail(String contatoEmail) {
+        this.contatoEmail = contatoEmail;
+    }
+
+    public String getCodigoLon() {
+        return codigoLon;
+    }
+
+    public void setCodigoLon(String codigoLon) {
+        this.codigoLon = codigoLon;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEnderecoDestino() {
+        return enderecoDestino;
+    }
+
+    public void setEnderecoDestino(String enderecoDestino) {
+        this.enderecoDestino = enderecoDestino;
+    }
+
+
+}    
 

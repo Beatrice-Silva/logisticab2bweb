@@ -161,7 +161,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <td th:text="${e.contatoEmail} ?: 'sem email'"></td>
     <td th:text="${e.codigoLon}"></td>
     <td th:text="${e.cidade}"></td>
-    <td th:text="${e.endereco}"></td>
+    <td th:text="${e.enderecoDestino}"></td>
     <td>
       <a th:if="${session.perfil == 'OPERADOR' or session.perfil == 'ADMIN'}" 
          th:href="@{/lojas/editar/{id}(id=${e.idLoja})}" 
